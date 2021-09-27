@@ -20,6 +20,9 @@ public class CharacterController2D : MonoBehaviour {
     public bool flipIfChangingDirection = true;
     public bool startFacingRight = true;
 
+    public bool enableWallSlide = true;
+    public float minWallSlideGravityVelocity = -2f;
+
     public bool isGrounded { get; private set; }
     public bool isFacingWall { get; private set; }
     public bool isFacingRight { get; private set; }
@@ -54,6 +57,13 @@ public class CharacterController2D : MonoBehaviour {
         } else {
             // Cannot be hugging wall if not facing wall
             isHuggingWall = false;
+        }
+
+        // Wall-slide logic
+        if (enableWallSlide) {
+            if (isHuggingWall) {
+                targetVelocity.y = Mathf.Clamp(targetVelocity.y, minWallSlideGravityVelocity, float.MaxValue);
+            }
         }
 
         // Jump-related logic
