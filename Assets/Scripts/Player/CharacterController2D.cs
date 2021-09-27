@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour {
 
-    public SpriteRenderer spriteRenderer;
     public Rigidbody2D rb;
 
     public Transform groundCheckPoint;
@@ -23,12 +22,20 @@ public class CharacterController2D : MonoBehaviour {
     public bool enableWallSlide = true;
     public float minWallSlideGravityVelocity = -2f;
 
+    public bool enableWallJump = true;
+
+    public float jumpVelocity {
+        get {
+            return Mathf.Sqrt(2 * -Physics2D.gravity.y * rb.gravityScale * jumpHeight);
+        }
+    }
+
     public bool isGrounded { get; private set; }
     public bool isFacingWall { get; private set; }
     public bool isFacingRight { get; private set; }
     public bool isHuggingWall { get; private set; }
 
-    private float jumpTime;
+    private float timeLeftToAllowJump;
 
     void Start () {
         isFacingRight = startFacingRight;
@@ -67,22 +74,23 @@ public class CharacterController2D : MonoBehaviour {
         }
 
         // Jump-related logic
-        if (jumpTime <= 0f) {
-            if (jump && isGrounded) {
-                // Jump (calculate target velocity based on jump height and gravity)
-                targetVelocity.y = Mathf.Sqrt(2 * -Physics2D.gravity.y * rb.gravityScale * jumpHeight);
-
-                jumpTime = jumpResetTime;
+        if (timeLeftToAllowJump <= 0f) {
+            if (jump) {
+                if (isGrounded || (enableWallJump && isHuggingWall)) {
+                    targetVelocity.y = jumpVelocity;
+                    timeLeftToAllowJump = jumpResetTime;
+                }
             }
         } else {
-            jumpTime -= Time.fixedDeltaTime;
+            timeLeftToAllowJump -= Time.fixedDeltaTime;
         }
 
         // Apply target velocity
         rb.velocity = targetVelocity;
 
-        // Flip sprite renderer when facing another direction
-        spriteRenderer.flipX = startFacingRight ? !isFacingRight : isFacingRight;
+        // Flip player when facing another direction
+        bool flipX = startFacingRight ? !isFacingRight : isFacingRight;
+        transform.localScale = new Vector3(flipX ? -1f : 1f, 1f, 1f);
     }
 
 }
