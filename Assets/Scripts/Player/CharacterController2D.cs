@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour {
 
+    public SpriteRenderer spriteRenderer;
     public Rigidbody2D rb;
     public Transform groundCheckPoint;
     public float groundRadius = 0.41f;
@@ -23,7 +24,7 @@ public class CharacterController2D : MonoBehaviour {
 
         if (jumpTime <= 0f) {
             if (jump && grounded) {
-                // Jump
+                // Jump (calculate target velocity based on jump height and gravity)
                 targetVelocity.y = Mathf.Sqrt(2 * -Physics2D.gravity.y * rb.gravityScale * jumpHeight);
 
                 jumpTime = jumpResetTime;
@@ -33,10 +34,18 @@ public class CharacterController2D : MonoBehaviour {
         }
 
         if (flipIfChangingDirection) {
-            transform.localScale = new Vector3(movement.x < 0f ? -1f : 1f, transform.localScale.y, transform.localScale.z);
+            // Handle flipping of character when moving direction
+
+            if (!spriteRenderer.flipX && movement.x < 0f) {
+                spriteRenderer.flipX = true;
+            }
+
+            if (spriteRenderer.flipX && movement.x > 0f) {
+                spriteRenderer.flipX = false;
+            }
         }
 
-        // Apply velocity
+        // Apply target velocity
         rb.velocity = targetVelocity;
 
         // Check if grounded
