@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 	private float move;
 	private bool jump;
 
-	void Update () {
+	void FixedUpdate () {
 		move = Input.GetAxisRaw("Horizontal") * speed;
 		jump = Input.GetButton("Jump");
 		running = move != 0f;
