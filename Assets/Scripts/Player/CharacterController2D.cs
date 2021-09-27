@@ -23,6 +23,7 @@ public class CharacterController2D : MonoBehaviour {
     public bool isGrounded { get; private set; }
     public bool isFacingWall { get; private set; }
     public bool isFacingRight { get; private set; }
+    public bool isHuggingWall { get; private set; }
 
     private float jumpTime;
 
@@ -45,6 +46,14 @@ public class CharacterController2D : MonoBehaviour {
 
         if (!isFacingRight && movement.x > 0f) {
             isFacingRight = true;
+        }
+
+        // Set hugging wall to true if player is trying to move against wall
+        if (isFacingWall) {
+            isHuggingWall = (isFacingRight && movement.x > 0f) || (!isFacingRight && movement.x < 0f);
+        } else {
+            // Cannot be hugging wall if not facing wall
+            isHuggingWall = false;
         }
 
         // Jump-related logic
