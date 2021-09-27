@@ -8,11 +8,11 @@ public class CharacterController2D : MonoBehaviour {
     public Rigidbody2D rb;
 
     public Transform groundCheckPoint;
-    public float groundCheckRadius = 0.41f;
+    public float groundCheckRadius = 0.21f;
     public UnityEngine.LayerMask groundCheckMask;
 
     public Transform wallCheckPoint;
-    public float wallCheckRadius = 0.41f;
+    public float wallCheckRadius = 0.35f;
     public UnityEngine.LayerMask wallCheckMask;
 
     public float jumpHeight = 5f;
