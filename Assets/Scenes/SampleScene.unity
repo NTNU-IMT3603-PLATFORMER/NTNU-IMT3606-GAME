@@ -553,11 +553,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!212 &723911295 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 8949481511618684602, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-  m_PrefabInstance: {fileID: 8949481511325472430}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1051730876
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,8 +688,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108038628}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.293, y: -5.731, z: 0.78146344}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 5.293, y: 0.8682, z: 0.78146344}
+  m_LocalScale: {x: 1, y: 7.5992, z: 1}
   m_Children: []
   m_Father: {fileID: 2037473288}
   m_RootOrder: 1
@@ -776,11 +771,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1766427462 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8949481510771089203, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-  m_PrefabInstance: {fileID: 8949481511325472430}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2037473287
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,65 +813,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8949481510771089202, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: m_Name
-      value: GroundCheckPoint
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481510771089203, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481511618684598, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: speed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: jumpFactor
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: jumpHeight
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: groundRadius
-      value: 0.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: jumpVelocity
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: spriteRenderer
-      value: 
-      objectReference: {fileID: 723911295}
-    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: groundCheckPoint
-      value: 
-      objectReference: {fileID: 1766427462}
-    - target: {fileID: 8949481511618684601, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 73ec91e97bf28170e87e3df77534f2f9, type: 2}
-    - target: {fileID: 8949481511618684601, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: m_Interpolate
+      propertyPath: startFacingRight
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481511618684601, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: m_GravityScale
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481511618684602, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481511618684602, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: m_FlipY
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684603, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684603, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684603, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: m_LocalPosition.x
