@@ -9,7 +9,7 @@ public class PlayerAnimation : MonoBehaviour {
 
     void Update () {
         animator.SetBool("move", playerMovement.running);
-        animator.SetBool("grounded", playerMovement.cc.grounded);
+        animator.SetBool("grounded", playerMovement.cc.isGrounded);
     }
 
 }
