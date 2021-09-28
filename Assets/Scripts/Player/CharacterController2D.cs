@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour {
 
-    [Tooltip("Mandatory rigidbody that will be used for moving character")] public Rigidbody2D rb;
+    [Tooltip("Mandatory rigidbody that will be used for moving character")]                             public Rigidbody2D rb;
 
     [Header("Ground / Wall Detection")]
 
-    [Tooltip("Transform representing point that will be used as origin for ground check")] public Transform groundCheckPoint;
-    [Tooltip("Radius of circle for ground detection")] public float groundCheckRadius = 0.21f;
-    [Tooltip("Layer that should be detected as ground")] public UnityEngine.LayerMask groundCheckMask;
+    [Tooltip("Transform representing point that will be used as origin for ground check")]              public Transform groundCheckPoint;
+    [Tooltip("Radius of circle for ground detection")]                                                  public float groundCheckRadius = 0.21f;
+    [Tooltip("Layer that should be detected as ground")]                                                public UnityEngine.LayerMask groundCheckMask;
 
-    [Tooltip("Transform representing point that will be used as origin for wall check")] public Transform wallCheckPoint;
-    [Tooltip("Radius of circle for wall detection")] public float wallCheckRadius = 0.35f;
-    [Tooltip("Layer that should be detected as wall")] public UnityEngine.LayerMask wallCheckMask;
+    [Tooltip("Transform representing point that will be used as origin for wall check")]                public Transform wallCheckPoint;
+    [Tooltip("Radius of circle for wall detection")]                                                    public float wallCheckRadius = 0.35f;
+    [Tooltip("Layer that should be detected as wall")]                                                  public UnityEngine.LayerMask wallCheckMask;
 
     [Header("Jumping")]
 
-    [Tooltip("The height that each jump should reach")] public float jumpHeight = 5f;
-    [Tooltip("Time after each jump where jumping again should not be allowed")] public float jumpResetTime = 0.25f;
-    [Tooltip("Additional jumps that are allowed while in air")] public int extraAirJumps = 1;
+    [Tooltip("The height that each jump should reach")]                                                 public float jumpHeight = 5f;
+    [Tooltip("Time after each jump where jumping again should not be allowed")]                         public float jumpResetTime = 0.25f;
+    [Tooltip("Additional jumps that are allowed while in air")]                                         public int extraAirJumps = 1;
 
     [Header("Player direction")]
 
-    [Tooltip("Should transform z scale be flipped when changing movement direction?")] public bool flipIfChangingDirection = true;
-    [Tooltip("Does player sprite start facing right?")] public bool startFacingRight = true;
+    [Tooltip("Should transform z scale be flipped when changing movement direction?")]                  public bool flipIfChangingDirection = true;
+    [Tooltip("Does player sprite start facing right?")]                                                 public bool startFacingRight = true;
 
     [Header("Wall sliding / jumping")]
 
-    [Tooltip("Should wall sliding be enabled?")] public bool enableWallSlide = true;
-    [Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity.")] public float minWallSlideGravityVelocity = -2f;
-    [Tooltip("Should wall jumping be enabled?")] public bool enableWallJump = true;
+    [Tooltip("Should wall sliding be enabled?")]                                                        public bool enableWallSlide = true;
+    [Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity.")]   public float minWallSlideGravityVelocity = -2f;
+    [Tooltip("Should wall jumping be enabled?")]                                                        public bool enableWallJump = true;
 
     /// <summary>
     /// Velocity for player jumping. Calculated using jumpHeight
