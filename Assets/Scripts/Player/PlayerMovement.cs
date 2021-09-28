@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-	[Tooltip("Controller that will move character")]
-	public CharacterController2D characterController;
-	[Tooltip("Normal walking speed")]
-	public float speed = 5f;
-	[Tooltip("Speed when running")]
-	public float runSpeed = 8f;
+	[SerializeField, Tooltip("Controller that will move character")]    CharacterController2D _characterController;
+	[SerializeField, Tooltip("Normal walking speed")]                   float _speed = 5f;
+	[SerializeField, Tooltip("Speed when running")]                     float _runSpeed = 8f;
+
+	/// <summary>
+	/// Character controller used for player movement
+	/// </summary>
+	public CharacterController2D characterController => _characterController;
 
 	/// <summary>
 	/// Is the player moving?
@@ -27,16 +29,16 @@ public class PlayerMovement : MonoBehaviour {
 		// Only change running state when grounded
 		// as it doesn't look right when you are able
 		// to change speed in air
-		if (characterController.isGrounded) {
+		if (_characterController.isGrounded) {
 			shouldRun = Input.GetButton("Run");
 		}
 
-		float move = Input.GetAxisRaw("Horizontal") * (shouldRun ? runSpeed : speed);
+		float move = Input.GetAxisRaw("Horizontal") * (shouldRun ? _runSpeed : _speed);
 		bool jump = Input.GetButton("Jump");
 
 		isMoving = move != 0f;
         
-		characterController.Move(Vector2.right * move, jump);
+		_characterController.Move(Vector2.right * move, jump);
 	}
 
 }

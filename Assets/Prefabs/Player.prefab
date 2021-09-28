@@ -162,25 +162,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6bda71753c8cff1bbd690498c93f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 8949481511618684601}
-  groundCheckPoint: {fileID: 8949481510771089203}
-  groundCheckRadius: 0.21
-  groundCheckMask:
+  _rigidbody: {fileID: 8949481511618684601}
+  _groundCheckPoint: {fileID: 8949481510771089203}
+  _groundCheckRadius: 0.21
+  _groundCheckMask:
     serializedVersion: 2
     m_Bits: 64
-  wallCheckPoint: {fileID: 2034309880}
-  wallCheckRadius: 0.35
-  wallCheckMask:
+  _wallCheckPoint: {fileID: 2034309880}
+  _wallCheckRadius: 0.35
+  _wallCheckMask:
     serializedVersion: 2
     m_Bits: 64
-  jumpHeight: 2.5
-  jumpResetTime: 0.4
-  extraAirJumps: 1
-  flipIfChangingDirection: 1
-  startFacingRight: 1
-  enableWallSlide: 1
-  minWallSlideGravityVelocity: -2
-  enableWallJump: 1
+  _jumpHeight: 2.5
+  _jumpResetTime: 0.25
+  _extraAirJumps: 1
+  _flipIfChangingDirection: 1
+  _startFacingRight: 1
+  _enableWallSlide: 1
+  _minWallSlideGravityVelocity: -2
+  _enableWallJump: 1
 --- !u!114 &8949481511618684598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,8 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f171389aa30d7191932bec7130f3c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cc: {fileID: 8949481511618684599}
-  speed: 5
+  _characterController: {fileID: 8949481511618684599}
+  _speed: 5
+  _runSpeed: 8
 --- !u!58 &8949481511618684600
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -263,5 +264,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fb53ef5fb3ed5609aecdf1f73480e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 8949481511618684596}
-  playerMovement: {fileID: 8949481511618684598}
+  _animator: {fileID: 8949481511618684596}
+  _playerMovement: {fileID: 8949481511618684598}

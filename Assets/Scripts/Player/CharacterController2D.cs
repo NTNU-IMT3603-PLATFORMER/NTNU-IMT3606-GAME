@@ -4,39 +4,39 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour {
 
-    [Tooltip("Mandatory rigidbody that will be used for moving character")]                             public Rigidbody2D rb;
+    [SerializeField, Tooltip("Mandatory rigidbody that will be used for moving character")]                             Rigidbody2D _rigidbody;
 
     [Header("Ground / Wall Detection")]
 
-    [Tooltip("Transform representing point that will be used as origin for ground check")]              public Transform groundCheckPoint;
-    [Tooltip("Radius of circle for ground detection")]                                                  public float groundCheckRadius = 0.21f;
-    [Tooltip("Layer that should be detected as ground")]                                                public UnityEngine.LayerMask groundCheckMask;
+    [SerializeField, Tooltip("Transform representing point that will be used as origin for ground check")]              Transform _groundCheckPoint;
+    [SerializeField, Tooltip("Radius of circle for ground detection")]                                                  float _groundCheckRadius = 0.21f;
+    [SerializeField, Tooltip("Layer that should be detected as ground")]                                                UnityEngine.LayerMask _groundCheckMask;
 
-    [Tooltip("Transform representing point that will be used as origin for wall check")]                public Transform wallCheckPoint;
-    [Tooltip("Radius of circle for wall detection")]                                                    public float wallCheckRadius = 0.35f;
-    [Tooltip("Layer that should be detected as wall")]                                                  public UnityEngine.LayerMask wallCheckMask;
+    [SerializeField, Tooltip("Transform representing point that will be used as origin for wall check")]                Transform _wallCheckPoint;
+    [SerializeField, Tooltip("Radius of circle for wall detection")]                                                    float _wallCheckRadius = 0.35f;
+    [SerializeField, Tooltip("Layer that should be detected as wall")]                                                  UnityEngine.LayerMask _wallCheckMask;
 
     [Header("Jumping")]
 
-    [Tooltip("The height that each jump should reach")]                                                 public float jumpHeight = 5f;
-    [Tooltip("Time after each jump where jumping again should not be allowed")]                         public float jumpResetTime = 0.25f;
-    [Tooltip("Additional jumps that are allowed while in air")]                                         public int extraAirJumps = 1;
+    [SerializeField, Tooltip("The height that each jump should reach")]                                                 float _jumpHeight = 2.5f;
+    [SerializeField, Tooltip("Time after each jump where jumping again should not be allowed")]                         float _jumpResetTime = 0.25f;
+    [SerializeField, Tooltip("Additional jumps that are allowed while in air")]                                         int _extraAirJumps = 1;
 
     [Header("Player direction")]
 
-    [Tooltip("Should transform z scale be flipped when changing movement direction?")]                  public bool flipIfChangingDirection = true;
-    [Tooltip("Does player sprite start facing right?")]                                                 public bool startFacingRight = true;
+    [SerializeField, Tooltip("Should transform z scale be flipped when changing movement direction?")]                  bool _flipIfChangingDirection = true;
+    [SerializeField, Tooltip("Does player sprite start facing right?")]                                                 bool _startFacingRight = true;
 
     [Header("Wall sliding / jumping")]
 
-    [Tooltip("Should wall sliding be enabled?")]                                                        public bool enableWallSlide = true;
-    [Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity.")]   public float minWallSlideGravityVelocity = -2f;
-    [Tooltip("Should wall jumping be enabled?")]                                                        public bool enableWallJump = true;
+    [SerializeField, Tooltip("Should wall sliding be enabled?")]                                                        bool _enableWallSlide = true;
+    [SerializeField, Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity")]    float _minWallSlideGravityVelocity = -2f;
+    [SerializeField, Tooltip("Should wall jumping be enabled?")]                                                        bool _enableWallJump = true;
 
     /// <summary>
     /// Velocity for player jumping. Calculated using jumpHeight
     /// </summary>
-    public float jumpVelocity => Mathf.Sqrt(2 * -Physics2D.gravity.y * rb.gravityScale * jumpHeight);
+    public float jumpVelocity => Mathf.Sqrt(2 * -Physics2D.gravity.y * _rigidbody.gravityScale * _jumpHeight);
 
     /// <summary>
     /// Is the player on ground?
@@ -65,12 +65,8 @@ public class CharacterController2D : MonoBehaviour {
     /// </summary>
     public bool canJumpFromGroundOrWall { get; private set; }
 
-    private float timeLeftToAllowJump;
-    private int currentJumps;
-
-    void Start () {
-        isFacingRight = startFacingRight;
-    }
+    float _timeLeftToAllowJump;
+    int _currentJumps;
 
     /// <summary>
     /// Move the character. 
@@ -79,11 +75,11 @@ public class CharacterController2D : MonoBehaviour {
     public void Move (Vector2 movement, bool jump) {
         // Create a target velocity that will be applied later in the script
         // Include gravity for y component
-        Vector2 targetVelocity = new Vector2(movement.x, rb.velocity.y + movement.y);
+        Vector2 targetVelocity = new Vector2(movement.x, _rigidbody.velocity.y + movement.y);
 
         // Update properties relating to state of player
-        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundCheckMask) != null;
-        isFacingWall = Physics2D.OverlapCircle(wallCheckPoint.position, wallCheckRadius, wallCheckMask) != null;
+        isGrounded = Physics2D.OverlapCircle(_groundCheckPoint.position, _groundCheckRadius, _groundCheckMask) != null;
+        isFacingWall = Physics2D.OverlapCircle(_wallCheckPoint.position, _wallCheckRadius, _wallCheckMask) != null;
         
         if (isFacingRight && movement.x < 0f) {
             isFacingRight = false;
@@ -101,40 +97,46 @@ public class CharacterController2D : MonoBehaviour {
             isHuggingWall = false;
         }
 
-        canJumpFromGroundOrWall = isGrounded || (enableWallJump && isHuggingWall);
+        canJumpFromGroundOrWall = isGrounded || (_enableWallJump && isHuggingWall);
 
         // Wall-slide logic
-        if (enableWallSlide) {
+        if (_enableWallSlide) {
             if (isHuggingWall) {
-                targetVelocity.y = Mathf.Clamp(targetVelocity.y, minWallSlideGravityVelocity, float.MaxValue);
+                targetVelocity.y = Mathf.Clamp(targetVelocity.y, _minWallSlideGravityVelocity, float.MaxValue);
             }
         }
 
         // Jump-related logic
-        if (timeLeftToAllowJump <= 0f) {
+        if (_timeLeftToAllowJump <= 0f) {
             // Reset current jumps when hitting ground / wall
             if (canJumpFromGroundOrWall) {
-                currentJumps = 0;
+                _currentJumps = 0;
             }
 
             if (jump) {
-                if (canJumpFromGroundOrWall || currentJumps <= extraAirJumps) {
+                if (canJumpFromGroundOrWall || _currentJumps <= _extraAirJumps) {
                     // Jump
                     targetVelocity.y = jumpVelocity;
-                    timeLeftToAllowJump = jumpResetTime;
-                    currentJumps++;
+                    _timeLeftToAllowJump = _jumpResetTime;
+                    _currentJumps++;
                 }
             }
         } else {
-            timeLeftToAllowJump -= Time.fixedDeltaTime;
+            _timeLeftToAllowJump -= Time.fixedDeltaTime;
         }
 
         // Apply target velocity
-        rb.velocity = targetVelocity;
+        _rigidbody.velocity = targetVelocity;
 
-        // Flip player when facing another direction
-        bool flipX = startFacingRight ? !isFacingRight : isFacingRight;
-        transform.localScale = new Vector3(flipX ? -1f : 1f, 1f, 1f);
+        if (_flipIfChangingDirection) {
+            // Flip player when facing another direction
+            bool flipX = _startFacingRight ? !isFacingRight : isFacingRight;
+            transform.localScale = new Vector3(flipX ? -1f : 1f, 1f, 1f);   
+        }
+    }
+
+    void Start () {
+        isFacingRight = _startFacingRight;
     }
 
 }
