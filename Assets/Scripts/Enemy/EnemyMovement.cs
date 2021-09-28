@@ -6,53 +6,67 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField]
     private float speed;
-
     [SerializeField]
-    private float travelLength;
-
+    private bool moveRight;
     [SerializeField]
-    private bool MoveRight;
-
-    private Animator animator;
-
+    private bool patrolMode;
     private SpriteRenderer sr;
+    private Transform target;
+    private bool followPlayer;
 
-    //private string IS_MOVING_TAG = "isMoving";
-
-    //private string BOUNDARY_TAG = "Boundary";
+    private string BOUNDARY_TAG = "Boundary";
 
     // Start is called before the first frame update
     void Start()
     {
-          sr = GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        followPlayer = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (MoveRight)
+        if ((Vector2.Distance(transform.position, target.position) < 5) && !followPlayer && !patrolMode)
         {
-            transform.Translate(2 * Time.deltaTime * speed, 0, 0);
+            followPlayer = true;
         }
-        else
+
+        if (followPlayer)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            if (transform.position.x > target.position.x)
+            {
+               sr.flipX = false;
+            } else
+            {
+               sr.flipX = true;
+            }
+        }
+
+        else if (moveRight)
+        {
+            transform.Translate(speed * Time.deltaTime * speed, 0, 0);
+            sr.flipX = true;
+        }
+        else 
         { 
-            transform.Translate(-2 * Time.deltaTime * speed, 0, 0);   
+            transform.Translate(-speed * Time.deltaTime * speed, 0, 0);
+            sr.flipX = false;
         }
     }
 
     void OnTriggerEnter2D(Collider2D trig)
     {
-        if (trig.gameObject.CompareTag("Boundary"))
+        if (trig.gameObject.CompareTag(BOUNDARY_TAG))
         {
-            if (MoveRight)
+            if (moveRight)
             {
-                MoveRight = false;
-                sr.flipX = false;
+                moveRight = false;
             }
             else
             {
-                MoveRight = true;
-                sr.flipX = true;
+                moveRight = true;
             }
         }
     }
