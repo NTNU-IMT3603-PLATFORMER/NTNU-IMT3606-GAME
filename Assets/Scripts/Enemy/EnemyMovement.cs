@@ -10,6 +10,8 @@ public class EnemyMovement : MonoBehaviour
     private bool moveRight;
     [SerializeField]
     private bool patrolMode;
+    [SerializeField]
+    private float followDistance;
     private SpriteRenderer sr;
     private Transform target;
     private bool followPlayer;
@@ -27,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Vector2.Distance(transform.position, target.position) < 5) && !followPlayer && !patrolMode)
+        if ((Vector2.Distance(transform.position, target.position) < followDistance) && !followPlayer && !patrolMode)
         {
             followPlayer = true;
         }
