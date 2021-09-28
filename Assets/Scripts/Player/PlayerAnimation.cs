@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour {
 
-    public Animator animator;
-    public PlayerMovement playerMovement;
+    [SerializeField, Tooltip("Animator controlling animations")]        Animator _animator;
+    [SerializeField, Tooltip("PlayerMovement connected to player")]     PlayerMovement _playerMovement;
 
     void Update () {
-        animator.SetBool("move", playerMovement.isMoving);
-        animator.SetBool("grounded", playerMovement.characterController.isGrounded);
+        _animator.SetBool("move", _playerMovement.isMoving);
+        _animator.SetBool("grounded", _playerMovement.characterController.isGrounded);
     }
 
 }
