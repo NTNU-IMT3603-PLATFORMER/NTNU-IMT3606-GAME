@@ -4,37 +4,65 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour {
 
-    public Rigidbody2D rb;
+    [Tooltip("Mandatory rigidbody that will be used for moving character")] public Rigidbody2D rb;
 
-    public Transform groundCheckPoint;
-    public float groundCheckRadius = 0.21f;
-    public UnityEngine.LayerMask groundCheckMask;
+    [Header("Ground / Wall Detection")]
 
-    public Transform wallCheckPoint;
-    public float wallCheckRadius = 0.35f;
-    public UnityEngine.LayerMask wallCheckMask;
+    [Tooltip("Transform representing point that will be used as origin for ground check")] public Transform groundCheckPoint;
+    [Tooltip("Radius of circle for ground detection")] public float groundCheckRadius = 0.21f;
+    [Tooltip("Layer that should be detected as ground")] public UnityEngine.LayerMask groundCheckMask;
 
-    public float jumpHeight = 5f;
-    public float jumpResetTime = 0.25f;
-    public int extraAirJumps = 1;
-    public bool flipIfChangingDirection = true;
-    public bool startFacingRight = true;
+    [Tooltip("Transform representing point that will be used as origin for wall check")] public Transform wallCheckPoint;
+    [Tooltip("Radius of circle for wall detection")] public float wallCheckRadius = 0.35f;
+    [Tooltip("Layer that should be detected as wall")] public UnityEngine.LayerMask wallCheckMask;
 
-    public bool enableWallSlide = true;
-    public float minWallSlideGravityVelocity = -2f;
+    [Header("Jumping")]
 
-    public bool enableWallJump = true;
+    [Tooltip("The height that each jump should reach")] public float jumpHeight = 5f;
+    [Tooltip("Time after each jump where jumping again should not be allowed")] public float jumpResetTime = 0.25f;
+    [Tooltip("Additional jumps that are allowed while in air")] public int extraAirJumps = 1;
 
-    public float jumpVelocity {
-        get {
-            return Mathf.Sqrt(2 * -Physics2D.gravity.y * rb.gravityScale * jumpHeight);
-        }
-    }
+    [Header("Player direction")]
 
+    [Tooltip("Should transform z scale be flipped when changing movement direction?")] public bool flipIfChangingDirection = true;
+    [Tooltip("Does player sprite start facing right?")] public bool startFacingRight = true;
+
+    [Header("Wall sliding / jumping")]
+
+    [Tooltip("Should wall sliding be enabled?")] public bool enableWallSlide = true;
+    [Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity.")] public float minWallSlideGravityVelocity = -2f;
+    [Tooltip("Should wall jumping be enabled?")] public bool enableWallJump = true;
+
+    /// <summary>
+    /// Velocity for player jumping. Calculated using jumpHeight
+    /// </summary>
+    public float jumpVelocity => Mathf.Sqrt(2 * -Physics2D.gravity.y * rb.gravityScale * jumpHeight);
+
+    /// <summary>
+    /// Is the player on ground?
+    /// </summary>
     public bool isGrounded { get; private set; }
+
+    /// <summary>
+    /// Is the player directly facing a wall?
+    /// </summary>
     public bool isFacingWall { get; private set; }
+
+    /// <summary>
+    /// Is the player facing right?
+    /// </summary>
     public bool isFacingRight { get; private set; }
+
+    /// <summary>
+    /// Is the player "hugging" the wall?
+    /// In other words, is the player trying to move towards the wall it is facing?
+    /// </summary>
     public bool isHuggingWall { get; private set; }
+
+    /// <summary>
+    /// Is the player on ground or hugging a wall?
+    /// Only checks if grounded if wall jumping is disabled
+    /// </summary>
     public bool canJumpFromGroundOrWall { get; private set; }
 
     private float timeLeftToAllowJump;
@@ -44,6 +72,10 @@ public class CharacterController2D : MonoBehaviour {
         isFacingRight = startFacingRight;
     }
 
+    /// <summary>
+    /// Move the character. 
+    /// Should be called from FixedUpdate
+    /// </summary>
     public void Move (Vector2 movement, bool jump) {
         // Create a target velocity that will be applied later in the script
         // Include gravity for y component
