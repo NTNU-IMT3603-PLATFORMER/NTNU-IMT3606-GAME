@@ -821,6 +821,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684598, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: jumpResetTime
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: maxJumpsInAir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: enableWallJump
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: wallCheckRadius
       value: 0.35
