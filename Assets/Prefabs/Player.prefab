@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8949481510771089202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8949481511618684603}
@@ -162,21 +162,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6bda71753c8cff1bbd690498c93f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 8949481511618684602}
   rb: {fileID: 8949481511618684601}
   groundCheckPoint: {fileID: 8949481510771089203}
-  groundCheckRadius: 0.41
+  groundCheckRadius: 0.21
   groundCheckMask:
     serializedVersion: 2
     m_Bits: 64
   wallCheckPoint: {fileID: 2034309880}
-  wallCheckRadius: 0.41
+  wallCheckRadius: 0.35
   wallCheckMask:
     serializedVersion: 2
     m_Bits: 64
   jumpHeight: 2.5
-  jumpResetTime: 0.5
+  jumpResetTime: 0.4
+  extraAirJumps: 1
   flipIfChangingDirection: 1
+  startFacingRight: 1
+  enableWallSlide: 1
+  minWallSlideGravityVelocity: -2
+  enableWallJump: 1
 --- !u!114 &8949481511618684598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,9 +208,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.106930405}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.35
 --- !u!50 &8949481511618684601
 Rigidbody2D:
   serializedVersion: 4
