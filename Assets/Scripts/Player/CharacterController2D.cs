@@ -15,7 +15,8 @@ public class CharacterController2D : MonoBehaviour {
     public UnityEngine.LayerMask wallCheckMask;
 
     public float jumpHeight = 5f;
-    public float jumpResetTime = 0.5f;
+    public float jumpResetTime = 0.25f;
+    public int extraAirJumps = 1;
     public bool flipIfChangingDirection = true;
     public bool startFacingRight = true;
 
@@ -34,8 +35,10 @@ public class CharacterController2D : MonoBehaviour {
     public bool isFacingWall { get; private set; }
     public bool isFacingRight { get; private set; }
     public bool isHuggingWall { get; private set; }
+    public bool canJumpFromGroundOrWall { get; private set; }
 
     private float timeLeftToAllowJump;
+    private int currentJumps;
 
     void Start () {
         isFacingRight = startFacingRight;
@@ -66,6 +69,8 @@ public class CharacterController2D : MonoBehaviour {
             isHuggingWall = false;
         }
 
+        canJumpFromGroundOrWall = isGrounded || (enableWallJump && isHuggingWall);
+
         // Wall-slide logic
         if (enableWallSlide) {
             if (isHuggingWall) {
@@ -75,10 +80,17 @@ public class CharacterController2D : MonoBehaviour {
 
         // Jump-related logic
         if (timeLeftToAllowJump <= 0f) {
+            // Reset current jumps when hitting ground / wall
+            if (canJumpFromGroundOrWall) {
+                currentJumps = 0;
+            }
+
             if (jump) {
-                if (isGrounded || (enableWallJump && isHuggingWall)) {
+                if (canJumpFromGroundOrWall || currentJumps <= extraAirJumps) {
+                    // Jump
                     targetVelocity.y = jumpVelocity;
                     timeLeftToAllowJump = jumpResetTime;
+                    currentJumps++;
                 }
             }
         } else {
