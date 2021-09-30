@@ -1,3 +1,6 @@
+#Custom ignores
+.vsconfig
+
 # Unity editor related
 !/[Aa]ssets/**/*.meta
 
