@@ -4,71 +4,66 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private bool moveRight;
-    [SerializeField]
-    private bool patrolMode;
-    [SerializeField]
-    private float followDistance;
-    private SpriteRenderer sr;
-    private Transform target;
-    private bool followPlayer;
+    const string BOUNDARY_TAG = "Boundary";
 
-    private string BOUNDARY_TAG = "Boundary";
+    [SerializeField, Tooltip("The speed of the enemy")]
+    float _speed;
+    [SerializeField, Tooltip("Enable patrol only mode")]
+    bool _patrolMode;
+    [SerializeField, Tooltip("The distance from the player to the enemy to make it follow the player")]
+    float _followDistance;
+
+    SpriteRenderer _sr;
+    Transform _target;
+    Rigidbody2D _enemyBody;
+
+    bool _moveRight;
+    bool _followPlayer;
+
 
     // Start is called before the first frame update
-    void Start()
-    {
-        sr = GetComponent<SpriteRenderer>();
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        followPlayer = false;
+    void Start() {
+        // Gets all the relevant components needed
+        _sr = GetComponent<SpriteRenderer>();
+        _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _enemyBody = GetComponent<Rigidbody2D>();
+
+        _followPlayer = false;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if ((Vector2.Distance(transform.position, target.position) < followDistance) && !followPlayer && !patrolMode)
-        {
-            followPlayer = true;
+    void FixedUpdate() {
+        // Player to enemy distance check
+        if ((Vector2.Distance(transform.position, _target.position) < _followDistance) && !_followPlayer && !_patrolMode) {
+            _followPlayer = true;
         }
-
-        if (followPlayer)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-            if (transform.position.x > target.position.x)
-            {
-               sr.flipX = false;
-            } else
-            {
-               sr.flipX = true;
+        
+        // Enemy follow or patrol logic
+        if (_followPlayer) {
+            transform.position = Vector2.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
+            //Vector2 moveTowards = Vector2.MoveTowards(transform.position, _target.position, _speed * Time.fixedDeltaTime);
+            //_enemyBody.MovePosition(new Vector2(moveTowards.x, transform.position.y));
+            if (transform.position.x > _target.position.x) {
+               _sr.flipX = false;
+            } else {
+               _sr.flipX = true;
             }
-        }
-
-        else if (moveRight)
-        {
-            transform.Translate(speed * Time.deltaTime * speed, 0, 0);
-            sr.flipX = true;
-        }
-        else 
-        { 
-            transform.Translate(-speed * Time.deltaTime * speed, 0, 0);
-            sr.flipX = false;
+        } else if (_moveRight) {
+            transform.Translate(_speed * Time.deltaTime * _speed, 0, 0);
+            _sr.flipX = true;
+        } else { 
+            transform.Translate(-_speed * Time.deltaTime * _speed, 0, 0);
+            _sr.flipX = false;
         }
     }
 
-    void OnTriggerEnter2D(Collider2D trig)
-    {
-        if (trig.gameObject.CompareTag(BOUNDARY_TAG))
-        {
-            if (moveRight)
-            {
-                moveRight = false;
-            }
-            else
-            {
-                moveRight = true;
+    void OnTriggerEnter2D(Collider2D trig) {
+        // Check if enemy has entered a boundary
+        if (trig.gameObject.CompareTag(BOUNDARY_TAG)) {
+            if (_moveRight) {
+                _moveRight = false;
+            } else {
+                _moveRight = true;
             }
         }
     }
