@@ -32,6 +32,8 @@ public class CharacterController2D : MonoBehaviour {
     [SerializeField, Tooltip("Should wall sliding be enabled?")]                                                        bool _enableWallSlide = true;
     [SerializeField, Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity")]    float _minWallSlideGravityVelocity = -2f;
     [SerializeField, Tooltip("Should wall jumping be enabled?")]                                                        bool _enableWallJump = true;
+    [SerializeField, Tooltip("")] float _wallJumpPushVelocity = 5f;
+    [SerializeField, Tooltip("")] float _wallJumpPushTime = 0.1f;
 
     /// <summary>
     /// Velocity for player jumping. Calculated using jumpHeight
@@ -61,22 +63,20 @@ public class CharacterController2D : MonoBehaviour {
 
     /// <summary>
     /// Is the player on ground or hugging a wall?
-    /// Only checks if grounded if wall jumping is disabled
     /// </summary>
     public bool canJumpFromGroundOrWall { get; private set; }
 
-    float _timeLeftToAllowJump;
+    Vector2 _lastMovement;
+    Vector2 _lastWallPushVelocity;
     int _currentJumps;
+    float _timeLeftToAllowJump;
+    float _timeLeftToAllowMovement;
 
     /// <summary>
     /// Move the character. 
     /// Should be called from FixedUpdate
     /// </summary>
     public void Move (Vector2 movement, bool jump) {
-        // Create a target velocity that will be applied later in the script
-        // Include gravity for y component
-        Vector2 targetVelocity = new Vector2(movement.x, _rigidbody.velocity.y + movement.y);
-
         // Update properties relating to state of player
         isGrounded = Physics2D.OverlapCircle(_groundCheckPoint.position, _groundCheckRadius, _groundCheckMask) != null;
         isFacingWall = Physics2D.OverlapCircle(_wallCheckPoint.position, _wallCheckRadius, _wallCheckMask) != null;
@@ -97,7 +97,33 @@ public class CharacterController2D : MonoBehaviour {
             isHuggingWall = false;
         }
 
-        canJumpFromGroundOrWall = isGrounded || (_enableWallJump && isHuggingWall);
+        canJumpFromGroundOrWall = isGrounded || isHuggingWall;
+
+        Vector2 velocityGravity = _rigidbody.velocity 
+                                    - (_timeLeftToAllowMovement <= 0f ? _lastMovement : Vector2.zero) 
+                                    - _lastWallPushVelocity;
+        
+        if (canJumpFromGroundOrWall && _timeLeftToAllowMovement <= 0f) {
+            velocityGravity.x = 0f;
+        }
+
+        if (isGrounded) {
+            _lastWallPushVelocity = Vector2.zero;
+            _timeLeftToAllowMovement = 0f;
+        }
+
+        Vector2 targetVelocity = Vector2.zero;
+
+        if (_timeLeftToAllowMovement <= 0f) {
+            targetVelocity += movement;
+            _lastMovement = movement;
+            _lastWallPushVelocity = Vector2.zero;
+        } else {
+            _lastMovement = Vector2.zero;
+            _timeLeftToAllowMovement -= Time.fixedDeltaTime;
+        }
+
+        targetVelocity += velocityGravity + _lastWallPushVelocity;
 
         // Wall-slide logic
         if (_enableWallSlide) {
@@ -117,6 +143,13 @@ public class CharacterController2D : MonoBehaviour {
                 if (canJumpFromGroundOrWall || _currentJumps <= _extraAirJumps) {
                     // Jump
                     targetVelocity.y = jumpVelocity;
+
+                    if (isHuggingWall) {
+                        _lastWallPushVelocity = new Vector2(isFacingRight ? -_wallJumpPushVelocity : _wallJumpPushVelocity, 0f);
+                        _timeLeftToAllowMovement = _wallJumpPushTime;
+                        targetVelocity.x = _lastWallPushVelocity.x;
+                    }
+
                     _timeLeftToAllowJump = _jumpResetTime;
                     _currentJumps++;
                 }
@@ -125,14 +158,14 @@ public class CharacterController2D : MonoBehaviour {
             _timeLeftToAllowJump -= Time.fixedDeltaTime;
         }
 
-        // Apply target velocity
-        _rigidbody.velocity = targetVelocity;
-
         if (_flipIfChangingDirection) {
             // Flip player when facing another direction
             bool flipX = _startFacingRight ? !isFacingRight : isFacingRight;
             transform.localScale = new Vector3(flipX ? -1f : 1f, 1f, 1f);   
         }
+
+        // Apply target velocity
+        _rigidbody.velocity = targetVelocity;
     }
 
     void Start () {
