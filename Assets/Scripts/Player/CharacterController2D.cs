@@ -33,7 +33,7 @@ public class CharacterController2D : MonoBehaviour {
     [SerializeField, Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity")]    float _minWallSlideGravityVelocity = -2f;
     [SerializeField, Tooltip("Should wall jumping be enabled?")]                                                        bool _enableWallJump = true;
     [SerializeField, Tooltip("")] float _wallJumpPushVelocity = 5f;
-    [SerializeField, Tooltip("")] float _wallJumpPushTime = 0.1f;
+    [SerializeField, Tooltip("")] float _wallJumpPushTime = 0.5f;
 
     /// <summary>
     /// Velocity for player jumping. Calculated using jumpHeight
@@ -115,8 +115,13 @@ public class CharacterController2D : MonoBehaviour {
         Vector2 targetVelocity = Vector2.zero;
 
         if (_timeLeftToAllowMovement <= 0f) {
-            targetVelocity += movement;
-            _lastMovement = movement;
+            if (!isHuggingWall) {
+                targetVelocity += movement;
+                _lastMovement = movement;
+            } else {
+                _lastMovement = Vector2.zero;
+            }
+
             _lastWallPushVelocity = Vector2.zero;
         } else {
             _lastMovement = Vector2.zero;
@@ -166,6 +171,8 @@ public class CharacterController2D : MonoBehaviour {
 
         // Apply target velocity
         _rigidbody.velocity = targetVelocity;
+
+        Debug.Log(_rigidbody.velocity);
     }
 
     void Start () {
