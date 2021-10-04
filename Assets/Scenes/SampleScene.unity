@@ -819,15 +819,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: _wallJumpPushTime
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: _wallJumpPushVelocity
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684601, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684601, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: m_BodyType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684601, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684601, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: m_GravityScale
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684603, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: m_RootOrder
