@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		isMoving = move != 0f;
         
-		_characterController.Move(Vector2.right * move, jump);
+		_characterController.Move(Input.GetAxisRaw("Horizontal") != 0f, Vector2.right * move, jump);
 	}
 
 }
