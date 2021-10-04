@@ -6,6 +6,9 @@ public class CharacterController2D : MonoBehaviour {
 
     [SerializeField, Tooltip("Mandatory rigidbody that will be used for moving character")]                             Rigidbody2D _rigidbody;
 
+    [Header("Air control")]
+    [SerializeField, Tooltip("Maximum movement delta change when in air")] float maxAirTurnSpeed = 50f;
+
     [Header("Ground / Wall Detection")]
 
     [SerializeField, Tooltip("Transform representing point that will be used as origin for ground check")]              Transform _groundCheckPoint;
@@ -32,8 +35,7 @@ public class CharacterController2D : MonoBehaviour {
     [SerializeField, Tooltip("Should wall sliding be enabled?")]                                                        bool _enableWallSlide = true;
     [SerializeField, Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity")]    float _minWallSlideGravityVelocity = -2f;
     [SerializeField, Tooltip("Should wall jumping be enabled?")]                                                        bool _enableWallJump = true;
-    [SerializeField, Tooltip("")] float _wallJumpPushVelocity = 5f;
-    [SerializeField, Tooltip("")] float _wallJumpPushTime = 0.5f;
+    [SerializeField, Tooltip("Horizontal velocity determining wall push impact when wall jumping")]                     float _wallJumpPushVelocity = 10f;
 
     /// <summary>
     /// Velocity for player jumping. Calculated using jumpHeight
@@ -63,27 +65,25 @@ public class CharacterController2D : MonoBehaviour {
 
     /// <summary>
     /// Is the player on ground or hugging a wall?
+    /// Will ignore wall checking if wall jumping is not enabled
     /// </summary>
     public bool canJumpFromGroundOrWall { get; private set; }
 
-    Vector2 _lastMovement;
-    Vector2 _lastWallPushVelocity;
     int _currentJumps;
     float _timeLeftToAllowJump;
-    float _timeLeftToAllowMovement;
 
     /// <summary>
     /// Move the character. 
     /// Should be called from FixedUpdate
     /// </summary>
-    public void Move (Vector2 movement, bool jump) {
-        Vector2 targetVelocity = Vector2.zero;
+    public void Move (bool isMovement, Vector2 movement, bool jump) {
+        Vector2 targetVelocity = _rigidbody.velocity;
 
         // Update properties relating to state of player
         UpdateProperties(movement);
 
         // Movement logic
-        MovementLogic(movement, ref targetVelocity);
+        MovementLogic(isMovement, movement, ref targetVelocity);
 
         // wall slide logic
         WallSlideLogic(ref targetVelocity);
@@ -118,38 +118,17 @@ public class CharacterController2D : MonoBehaviour {
             isHuggingWall = false;
         }
 
-        canJumpFromGroundOrWall = isGrounded || isHuggingWall;
+        canJumpFromGroundOrWall = isGrounded || (_enableWallJump && isHuggingWall);
     }
 
-    void MovementLogic (Vector2 movement, ref Vector2 targetVelocity) {
-        Vector2 velocityGravity = _rigidbody.velocity 
-                                    - (_timeLeftToAllowMovement <= 0f ? _lastMovement : Vector2.zero) 
-                                    - _lastWallPushVelocity;
-        
-        if (canJumpFromGroundOrWall && _timeLeftToAllowMovement <= 0f) {
-            velocityGravity.x = 0f;
-        }
-
+    void MovementLogic (bool isMovement, Vector2 movement, ref Vector2 targetVelocity) {
         if (isGrounded) {
-            _lastWallPushVelocity = Vector2.zero;
-            _timeLeftToAllowMovement = 0f;
-        }
-
-        if (_timeLeftToAllowMovement <= 0f) {
-            if (!isHuggingWall) {
-                targetVelocity += movement;
-                _lastMovement = movement;
-            } else {
-                _lastMovement = Vector2.zero;
-            }
-
-            _lastWallPushVelocity = Vector2.zero;
+            targetVelocity.x = movement.x;
         } else {
-            _lastMovement = Vector2.zero;
-            _timeLeftToAllowMovement -= Time.fixedDeltaTime;
+            if (isMovement) {
+                targetVelocity.x = Mathf.MoveTowards(targetVelocity.x, movement.x, maxAirTurnSpeed * Time.fixedDeltaTime);
+            }
         }
-
-        targetVelocity += velocityGravity + _lastWallPushVelocity;
     }
 
     void WallSlideLogic (ref Vector2 targetVelocity) {
@@ -173,10 +152,9 @@ public class CharacterController2D : MonoBehaviour {
                     // Jump
                     targetVelocity.y = jumpVelocity;
 
-                    if (isHuggingWall) {
-                        _lastWallPushVelocity = new Vector2(isFacingRight ? -_wallJumpPushVelocity : _wallJumpPushVelocity, 0f);
-                        _timeLeftToAllowMovement = _wallJumpPushTime;
-                        targetVelocity.x = _lastWallPushVelocity.x;
+                    // Add wall push for wall jumping
+                    if (_enableWallJump && isHuggingWall) {
+                        targetVelocity.x = isFacingRight ? -_wallJumpPushVelocity : _wallJumpPushVelocity;
                     }
 
                     _timeLeftToAllowJump = _jumpResetTime;
