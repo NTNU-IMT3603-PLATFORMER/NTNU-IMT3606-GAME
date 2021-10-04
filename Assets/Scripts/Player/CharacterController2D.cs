@@ -77,7 +77,28 @@ public class CharacterController2D : MonoBehaviour {
     /// Should be called from FixedUpdate
     /// </summary>
     public void Move (Vector2 movement, bool jump) {
+        Vector2 targetVelocity = Vector2.zero;
+
         // Update properties relating to state of player
+        UpdateProperties(movement);
+
+        // Movement logic
+        MovementLogic(movement, ref targetVelocity);
+
+        // wall slide logic
+        WallSlideLogic(ref targetVelocity);
+
+        // Jump-related logic
+        JumpLogic(jump, ref targetVelocity);
+
+        // Flip (player) logic
+        FlipLogic();
+
+        // Apply target velocity at the end
+        _rigidbody.velocity = targetVelocity;
+    }
+
+    void UpdateProperties (Vector2 movement) {
         isGrounded = Physics2D.OverlapCircle(_groundCheckPoint.position, _groundCheckRadius, _groundCheckMask) != null;
         isFacingWall = Physics2D.OverlapCircle(_wallCheckPoint.position, _wallCheckRadius, _wallCheckMask) != null;
         
@@ -98,7 +119,9 @@ public class CharacterController2D : MonoBehaviour {
         }
 
         canJumpFromGroundOrWall = isGrounded || isHuggingWall;
+    }
 
+    void MovementLogic (Vector2 movement, ref Vector2 targetVelocity) {
         Vector2 velocityGravity = _rigidbody.velocity 
                                     - (_timeLeftToAllowMovement <= 0f ? _lastMovement : Vector2.zero) 
                                     - _lastWallPushVelocity;
@@ -111,8 +134,6 @@ public class CharacterController2D : MonoBehaviour {
             _lastWallPushVelocity = Vector2.zero;
             _timeLeftToAllowMovement = 0f;
         }
-
-        Vector2 targetVelocity = Vector2.zero;
 
         if (_timeLeftToAllowMovement <= 0f) {
             if (!isHuggingWall) {
@@ -129,15 +150,18 @@ public class CharacterController2D : MonoBehaviour {
         }
 
         targetVelocity += velocityGravity + _lastWallPushVelocity;
+    }
 
+    void WallSlideLogic (ref Vector2 targetVelocity) {
         // Wall-slide logic
         if (_enableWallSlide) {
             if (isHuggingWall) {
                 targetVelocity.y = Mathf.Clamp(targetVelocity.y, _minWallSlideGravityVelocity, float.MaxValue);
             }
         }
+    }
 
-        // Jump-related logic
+    void JumpLogic (bool jump, ref Vector2 targetVelocity) {
         if (_timeLeftToAllowJump <= 0f) {
             // Reset current jumps when hitting ground / wall
             if (canJumpFromGroundOrWall) {
@@ -162,17 +186,14 @@ public class CharacterController2D : MonoBehaviour {
         } else {
             _timeLeftToAllowJump -= Time.fixedDeltaTime;
         }
+    }
 
+    void FlipLogic () {
         if (_flipIfChangingDirection) {
             // Flip player when facing another direction
             bool flipX = _startFacingRight ? !isFacingRight : isFacingRight;
             transform.localScale = new Vector3(flipX ? -1f : 1f, 1f, 1f);   
         }
-
-        // Apply target velocity
-        _rigidbody.velocity = targetVelocity;
-
-        Debug.Log(_rigidbody.velocity);
     }
 
     void Start () {
