@@ -69,7 +69,13 @@ public class CharacterController2D : MonoBehaviour {
     /// </summary>
     public bool canJumpFromGroundOrWall { get; private set; }
 
-    int _currentJumps;
+    /// <summary>
+    /// The amount of jumps player has performed.
+    /// Will reset when hitting ground or wall
+    /// (if wall jumping is enabled)
+    /// </summary>
+    public int currentJumps { get; private set; }
+
     float _timeLeftToAllowJump;
 
     /// <summary>
@@ -144,11 +150,11 @@ public class CharacterController2D : MonoBehaviour {
         if (_timeLeftToAllowJump <= 0f) {
             // Reset current jumps when hitting ground / wall
             if (canJumpFromGroundOrWall) {
-                _currentJumps = 0;
+                currentJumps = 0;
             }
 
             if (jump) {
-                if (canJumpFromGroundOrWall || _currentJumps <= _extraAirJumps) {
+                if (canJumpFromGroundOrWall || currentJumps <= _extraAirJumps) {
                     // Jump
                     targetVelocity.y = jumpVelocity;
 
@@ -158,7 +164,7 @@ public class CharacterController2D : MonoBehaviour {
                     }
 
                     _timeLeftToAllowJump = _jumpResetTime;
-                    _currentJumps++;
+                    currentJumps++;
                 }
             }
         } else {

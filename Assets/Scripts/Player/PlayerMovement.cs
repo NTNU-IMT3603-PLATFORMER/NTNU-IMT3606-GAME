@@ -25,20 +25,35 @@ public class PlayerMovement : MonoBehaviour {
 	/// </summary>
 	public bool shouldRun { get; private set; }
 
-	void FixedUpdate () {
+	float _move;
+	bool _jump;
+
+	void Update () {
 		// Only change running state when grounded
 		// as it doesn't look right when you are able
 		// to change speed in air
-		if (_characterController.isGrounded) {
+		if (characterController.isGrounded) {
 			shouldRun = Input.GetButton("Run");
 		}
 
-		float move = Input.GetAxisRaw("Horizontal") * (shouldRun ? _runSpeed : _speed);
-		bool jump = Input.GetButton("Jump");
+		_move = Input.GetAxisRaw("Horizontal") * (shouldRun ? _runSpeed : _speed);
 
-		isMoving = move != 0f;
-        
-		_characterController.Move(Input.GetAxisRaw("Horizontal") != 0f, Vector2.right * move, jump);
+		if (Input.GetButton("Jump")) {
+			if (characterController.currentJumps == 0) {
+				_jump = true;
+			} else if (Input.GetButtonDown("Jump")) {
+				_jump = true;
+			}
+		}
+
+		isMoving = _move != 0f;
+	}
+
+	void FixedUpdate () {
+		_characterController.Move(Input.GetAxisRaw("Horizontal") != 0f, Vector2.right * _move, _jump);
+		
+		// Reset jump so that input has to be captured again
+		_jump = false;
 	}
 
 }
