@@ -12,6 +12,8 @@ public class EnemyMovement : MonoBehaviour
     bool _patrolMode;
     [SerializeField, Tooltip("The distance from the player to the enemy to make it follow the player")]
     float _followDistance;
+    [SerializeField, Tooltip("Is the enemy a ground enemy or a flying enemy?")]
+    bool _isGroundEnemy;
 
     SpriteRenderer _sr;
     Transform _target;
@@ -39,20 +41,19 @@ public class EnemyMovement : MonoBehaviour
         }
         
         // Enemy follow or patrol logic
-        if (_followPlayer) {
-            transform.position = Vector2.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
-            //Vector2 moveTowards = Vector2.MoveTowards(transform.position, _target.position, _speed * Time.fixedDeltaTime);
-            //_enemyBody.MovePosition(new Vector2(moveTowards.x, transform.position.y));
-            if (transform.position.x > _target.position.x) {
-               _sr.flipX = false;
+        if (_followPlayer && _isGroundEnemy) {
+            Movement(_enemyBody.velocity.y);
+        } else if (_followPlayer && !_isGroundEnemy) {
+           if (transform.position.y > _target.position.y + 1.3) {
+                Movement(-_speed);
             } else {
-               _sr.flipX = true;
+                Movement(_speed);
             }
         } else if (_moveRight) {
-            transform.Translate(_speed * Time.deltaTime * _speed, 0, 0);
+            _enemyBody.velocity = new Vector2(_speed, _enemyBody.velocity.y);
             _sr.flipX = true;
-        } else { 
-            transform.Translate(-_speed * Time.deltaTime * _speed, 0, 0);
+        } else {
+            _enemyBody.velocity = new Vector2(-_speed, _enemyBody.velocity.y);
             _sr.flipX = false;
         }
     }
@@ -66,5 +67,17 @@ public class EnemyMovement : MonoBehaviour
                 _moveRight = true;
             }
         }
+    }
+
+    void Movement(float yVelocity) {
+        if (_followPlayer) {
+            if (transform.position.x > _target.position.x) {
+               _sr.flipX = false;
+               _enemyBody.velocity = new Vector2(-_speed, yVelocity);
+            } else {
+               _sr.flipX = true;
+               _enemyBody.velocity = new Vector2(_speed, yVelocity);
+            }
+        }    
     }
 }
