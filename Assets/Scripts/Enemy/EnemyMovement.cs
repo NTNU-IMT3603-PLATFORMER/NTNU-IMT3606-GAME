@@ -39,23 +39,11 @@ public class EnemyMovement : MonoBehaviour
         if ((Vector2.Distance(transform.position, _target.position) < _followDistance) && !_followPlayer && !_patrolMode) {
             _followPlayer = true;
         }
-        
+
+        CheckMovement();
+
         // Enemy follow or patrol logic
-        if (_followPlayer && _isGroundEnemy) {
-            Movement(_enemyBody.velocity.y);
-        } else if (_followPlayer && !_isGroundEnemy) {
-           if (transform.position.y > _target.position.y + 1.3) {
-                Movement(-_speed);
-            } else {
-                Movement(_speed);
-            }
-        } else if (_moveRight) {
-            _enemyBody.velocity = new Vector2(_speed, _enemyBody.velocity.y);
-            _sr.flipX = true;
-        } else {
-            _enemyBody.velocity = new Vector2(-_speed, _enemyBody.velocity.y);
-            _sr.flipX = false;
-        }
+      
     }
 
     void OnTriggerEnter2D(Collider2D trig) {
@@ -69,15 +57,54 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    void Movement(float yVelocity) {
+    void FollowPlayerMovement(float yVelocity) {
         if (_followPlayer) {
-            if (transform.position.x > _target.position.x) {
+            // Uses + 1 to make the enemy stop infront of the player
+            if (transform.position.x > _target.position.x + 1) {
                _sr.flipX = false;
                _enemyBody.velocity = new Vector2(-_speed, yVelocity);
-            } else {
+            } else  if (transform.position.x + 1 < _target.position.x){
                _sr.flipX = true;
                _enemyBody.velocity = new Vector2(_speed, yVelocity);
             }
-        }    
+        } 
+    }
+
+
+    void CheckMovement() {
+        _enemyBody.isKinematic = false;
+        if (_followPlayer && _isGroundEnemy)
+        {
+            FollowPlayerMovement(_enemyBody.velocity.y);
+        }
+        else if (_followPlayer && !_isGroundEnemy)
+        {
+
+            if (transform.position.y > _target.position.y + 1)
+            {
+                FollowPlayerMovement(-_speed);
+            }
+            else
+            {
+                FollowPlayerMovement(_speed);
+            }
+        }
+        else if (_moveRight)
+        {
+            if (!_isGroundEnemy) {
+                _enemyBody.isKinematic = true;
+            }
+            _enemyBody.velocity = new Vector2(_speed, _enemyBody.velocity.y);
+            _sr.flipX = true;
+        }
+        else
+        {
+            if (!_isGroundEnemy){
+                _enemyBody.isKinematic = true;
+            }
+            _enemyBody.velocity = new Vector2(-_speed, _enemyBody.velocity.y);
+            _sr.flipX = false;
+        }
     }
 }
+
