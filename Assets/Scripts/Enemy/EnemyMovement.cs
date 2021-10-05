@@ -36,17 +36,8 @@ public class EnemyMovement : MonoBehaviour
         _followPlayer = false;
     }
 
-    // Update is called once per frame
     void FixedUpdate() {
-        // Player to enemy distance check
-        if ((Vector2.Distance(transform.position, _target.position) < _followDistance) && !_followPlayer && !_patrolMode) {
-            _followPlayer = true;
-        }
-
-        CheckMovement();
-
-        // Enemy follow or patrol logic
-      
+        CheckMovement(); 
     }
 
     void OnTriggerEnter2D(Collider2D trig) {
@@ -61,6 +52,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     void FollowPlayerMovement(float yVelocity) {
+        // This makes the move towards the player
         if (_followPlayer) {
             // Uses + 1 to make the enemy stop infront of the player
             if (transform.position.x > _target.position.x + 1) {
@@ -75,33 +67,30 @@ public class EnemyMovement : MonoBehaviour
 
 
     void CheckMovement() {
+        // Player to enemy distance check
+        if ((Vector2.Distance(transform.position, _target.position) < _followDistance) && !_followPlayer && !_patrolMode)
+{
+            _followPlayer = true;
+        }
+
+        // Logic to check whether the enemy should patrol or follow the player
         _enemyBody.isKinematic = false;
-        if (_followPlayer && _isGroundEnemy)
-        {
+        if (_followPlayer && _isGroundEnemy){
             FollowPlayerMovement(_enemyBody.velocity.y);
         }
-        else if (_followPlayer && !_isGroundEnemy)
-        {
-
-            if (transform.position.y > _target.position.y + 1)
-            {
+        else if (_followPlayer && !_isGroundEnemy) {
+            if (transform.position.y > _target.position.y + 1) {
                 FollowPlayerMovement(-_speed);
-            }
-            else
-            {
+            } else {
                 FollowPlayerMovement(_speed);
             }
-        }
-        else if (_moveRight)
-        {
+        } else if (_moveRight) {
             if (!_isGroundEnemy) {
                 _enemyBody.isKinematic = true;
             }
             _enemyBody.velocity = new Vector2(_speed, _enemyBody.velocity.y);
             _sr.flipX = true;
-        }
-        else
-        {
+        } else {
             if (!_isGroundEnemy){
                 _enemyBody.isKinematic = true;
             }
