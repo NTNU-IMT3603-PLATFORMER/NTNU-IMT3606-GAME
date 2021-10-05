@@ -6,13 +6,16 @@ public class EnemyMovement : MonoBehaviour
 {
     const string BOUNDARY_TAG = "Boundary";
 
+    [Header("Enemy Variables")]
     [SerializeField, Tooltip("The speed of the enemy")]
     float _speed;
-    [SerializeField, Tooltip("Enable patrol only mode")]
-    bool _patrolMode;
     [SerializeField, Tooltip("The distance from the player to the enemy to make it follow the player")]
     float _followDistance;
-    [SerializeField, Tooltip("Is the enemy a ground enemy or a flying enemy?")]
+
+    [Header("Enemy Properties")]
+    [SerializeField, Tooltip("Patrol Mode makes the enemy not follow the player")]
+    bool _patrolMode;
+    [SerializeField, Tooltip("Is Ground Enemy toggles between grounded and flying enemies")]
     bool _isGroundEnemy;
 
     SpriteRenderer _sr;
