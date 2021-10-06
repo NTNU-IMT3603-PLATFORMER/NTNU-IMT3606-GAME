@@ -39,8 +39,8 @@ public class CharacterController2D : MonoBehaviour {
 
     [Header("Dashing")]
     [SerializeField, Tooltip("Should dashing be enabled?")]                                                             bool _enableDashing = true;
-    [SerializeField, Tooltip("How far should the player dash?")]                                                        float _dashDistance = 1f;
-    [SerializeField, Tooltip("How fast should the player dash?")]                                                       float _dashSpeed = 1f;
+    [SerializeField, Tooltip("How far should the player dash?")]                                                        float _dashDistance = 4f;
+    [SerializeField, Tooltip("How fast should the player dash?")]                                                       float _dashSpeed = 20f;
     [SerializeField, Tooltip("Additional jumps that are allowed while in air")]                                         int _maxDashes = 1;
 
     /// <summary>
@@ -204,11 +204,13 @@ public class CharacterController2D : MonoBehaviour {
     }
 
     void DashLogic (bool dash, ref Vector2 targetVelocity) {
+        // Reset dash counter when able to jump
         if (canJumpFromGroundOrWall) {
             currentDashes = 0;
         }
 
-        if (dash && !isDashing && !canJumpFromGroundOrWall && currentDashes < _maxDashes) {
+        // Check if we should initiate dashing
+        if (_enableDashing && dash && !isDashing && !canJumpFromGroundOrWall && currentDashes < _maxDashes) {
             _dashDistanceLeft = _dashDistance;
             isDashing = true;
             currentDashes++;
@@ -218,8 +220,6 @@ public class CharacterController2D : MonoBehaviour {
         }
         
         if (isDashing) {
-            // Dash
-            // Overrides all rigidbody movement
             float distanceToMove = _dashSpeed * Time.fixedDeltaTime;
 
             // Make sure we don't overshoot
@@ -227,10 +227,12 @@ public class CharacterController2D : MonoBehaviour {
                 distanceToMove = _dashDistanceLeft;
             }
 
+            // Will override rigidbody position (we want full control over dashing)
             _rigidbody.MovePosition(_rigidbody.position + distanceToMove * playerDirection);
             targetVelocity = _rigidbody.velocity;
             _dashDistanceLeft -= distanceToMove;
 
+            // Check if dash is finished
             if (_dashDistanceLeft <= 0f) {
                 isDashing = false;
                 _rigidbody.gravityScale = _gravityScaleBeforeDash;
