@@ -7,7 +7,7 @@ public class CharacterController2D : MonoBehaviour {
     [SerializeField, Tooltip("Mandatory rigidbody that will be used for moving character")]                             Rigidbody2D _rigidbody;
 
     [Header("Air control")]
-    [SerializeField, Tooltip("Maximum movement delta change when in air")] float maxAirTurnSpeed = 50f;
+    [SerializeField, Tooltip("Maximum movement delta change when in air")]                                              float maxAirTurnSpeed = 50f;
 
     [Header("Ground / Wall Detection")]
 
@@ -37,6 +37,12 @@ public class CharacterController2D : MonoBehaviour {
     [SerializeField, Tooltip("Should wall jumping be enabled?")]                                                        bool _enableWallJump = true;
     [SerializeField, Tooltip("Horizontal velocity determining wall push impact when wall jumping")]                     float _wallJumpPushVelocity = 10f;
 
+    [Header("Dashing")]
+    [SerializeField, Tooltip("Should dashing be enabled?")]                                                             bool _enableDashing = true;
+    [SerializeField, Tooltip("How far should the player dash?")]                                                        float _dashDistance = 1f;
+    [SerializeField, Tooltip("How fast should the player dash?")]                                                       float _dashSpeed = 1f;
+    [SerializeField, Tooltip("Additional jumps that are allowed while in air")]                                         int _maxDashes = 1;
+
     /// <summary>
     /// Velocity for player jumping. Calculated using jumpHeight
     /// </summary>
@@ -58,6 +64,11 @@ public class CharacterController2D : MonoBehaviour {
     public bool isFacingRight { get; private set; }
 
     /// <summary>
+    /// Gets a normalized vector representing the direction player is facing
+    /// </summary>
+    public Vector2 playerDirection => isFacingRight ? new Vector2(1f, 0f) : new Vector2(-1f, 0f);
+
+    /// <summary>
     /// Is the player "hugging" the wall?
     /// In other words, is the player trying to move towards the wall it is facing?
     /// </summary>
@@ -75,14 +86,30 @@ public class CharacterController2D : MonoBehaviour {
     /// (if wall jumping is enabled)
     /// </summary>
     public int currentJumps { get; private set; }
+    
+    /// <summary>
+    /// Is the player currently dashing (mid-dash)?
+    /// </summary>
+    public bool isDashing { get; private set; }
+
+    /// <summary>
+    /// The amount of dashes player has performed.
+    /// Will reset when hitting ground or wall
+    /// (if wall jumping is enabled)
+    /// </summary>
+    public int currentDashes { get; private set; }
 
     float _timeLeftToAllowJump;
+    float _dashDistanceLeft;
+
+    Vector2 _lastVelocity;
+    float _gravityScaleBeforeDash;
 
     /// <summary>
     /// Move the character. 
     /// Should be called from FixedUpdate
     /// </summary>
-    public void Move (bool isMovement, Vector2 movement, bool jump) {
+    public void Move (bool isMovement, Vector2 movement, bool jump, bool dash) {
         Vector2 targetVelocity = _rigidbody.velocity;
 
         // Update properties relating to state of player
@@ -97,22 +124,26 @@ public class CharacterController2D : MonoBehaviour {
         // Jump-related logic
         JumpLogic(jump, ref targetVelocity);
 
+        // Dash logic
+        DashLogic(dash, ref targetVelocity);
+
         // Flip (player) logic
         FlipLogic();
 
         // Apply target velocity at the end
         _rigidbody.velocity = targetVelocity;
+        _lastVelocity = targetVelocity;
     }
 
     void UpdateProperties (Vector2 movement) {
         isGrounded = Physics2D.OverlapCircle(_groundCheckPoint.position, _groundCheckRadius, _groundCheckMask) != null;
         isFacingWall = Physics2D.OverlapCircle(_wallCheckPoint.position, _wallCheckRadius, _wallCheckMask) != null;
         
-        if (isFacingRight && movement.x < 0f) {
+        if (isFacingRight && movement.x < 0f && !isDashing) {
             isFacingRight = false;
         }
 
-        if (!isFacingRight && movement.x > 0f) {
+        if (!isFacingRight && movement.x > 0f && !isDashing) {
             isFacingRight = true;
         }
 
@@ -153,7 +184,7 @@ public class CharacterController2D : MonoBehaviour {
                 currentJumps = 0;
             }
 
-            if (jump) {
+            if (jump && !isDashing) {
                 if (canJumpFromGroundOrWall || currentJumps <= _extraAirJumps) {
                     // Jump
                     targetVelocity.y = jumpVelocity;
@@ -169,6 +200,42 @@ public class CharacterController2D : MonoBehaviour {
             }
         } else {
             _timeLeftToAllowJump -= Time.fixedDeltaTime;
+        }
+    }
+
+    void DashLogic (bool dash, ref Vector2 targetVelocity) {
+        if (canJumpFromGroundOrWall) {
+            currentDashes = 0;
+        }
+
+        if (dash && !isDashing && !canJumpFromGroundOrWall && currentDashes < _maxDashes) {
+            _dashDistanceLeft = _dashDistance;
+            isDashing = true;
+            currentDashes++;
+
+            _gravityScaleBeforeDash = _rigidbody.gravityScale;
+            _rigidbody.gravityScale = 0;
+        }
+        
+        if (isDashing) {
+            // Dash
+            // Overrides all rigidbody movement
+            float distanceToMove = _dashSpeed * Time.fixedDeltaTime;
+
+            // Make sure we don't overshoot
+            if (_dashDistanceLeft - distanceToMove < 0f) {
+                distanceToMove = _dashDistanceLeft;
+            }
+
+            _rigidbody.MovePosition(_rigidbody.position + distanceToMove * playerDirection);
+            targetVelocity = _rigidbody.velocity;
+            _dashDistanceLeft -= distanceToMove;
+
+            if (_dashDistanceLeft <= 0f) {
+                isDashing = false;
+                _rigidbody.gravityScale = _gravityScaleBeforeDash;
+                targetVelocity = Vector2.zero;
+            }
         }
     }
 
