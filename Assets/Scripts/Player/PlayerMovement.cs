@@ -30,8 +30,6 @@ public class PlayerMovement : MonoBehaviour {
 	bool _jump;
 	bool _dash;
 
-	float _dashInputTimeLeft;
-
 	void Update () {
 		// Only change running state when grounded
 		// as it doesn't look right when you are able
@@ -50,17 +48,8 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetButtonDown("Dash") && !characterController.isDashing) {
-			// Pressed dash twice within interval
-			if (_dashInputTimeLeft > 0f) {
-				_dash = true;
-			}
-
-			_dashInputTimeLeft = _dashInputInterval;
-		}
-
-		if (_dashInputTimeLeft > 0f) {
-			_dashInputTimeLeft -= Time.deltaTime;
+		if (Input.GetButtonDown("Dash")) {
+			_dash = true;
 		}
 
 		isMoving = _move != 0f;
