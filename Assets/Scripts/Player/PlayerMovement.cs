@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-	[SerializeField, Tooltip("Controller that will move character")]    CharacterController2D _characterController;
-	[SerializeField, Tooltip("Normal walking speed")]                   float _speed = 5f;
-	[SerializeField, Tooltip("Speed when running")]                     float _runSpeed = 8f;
+	[SerializeField, Tooltip("Controller that will move character")]                                    CharacterController2D _characterController;
+	[SerializeField, Tooltip("Normal walking speed")]                                                   float _speed = 5f;
+	[SerializeField, Tooltip("Speed when running")]                                                     float _runSpeed = 8f;
+	[SerializeField, Tooltip("Will trigger dash if pressing dash button twice within this interval")]   float _dashInputInterval = 0.5f;
 
 	/// <summary>
 	/// Character controller used for player movement
@@ -27,6 +28,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	float _move;
 	bool _jump;
+	bool _dash;
+
+	float _dashInputTimeLeft;
 
 	void Update () {
 		// Only change running state when grounded
@@ -46,14 +50,28 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
+		if (Input.GetButtonDown("Dash") && !characterController.isDashing) {
+			// Pressed dash twice within interval
+			if (_dashInputTimeLeft > 0f) {
+				_dash = true;
+			}
+
+			_dashInputTimeLeft = _dashInputInterval;
+		}
+
+		if (_dashInputTimeLeft > 0f) {
+			_dashInputTimeLeft -= Time.deltaTime;
+		}
+
 		isMoving = _move != 0f;
 	}
 
 	void FixedUpdate () {
-		_characterController.Move(Input.GetAxisRaw("Horizontal") != 0f, Vector2.right * _move, _jump);
+		_characterController.Move(Input.GetAxisRaw("Horizontal") != 0f, Vector2.right * _move, _jump, _dash);
 		
-		// Reset jump so that input has to be captured again
+		// Reset jump & dash so that input has to be captured again
 		_jump = false;
+		_dash = false;
 	}
 
 }

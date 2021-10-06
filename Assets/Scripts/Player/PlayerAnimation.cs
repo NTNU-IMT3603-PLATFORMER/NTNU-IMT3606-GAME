@@ -8,7 +8,7 @@ public class PlayerAnimation : MonoBehaviour {
     [SerializeField, Tooltip("PlayerMovement connected to player")]     PlayerMovement _playerMovement;
 
     void Update () {
-        _animator.SetBool("move", _playerMovement.isMoving);
+        _animator.SetBool("move", _playerMovement.isMoving && !_playerMovement.characterController.isDashing);
         _animator.SetBool("grounded", _playerMovement.characterController.isGrounded);
     }
 
