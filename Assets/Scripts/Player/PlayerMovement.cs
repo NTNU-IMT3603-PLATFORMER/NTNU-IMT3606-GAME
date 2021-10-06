@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField, Tooltip("Controller that will move character")]                                    CharacterController2D _characterController;
 	[SerializeField, Tooltip("Normal walking speed")]                                                   float _speed = 5f;
 	[SerializeField, Tooltip("Speed when running")]                                                     float _runSpeed = 8f;
-	[SerializeField, Tooltip("Will trigger dash if pressing dash button twice within this interval")]   float _dashInputInterval = 0.5f;
 
 	/// <summary>
 	/// Character controller used for player movement
