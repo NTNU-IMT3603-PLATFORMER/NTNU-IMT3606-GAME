@@ -77,8 +77,7 @@ public class EnemyMovement : MonoBehaviour
         _enemyBody.isKinematic = false;
         if (_followPlayer && _isGroundEnemy){
             FollowPlayerMovement(_enemyBody.velocity.y);
-        }
-        else if (_followPlayer && !_isGroundEnemy) {
+        } else if (_followPlayer && !_isGroundEnemy) {
             if (transform.position.y > _target.position.y + 1) {
                 FollowPlayerMovement(-_speed);
             } else {
