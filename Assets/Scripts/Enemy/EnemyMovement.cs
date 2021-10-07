@@ -26,6 +26,24 @@ public class EnemyMovement : MonoBehaviour
     bool _moveRight;
     bool _followPlayer;
 
+    /// <summary>
+    /// Is the enemy above the player?
+    /// Includes an offset
+    /// </summary>
+    public bool isAbovePlayer { get; private set; }
+
+    /// <summary>
+    /// Is the enemy to the right of the player?
+    /// Includes an offset
+    /// </summary>
+    public bool isToTheRight { get; private set; }
+
+    /// <summary>
+    /// Is the enemy to the left of the player?
+    /// Includes an offset
+    /// </summary>
+    public bool isToTheLeft { get; private set; }
+
 
     // Start is called before the first frame update
     void Start() {
@@ -38,6 +56,9 @@ public class EnemyMovement : MonoBehaviour
     }
 
     void FixedUpdate() {
+        isAbovePlayer = transform.position.y > _target.position.y + 1;
+        isToTheRight = transform.position.x > _target.position.x + 1;
+        isToTheLeft = transform.position.x + 1 < _target.position.x;
         CheckMovement(); 
     }
 
@@ -54,16 +75,14 @@ public class EnemyMovement : MonoBehaviour
 
     void FollowPlayerMovement(float yVelocity) {
         // This makes the enemy move towards the player
-        if (_followPlayer) {
-            // Uses + 1 to make the enemy stop infront of the player
-            if (transform.position.x > _target.position.x + 1) {
-               _sr.flipX = false;
-               _enemyBody.velocity = new Vector2(-_speed, yVelocity);
-            } else  if (transform.position.x + 1 < _target.position.x){
-               _sr.flipX = true;
-               _enemyBody.velocity = new Vector2(_speed, yVelocity);
-            }
-        } 
+        // Uses + 1 to make the enemy stop infront of the player
+        if (isToTheRight) {
+            _sr.flipX = false;
+            _enemyBody.velocity = new Vector2(-_speed, yVelocity);
+        } else  if (isToTheLeft){
+            _sr.flipX = true;
+            _enemyBody.velocity = new Vector2(_speed, yVelocity);
+        }
     }
 
 
@@ -78,11 +97,7 @@ public class EnemyMovement : MonoBehaviour
         if (_followPlayer && _isGroundEnemy){
             FollowPlayerMovement(_enemyBody.velocity.y);
         } else if (_followPlayer && !_isGroundEnemy) {
-            if (transform.position.y > _target.position.y + 1) {
-                FollowPlayerMovement(-_speed);
-            } else {
-                FollowPlayerMovement(_speed);
-            }
+            FollowPlayerMovement(isAbovePlayer ? -_speed : _speed);
         } else if (_moveRight) {
             if (!_isGroundEnemy) {
                 _enemyBody.isKinematic = true;
