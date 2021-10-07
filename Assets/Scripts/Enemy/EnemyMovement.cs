@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     const string BOUNDARY_TAG = "Boundary";
+    const string PLAYER_TAG = "Player";
 
     [Header("Enemy Variables")]
     [SerializeField, Tooltip("The speed of the enemy")]
@@ -30,7 +31,7 @@ public class EnemyMovement : MonoBehaviour
     void Start() {
         // Gets all the relevant components needed
         _sr = GetComponent<SpriteRenderer>();
-        _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _target = GameObject.FindGameObjectWithTag(PLAYER_TAG).transform;
         _enemyBody = GetComponent<Rigidbody2D>();
 
         _followPlayer = false;
