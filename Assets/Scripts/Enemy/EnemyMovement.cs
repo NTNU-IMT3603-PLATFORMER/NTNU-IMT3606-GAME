@@ -52,7 +52,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     void FollowPlayerMovement(float yVelocity) {
-        // This makes the move towards the player
+        // This makes the enemy move towards the player
         if (_followPlayer) {
             // Uses + 1 to make the enemy stop infront of the player
             if (transform.position.x > _target.position.x + 1) {
@@ -68,8 +68,7 @@ public class EnemyMovement : MonoBehaviour
 
     void CheckMovement() {
         // Player to enemy distance check
-        if ((Vector2.Distance(transform.position, _target.position) < _followDistance) && !_followPlayer && !_patrolMode)
-{
+        if ((Vector2.Distance(transform.position, _target.position) < _followDistance) && !_followPlayer && !_patrolMode) {
             _followPlayer = true;
         }
 
