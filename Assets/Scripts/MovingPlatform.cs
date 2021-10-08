@@ -9,12 +9,6 @@ public class MovingPlatform : MonoBehaviour
     public float moveSpeed;
     public int target;
 
-    /* void Update()
-    {
-        //receive data
-        transform.position = Vector3.MoveTowards(transform.position, waypoints[target].position, moveSpeed * Time.deltaTime);
-    } */
-
     private void FixedUpdate() 
     {
         rb.MovePosition(Vector3.MoveTowards(transform.position, waypoints[target].position, moveSpeed * Time.deltaTime));
