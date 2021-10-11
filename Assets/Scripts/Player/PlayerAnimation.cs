@@ -10,6 +10,7 @@ public class PlayerAnimation : MonoBehaviour {
     void Update () {
         _animator.SetBool("move", _playerMovement.isMoving && !_playerMovement.characterController.isDashing);
         _animator.SetBool("grounded", _playerMovement.characterController.isGrounded);
+        _animator.SetBool("facingWall", _playerMovement.characterController.isHuggingWall);
     }
 
 }
