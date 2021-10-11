@@ -1155,7 +1155,7 @@ MonoBehaviour:
   - {fileID: 2072507779}
   - {fileID: 1125648673}
   moveSpeed: 2
-  target: 1
+  target: 0
 --- !u!19719996 &564086687
 TilemapCollider2D:
   m_ObjectHideFlags: 0
