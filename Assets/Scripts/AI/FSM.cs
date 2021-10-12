@@ -11,6 +11,7 @@ public class FSM : MonoBehaviour {
     Transform statesChild;
     State[] _states;
     State _currentState;
+    bool _isChangingState;
 
     void Awake () {
         statesChild = transform.Find(CHILD_NAME);
@@ -58,7 +59,20 @@ public class FSM : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Will change from the current to the given state.
+    /// Will call OnExitState on current state.
+    /// Will call OnEnterState on the target state
+    /// </summary>
     public void ChangeState<T> () where T : State {
+        // Check if ChangeState was called from OnExitState
+        // (which is not allowed because it can lead to hard-to-debug bugs)
+        if (_isChangingState) {
+            Debug.LogError($"FSM on {name}: A state tried changing to another state in OnExitState and this is not allowed", statesChild);
+            return;
+        }
+
+        _isChangingState = true;
         _currentState.OnExitState();
 
         // Find state script based on type
@@ -71,6 +85,7 @@ public class FSM : MonoBehaviour {
             return;
         }
 
+        _isChangingState = false;
         _currentState = newState;
         _currentState.OnEnterState();
     }
