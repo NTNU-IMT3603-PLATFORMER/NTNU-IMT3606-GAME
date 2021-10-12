@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PB_ShockwaveState : State<PB_Data> {
 
+    [SerializeField, Tooltip("Percentage chance to get tired after each special attack")] float _chanceToGetTired = 0.5f;
+
     Phase _phase;
 
     enum Phase {
@@ -52,7 +54,12 @@ public class PB_ShockwaveState : State<PB_Data> {
         _phase = Phase.Wait;
         yield return new WaitForSeconds(1f);
 
-        fsm.ChangeState<PB_AttackState>();
+        // "Roll dice" to see if we should be tired
+        if (Random.value < _chanceToGetTired) {
+            fsm.ChangeState<PB_TiredState>();
+        } else {
+            fsm.ChangeState<PB_AttackState>();
+        }
     }
 
 }
