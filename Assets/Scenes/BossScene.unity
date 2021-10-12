@@ -1040,7 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9c5d8e358f36fe696613204401fe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 3
 --- !u!114 &572537595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24830,14 +24830,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: _maxDashes
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8949481511618684599, guid: a9c50bbe9e264312f84234025713989d, type: 3}
-      propertyPath: _dashResetTime
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684603, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -26176,8 +26168,8 @@ MonoBehaviour:
   _enableWallJump: 1
   _wallJumpPushVelocity: 10
   _enableDashing: 1
-  _dashDistance: 4
-  _dashSpeed: 20
+  _dashDistance: 12
+  _dashSpeed: 8
   _maxDashes: 1
   _dashResetTime: 0.25
 --- !u!1 &6324423566515317150
