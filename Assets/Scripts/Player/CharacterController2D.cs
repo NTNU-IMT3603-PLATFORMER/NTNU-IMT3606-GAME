@@ -42,6 +42,7 @@ public class CharacterController2D : MonoBehaviour {
     [SerializeField, Tooltip("How far should the player dash?")]                                                        float _dashDistance = 4f;
     [SerializeField, Tooltip("How fast should the player dash?")]                                                       float _dashSpeed = 20f;
     [SerializeField, Tooltip("Additional jumps that are allowed while in air")]                                         int _maxDashes = 1;
+    [SerializeField, Tooltip("The time it takes to allow dashing again")]                                               float _dashResetTime = 1f;
 
     /// <summary>
     /// Velocity for player jumping. Calculated using jumpHeight
@@ -163,6 +164,7 @@ public class CharacterController2D : MonoBehaviour {
     public int currentDashes { get; private set; }
 
     float _timeLeftToAllowJump;
+    float _timeLeftToAllowDash;
     float _dashDistanceLeft;
 
     Vector2 _lastVelocity;
@@ -272,11 +274,17 @@ public class CharacterController2D : MonoBehaviour {
             currentDashes = 0;
         }
 
+        // Count down time left to allow dash
+        if (_timeLeftToAllowDash > 0f) {
+            _timeLeftToAllowDash -= Time.fixedDeltaTime;
+        }
+
         // Check if we should initiate dashing
-        if (_enableDashing && dash && !isDashing && !canJumpFromGroundOrWall && currentDashes < _maxDashes) {
+        if (_enableDashing && dash && !isDashing && currentDashes < _maxDashes && _timeLeftToAllowDash <= 0f) {
             _dashDistanceLeft = _dashDistance;
             isDashing = true;
             currentDashes++;
+            _timeLeftToAllowDash = _dashResetTime;
 
             _gravityScaleBeforeDash = _rigidbody.gravityScale;
             _rigidbody.gravityScale = 0;
