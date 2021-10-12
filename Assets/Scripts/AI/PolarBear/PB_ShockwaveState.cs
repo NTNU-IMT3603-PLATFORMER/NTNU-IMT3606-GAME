@@ -18,10 +18,6 @@ public class PB_ShockwaveState : State<PB_Data> {
         StartCoroutine(Shockwave());
     }
 
-    public override void OnExitState() {}
-
-    public override void OnUpdateState() {}
-
     public override void OnFixedUpdateState() {
         switch (_phase) {
             case Phase.Jump:

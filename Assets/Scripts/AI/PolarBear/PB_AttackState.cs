@@ -31,8 +31,6 @@ public class PB_AttackState : State<PB_Data> {
         UpdateStrategy();
     }
 
-    public override void OnExitState() {}
-
     public override void OnUpdateState() {
         _strategyDecisionCountdown -= Time.deltaTime;
 
@@ -64,7 +62,6 @@ public class PB_AttackState : State<PB_Data> {
 
     void NormalAttackLogic() {
         if (isWithinNormalAttackRange) {
-            Debug.Log("hello there");
             // TODO: Perform regular attack
         }
     }
