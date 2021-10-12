@@ -6,13 +6,31 @@ public abstract class State : MonoBehaviour {
 
     [SerializeField, Tooltip("If this is checked, this state will be the start state of FSM")] bool _isStartState;
 
+    /// <summary>
+    /// Is true if it should be the first state running in FSM
+    /// </summary>
     public bool isStartState => _isStartState;
 
     protected FSM fsm { get; private set; }
 
-    public abstract void OnEnterState();
-    public abstract void OnUpdateState ();
-    public abstract void OnExitState();
+    /// <summary>
+    /// Will get called by FSM every frame when running
+    /// </summary>
+    public virtual void OnUpdateState () {}
+
+    /// <summary>
+    /// Will get called by FSM when changing to this state
+    /// </summary>
+    public virtual void OnEnterState() {}
+
+    /// <summary>
+    /// Will get called by FSM when changing to another state
+    /// </summary>
+    public virtual void OnExitState() {}
+
+    /// <summary>
+    /// Will get called by FSM every FixedUpdate when running
+    /// </summary>
     public virtual void OnFixedUpdateState() {}
 
     void Awake () {
