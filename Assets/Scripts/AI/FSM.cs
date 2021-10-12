@@ -52,6 +52,12 @@ public class FSM : MonoBehaviour {
         }
     }
 
+    void FixedUpdate () {
+        if (_currentState != null) {
+            _currentState.OnFixedUpdateState();
+        }
+    }
+
     public void ChangeState<T> () where T : State {
         _currentState.OnExitState();
 
