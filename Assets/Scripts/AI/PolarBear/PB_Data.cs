@@ -11,9 +11,6 @@ public class PB_Data : MonoBehaviour {
     public CharacterController2D characterController2D { get; private set; }
     public AttackStrategy currentAttackStrategy { get; set; }
 
-    // The time before the AI is allowed to change strategy
-    public float strategyDecisionCountdown { get; set; }
-
     public float speed => _speed;
 
     public enum AttackStrategy {
