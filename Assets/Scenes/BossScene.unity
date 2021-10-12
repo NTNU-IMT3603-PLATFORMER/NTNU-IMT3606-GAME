@@ -1040,6 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9c5d8e358f36fe696613204401fe1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 5
 --- !u!114 &572537595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,6 +1067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isStartState: 1
+  _distanceToNoticePlayer: 5
 --- !u!1 &788093914
 GameObject:
   m_ObjectHideFlags: 0

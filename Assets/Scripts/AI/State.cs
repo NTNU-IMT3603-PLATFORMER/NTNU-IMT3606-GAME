@@ -13,6 +13,7 @@ public abstract class State : MonoBehaviour {
     public abstract void OnEnterState();
     public abstract void OnUpdateState ();
     public abstract void OnExitState();
+    public virtual void OnFixedUpdateState() {}
 
     void Awake () {
         Initialize();   
