@@ -5,7 +5,11 @@ using UnityEngine;
 public class PB_ChargeState : State<PB_Data> {
 
     public override void OnEnterState() {
-        data.characterController2D.Move(false, Vector2.zero, false, true);
+        // Trigger charge in direction of player
+
+        Vector2 moveDirection = (data.player.transform.position - transform.position).normalized;
+
+        data.characterController2D.Move(true, moveDirection, false, true);
     }
 
     public override void OnExitState() {}
