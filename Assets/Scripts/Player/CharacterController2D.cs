@@ -45,6 +45,11 @@ public class CharacterController2D : MonoBehaviour {
     [SerializeField, Tooltip("The time it takes to allow dashing again")]                                               float _dashResetTime = 1f;
 
     /// <summary>
+    /// Rigidbody used for moving the character
+    /// </summary>
+    public new Rigidbody2D rigidbody => _rigidbody;
+
+    /// <summary>
     /// Velocity for player jumping. Calculated using jumpHeight
     /// </summary>
     public float jumpVelocity => Mathf.Sqrt(2 * -Physics2D.gravity.y * _rigidbody.gravityScale * _jumpHeight);
