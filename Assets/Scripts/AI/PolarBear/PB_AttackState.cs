@@ -4,22 +4,10 @@ using UnityEngine;
 
 public class PB_AttackState : State<PB_Data> {
 
-    bool _charge;
-    bool _shockWave;
     Vector2 _move;
-    AttackStrategy _currentAttackStrategy;
-
-    enum AttackStrategy {
-        NormalAttack,
-        Charge,
-        Shockwave
-    }
-
-    // The time before the AI is allowed to change strategy
-    float _strategyDecisionCountdown;
 
     public override void OnEnterState() {
-
+        UpdateStrategy();
     }
 
     public override void OnExitState() {
@@ -27,20 +15,18 @@ public class PB_AttackState : State<PB_Data> {
     }
 
     public override void OnUpdateState() {
-        _strategyDecisionCountdown -= Time.deltaTime;
+        data.strategyDecisionCountdown -= Time.deltaTime;
 
-        if (_strategyDecisionCountdown <= 0f) {
+        if (data.strategyDecisionCountdown <= 0f) {
             UpdateStrategy();
-            _strategyDecisionCountdown = Random.Range(1f, 5f);
-
-            Debug.Log(_currentAttackStrategy);
+            data.strategyDecisionCountdown = Random.Range(1f, 5f);
         }
 
         // Are we within attacking distance to the player?
         if (data.player.transform.position.IsWithinDistanceOf(transform.position, 1f)) {
             _move = Vector2.zero;
 
-            if (_currentAttackStrategy == AttackStrategy.NormalAttack) {
+            if (data.currentAttackStrategy == PB_Data.AttackStrategy.NormalAttack) {
                 // TODO: Perform normal attack here
             }
         } else {
@@ -50,29 +36,23 @@ public class PB_AttackState : State<PB_Data> {
             _move = moveDirection * data.speed;
         }
 
-        // Are we within charging distance?
-        if (data.player.transform.position.IsWithinDistanceOf(transform.position, 8f) && _currentAttackStrategy == AttackStrategy.Charge) {
-            _charge = true;
-        } else {
-            _charge = false;
+        // Should we charge?
+        if (data.player.transform.position.IsWithinDistanceOf(transform.position, 8f) && data.currentAttackStrategy == PB_Data.AttackStrategy.Charge) {
+            fsm.ChangeState<PB_ChargeState>();
         }
     }
 
     public override void OnFixedUpdateState() {
-        data.characterController2D.Move(_move != Vector2.zero, _move, false, _charge);
-
-        if (_charge) {
-            UpdateStrategy();
-        }
+        data.characterController2D.Move(_move != Vector2.zero, _move, false, false);
     }
 
     void UpdateStrategy () {
         if (Random.value < 0.33f) {
-            _currentAttackStrategy = AttackStrategy.Charge;
+            data.currentAttackStrategy = PB_Data.AttackStrategy.Charge;
         } else if (Random.value < 0.33f) {
-            _currentAttackStrategy = AttackStrategy.Shockwave;
+            data.currentAttackStrategy = PB_Data.AttackStrategy.Shockwave;
         } else {
-            _currentAttackStrategy = AttackStrategy.NormalAttack;
+            data.currentAttackStrategy = PB_Data.AttackStrategy.NormalAttack;
         }
     }
 
