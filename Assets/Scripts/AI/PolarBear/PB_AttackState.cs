@@ -29,8 +29,6 @@ public class PB_AttackState : State<PB_Data> {
 
     public override void OnEnterState() {
         UpdateStrategy();
-
-        
     }
 
     public override void OnUpdateState() {
