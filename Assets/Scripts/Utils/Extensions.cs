@@ -41,4 +41,13 @@ public static class Extensions {
                 && vector.y >= min.y;
     }
 
+    /// <summary>
+    /// Checks if a position is within distance of a target position.
+    /// Has better performance than using Vector3.Distance because it
+    /// avoid using square root :)
+    /// </summary>
+    public static bool IsWithinDistanceOf (this Vector3 position, Vector3 targetPosition, float distance) {
+        return (targetPosition - position).sqrMagnitude <= distance * distance;
+    }
+
 }
