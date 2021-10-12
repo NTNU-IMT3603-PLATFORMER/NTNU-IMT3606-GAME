@@ -75,7 +75,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -132,7 +132,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -219,7 +219,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -276,7 +276,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -451,6 +451,7 @@ MonoBehaviour:
   _dashDistance: 4
   _dashSpeed: 20
   _maxDashes: 1
+  _dashResetTime: 1
 --- !u!114 &8949481511618684598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,7 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBoxes: {fileID: 211268841}
-  druidData:
+  _druidData:
     _hitBox: {fileID: 2139015949}
     _jumpHeight: 2
     _enableWallSlide: 1
@@ -559,7 +560,7 @@ MonoBehaviour:
     _dashDistance: 4
     _dashSpeed: 4
     _maxDashes: 1
-  polarBearData:
+  _polarBearData:
     _hitBox: {fileID: 1610547122}
     _jumpHeight: 1
     _enableWallSlide: 1
@@ -569,7 +570,7 @@ MonoBehaviour:
     _dashDistance: 2
     _dashSpeed: 2
     _maxDashes: 1
-  desertCatData:
+  _desertCatData:
     _hitBox: {fileID: 2136648452}
     _jumpHeight: 1
     _enableWallSlide: 1
@@ -579,7 +580,7 @@ MonoBehaviour:
     _dashDistance: 1
     _dashSpeed: 1
     _maxDashes: 1
-  owlData:
+  _owlData:
     _hitBox: {fileID: 936274962}
     _jumpHeight: 3
     _enableWallSlide: 1
