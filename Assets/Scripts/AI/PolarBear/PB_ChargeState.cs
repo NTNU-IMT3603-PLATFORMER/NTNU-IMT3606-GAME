@@ -12,9 +12,6 @@ public class PB_ChargeState : State<PB_Data> {
         data.characterController2D.Move(true, moveDirection, false, true);
     }
 
-    public override void OnExitState() {}
-    public override void OnUpdateState() {}
-
     public override void OnFixedUpdateState() {
         if (data.characterController2D.isDashing) {
             data.characterController2D.Move(false, Vector2.zero, false, true);
