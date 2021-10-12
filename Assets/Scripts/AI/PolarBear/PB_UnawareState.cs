@@ -16,4 +16,9 @@ public class PB_UnawareState: State<PB_Data> {
         }
     }
 
+    public override void OnFixedUpdateState() {
+        // Make sure we stand still
+        data.characterController2D.Move(false, Vector2.zero, false, false);
+    }
+
 }

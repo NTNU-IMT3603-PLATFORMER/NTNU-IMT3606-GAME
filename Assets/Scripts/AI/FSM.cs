@@ -61,6 +61,9 @@ public class FSM : MonoBehaviour {
     public void ChangeState<T> () where T : State {
         _currentState.OnExitState();
 
+        // Find state script based on type
+        // Uses "AssemblyQualifiedName" for comparison because comparing
+        // System.Type is not reliable
         State newState = _states.FirstOrDefault(state => state.GetType().AssemblyQualifiedName.Equals(typeof(T).AssemblyQualifiedName));
 
         if (newState == null) {
