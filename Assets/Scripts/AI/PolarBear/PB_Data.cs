@@ -9,7 +9,18 @@ public class PB_Data : MonoBehaviour {
     public GameObject player { get; private set; }
 
     public CharacterController2D characterController2D { get; private set; }
+    public AttackStrategy currentAttackStrategy { get; set; }
+
+    // The time before the AI is allowed to change strategy
+    public float strategyDecisionCountdown { get; set; }
+
     public float speed => _speed;
+
+    public enum AttackStrategy {
+        NormalAttack,
+        Charge,
+        Shockwave
+    }
 
     void Start () {
         player = GameObject.FindWithTag("Player");
