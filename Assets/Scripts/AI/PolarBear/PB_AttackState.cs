@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class PB_AttackState : State<PB_Data> {
 
-    [SerializeField, Tooltip("Higher weight will mean higher chance of normal attack")]     int _normalAttackWeight = 4;
-    [SerializeField, Tooltip("Higher weight will mean higher chance of charge attack")]     int _chargeAttackWeight = 2;
-    [SerializeField, Tooltip("Higher weight will mean higher chance of shockwave attack")]  int _shockwaveAttackWeight = 1;
+    [SerializeField, Tooltip("Higher weight will mean higher chance of normal attack")]             int _normalAttackWeight = 4;
+    [SerializeField, Tooltip("Higher weight will mean higher chance of charge attack")]             int _chargeAttackWeight = 2;
+    [SerializeField, Tooltip("Higher weight will mean higher chance of shockwave attack")]          int _shockwaveAttackWeight = 1;
+    [SerializeField, Tooltip("Min (x) and Max (y) random time interval for changing strategy")]     Vector2 _randomizedChangeStrategyTime = new Vector2(1f, 5f);
+
+    // The time before the AI is allowed to change strategy
+    float _strategyDecisionCountdown;
 
     Vector2 _move;
 
@@ -19,6 +23,10 @@ public class PB_AttackState : State<PB_Data> {
         [PB_Data.AttackStrategy.Shockwave] = _shockwaveAttackWeight,
     };
 
+    bool isWithinNormalAttackRange => data.player.transform.position.IsWithinDistanceOf(transform.position, 1f);
+    bool isWithinChargeAttackRange => data.player.transform.position.IsWithinDistanceOf(transform.position, 8f);
+    bool isWithinShockwaveAttackRange => data.player.transform.position.IsWithinDistanceOf(transform.position, 10f);
+
     public override void OnEnterState() {
         UpdateStrategy();
     }
@@ -26,32 +34,27 @@ public class PB_AttackState : State<PB_Data> {
     public override void OnExitState() {}
 
     public override void OnUpdateState() {
-        data.strategyDecisionCountdown -= Time.deltaTime;
+        _strategyDecisionCountdown -= Time.deltaTime;
 
-        if (data.strategyDecisionCountdown <= 0f) {
+        // Update strategy when countdown reached 0
+        if (_strategyDecisionCountdown <= 0f) {
             UpdateStrategy();
-            data.strategyDecisionCountdown = Random.Range(1f, 5f);
+            _strategyDecisionCountdown = Random.Range(_randomizedChangeStrategyTime.x, _randomizedChangeStrategyTime.y);
         }
 
-        // Are we within attacking distance to the player?
-        if (data.player.transform.position.IsWithinDistanceOf(transform.position, 1f)) {
-            _move = Vector2.zero;
-
-            if (data.currentAttackStrategy == PB_Data.AttackStrategy.NormalAttack) {
-                // TODO: Perform normal attack here
-            }
-        } else {
+        // Move towards player if not close enough to attack
+        if (!isWithinNormalAttackRange) {
             Vector2 moveDirection = (data.player.transform.position - transform.position).normalized;
             moveDirection.y = 0f;
 
             _move = moveDirection * data.speed;
         }
-        
-        // Should we charge or perform shockwave attack?
-        if (data.player.transform.position.IsWithinDistanceOf(transform.position, 8f) && data.currentAttackStrategy == PB_Data.AttackStrategy.Charge) {
-            fsm.ChangeState<PB_ChargeState>();
-        } else if (data.player.transform.position.IsWithinDistanceOf(transform.position, 10f) && data.currentAttackStrategy == PB_Data.AttackStrategy.Shockwave && data.characterController2D.canJumpFromGroundOrWall) {
-            fsm.ChangeState<PB_ShockwaveState>();
+
+        // Logic for the various attack strategies
+        switch (data.currentAttackStrategy) {
+            case PB_Data.AttackStrategy.NormalAttack: NormalAttackLogic(); break;
+            case PB_Data.AttackStrategy.Charge: ChargeAttackLogic(); break;
+            case PB_Data.AttackStrategy.Shockwave: ShockwaveAttackLogic(); break;
         }
     }
 
@@ -59,6 +62,26 @@ public class PB_AttackState : State<PB_Data> {
         data.characterController2D.Move(_move != Vector2.zero, _move, false, false);
     }
 
+    void NormalAttackLogic() {
+        if (isWithinNormalAttackRange) {
+            Debug.Log("hello there");
+            // TODO: Perform regular attack
+        }
+    }
+
+    void ChargeAttackLogic() {
+        if (isWithinChargeAttackRange) {
+            fsm.ChangeState<PB_ChargeState>();
+        }
+    }
+
+    void ShockwaveAttackLogic() {
+        if (isWithinShockwaveAttackRange) {
+            fsm.ChangeState<PB_ShockwaveState>();
+        }
+    }
+
+    // Will randomize attack strategy based on attack weights
     void UpdateStrategy () {
         int randomNumber = Random.Range(0, attackWeights.Values.Sum());
         int currentSum = 0;
