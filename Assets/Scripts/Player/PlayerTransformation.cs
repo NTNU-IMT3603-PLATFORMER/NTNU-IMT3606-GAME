@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// PlayerTransformation handles the logic behind when a player tranforms from one state to another in the game.
+/// </summary>
 public class PlayerTransformation : MonoBehaviour {
 
     CharacterController2D _characterController2D;
@@ -15,6 +18,9 @@ public class PlayerTransformation : MonoBehaviour {
     public PlayerTransformationData desertCatData;
     public PlayerTransformationData owlData;
 
+    /// <summary>
+    /// Transformation contains the different transformation that the player is capable of doing.
+    /// </summary>
     public enum Transformation {
         Druid,
         PolarBear,
@@ -22,6 +28,10 @@ public class PlayerTransformation : MonoBehaviour {
         Owl
     }
 
+    /// <summary>
+    /// TransformInto takes a transformation form as an input and sets the CharacterController2D attributes based on the corresponding PlayerTransformationData class fields
+    /// </summary>
+    /// <param name="transformation">Is of type enum</param>
     public void TransformInto(Transformation transformation) {
         PlayerTransformationData data = null;
         switch (transformation) {
@@ -39,9 +49,25 @@ public class PlayerTransformation : MonoBehaviour {
                 break;
         }
         _characterController2D.jumpHeight = data.jumpHeight;
+        
+        _characterController2D.enableWallSlide = data.enableWallSlide;
+        
+        _characterController2D.enableWallJump = data.enableWallJump;
+        
+        _characterController2D.extraAirJumps = data.extraAirJumps;
+        
+        _characterController2D.enableDashing = data.enableDashing;
+        
+        _characterController2D.dashDistance = data.dashDistance;
+        
+        _characterController2D.dashSpeed = data.dashSpeed;
+        
+        _characterController2D.maxDashes = data.maxDashes;
+        
         foreach (Transform child in hitBoxes) {
             child.gameObject.SetActive(false);
         }
+        
         data.hitBox.SetActive(true);
     }
         
@@ -62,7 +88,7 @@ public class PlayerTransformation : MonoBehaviour {
         if (Input.GetButtonDown("TransformIntoPolarBear")) {
             TransformInto(Transformation.PolarBear);
         }
-        if (Input.GetButtonDown("TransformIntoDessertCat")) {
+        if (Input.GetButtonDown("TransformIntoDesertCat")) {
             TransformInto(Transformation.DesertCat);
         }
         if (Input.GetButtonDown("TransformIntoOwl")) {
