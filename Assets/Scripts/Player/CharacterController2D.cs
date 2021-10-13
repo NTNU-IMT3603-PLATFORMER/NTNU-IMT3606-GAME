@@ -49,6 +49,69 @@ public class CharacterController2D : MonoBehaviour {
     public float jumpVelocity => Mathf.Sqrt(2 * -Physics2D.gravity.y * _rigidbody.gravityScale * _jumpHeight);
 
     /// <summary>
+    /// Should wall sliding be enabled?
+    /// </summary>
+    public bool enableWallSlide {
+        get => _enableWallSlide;
+        set => _enableWallSlide = value;
+    }
+
+    /// <summary>
+    /// Should wall jumping be enabled?
+    /// </summary>
+    public bool enableWallJump {
+        get => _enableWallJump;
+        set => _enableWallJump = value;
+    }
+    /// <summary>
+    /// The height that each jump should reach
+    /// </summary>
+    public float jumpHeight {
+        get => _jumpHeight;
+        set => _jumpHeight = value;
+    }
+
+    /// <summary>
+    /// Additional jumps that are allowed while in air
+    /// </summary>
+    public int extraAirJumps {
+        get => _extraAirJumps;
+        set => _extraAirJumps = value;
+    }
+
+    /// <summary>
+    /// Should dashing be enabled?
+    /// </summary>
+    public bool enableDashing {
+        get => _enableDashing;
+        set => _enableDashing = value;
+    }
+
+    /// <summary>
+    /// How far should the player dash?
+    /// </summary>
+    public float dashDistance {
+        get => _dashDistance;
+        set => _dashDistance = value;
+    }
+
+    /// <summary>
+    /// How fast should the player dash?
+    /// </summary>
+    public float dashSpeed {
+        get => _dashSpeed;
+        set => _dashSpeed = value;
+    }
+
+    /// <summary>
+    /// Additional jumps that are allowed while in air
+    /// </summary>
+    public int maxDashes {
+        get => _maxDashes;
+        set => _maxDashes = value;
+    }
+
+    /// <summary>
     /// Is the player on ground?
     /// </summary>
     public bool isGrounded { get; private set; }
@@ -252,5 +315,4 @@ public class CharacterController2D : MonoBehaviour {
     void Start () {
         isFacingRight = _startFacingRight;
     }
-
 }
