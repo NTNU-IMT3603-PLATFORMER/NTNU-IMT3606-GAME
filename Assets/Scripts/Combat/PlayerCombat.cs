@@ -10,12 +10,14 @@ public class PlayerCombat : Entity {
     [SerializeField, Tooltip("How often the player can attack")]
     float _attackRate;
 
-    float _nextAttackTime = 0f;
-
-    public Transform attackPoint;
-    public LayerMask enemyLayers;
+    [SerializeField, Tooltip("The attack point of the player")]
+    Transform attackPoint;
+    [SerializeField, Tooltip("The layer which should be counted as enemies")]
+    LayerMask enemyLayers;
 
     
+    float _nextAttackTime = 0f;
+
     UnityEvent _eventOnAttack = new UnityEvent();
 
     /// <summary>
@@ -26,11 +28,13 @@ public class PlayerCombat : Entity {
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= _nextAttackTime) {
-            if (Input.GetKeyDown(KeyCode.X)) {
+        if (_nextAttackTime <= 0) {
+            if (Input.GetButtonDown("Attack")) {
                 Attack();
-                _nextAttackTime = Time.time + 1f / _attackRate;
+                _nextAttackTime = _attackRate;
             }
+        } else {
+            _nextAttackTime -= Time.deltaTime; 
         }
     }
 
