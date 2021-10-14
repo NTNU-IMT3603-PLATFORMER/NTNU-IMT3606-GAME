@@ -14,16 +14,16 @@ public class PlayerTransformation : MonoBehaviour {
     public Transform hitBoxes;
     
     [SerializeField]
-    PlayerTransformationData druidData;
+    PlayerTransformationData _druidData;
     
     [SerializeField]
-    PlayerTransformationData polarBearData;
+    PlayerTransformationData _polarBearData;
     
     [SerializeField]
-    PlayerTransformationData desertCatData;
+    PlayerTransformationData _desertCatData;
     
     [SerializeField]
-    PlayerTransformationData owlData;
+    PlayerTransformationData _owlData;
 
     /// <summary>
     /// Transformation contains the different transformation that the player is capable of doing.
@@ -43,16 +43,16 @@ public class PlayerTransformation : MonoBehaviour {
         PlayerTransformationData data = null;
         switch (transformation) {
             case Transformation.Druid:
-                data = druidData;
+                data = _druidData;
                 break;
             case Transformation.PolarBear:
-                data = polarBearData;
+                data = _polarBearData;
                 break;
             case Transformation.DesertCat:
-                data = desertCatData;
+                data = _desertCatData;
                 break;
             case Transformation.Owl:
-                data = owlData;
+                data = _owlData;
                 break;
         }
         _characterController2D.jumpHeight = data.jumpHeight;
