@@ -12,11 +12,18 @@ public class PlayerTransformation : MonoBehaviour {
     SpriteRenderer _spriteRenderer;
 
     public Transform hitBoxes;
-
-    public PlayerTransformationData druidData;
-    public PlayerTransformationData polarBearData;
-    public PlayerTransformationData desertCatData;
-    public PlayerTransformationData owlData;
+    
+    [SerializeField]
+    PlayerTransformationData druidData;
+    
+    [SerializeField]
+    PlayerTransformationData polarBearData;
+    
+    [SerializeField]
+    PlayerTransformationData desertCatData;
+    
+    [SerializeField]
+    PlayerTransformationData owlData;
 
     /// <summary>
     /// Transformation contains the different transformation that the player is capable of doing.
