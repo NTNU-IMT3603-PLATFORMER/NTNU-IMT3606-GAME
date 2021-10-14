@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerCombat : Entity {
 
@@ -11,9 +12,16 @@ public class PlayerCombat : Entity {
 
     float _nextAttackTime = 0f;
 
-    public Animator animator;
     public Transform attackPoint;
     public LayerMask enemyLayers;
+
+    
+    UnityEvent _eventOnAttack = new UnityEvent();
+
+    /// <summary>
+    /// Unity event for when the player is attacking
+    /// </summary>
+    public UnityEvent eventOnAttack => _eventOnAttack;
 
     // Update is called once per frame
     void Update()
@@ -27,7 +35,8 @@ public class PlayerCombat : Entity {
     }
 
     void Attack() {
-        animator.SetTrigger("isAttacking");
+        // Invokes the listener of eventOnAttack 
+        eventOnAttack.Invoke();
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, _attackRange, enemyLayers);
 
         foreach(Collider2D enemy in hitEnemies) {
