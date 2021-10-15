@@ -70,6 +70,7 @@ public class PlayerCombat : Entity {
     }
 
     public override void Die() {
+        Debug.Log("Player died");
     }
 
     private void OnDrawGizmosSelected() {
