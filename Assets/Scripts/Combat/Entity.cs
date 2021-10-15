@@ -16,6 +16,8 @@ abstract public class Entity : MonoBehaviour {
         set => _baseDamage = value;
     }
 
+    public int health => _health;
+
     public abstract void Respawn();
     public abstract void Die();
 
