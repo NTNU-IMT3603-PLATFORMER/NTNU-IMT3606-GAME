@@ -8,8 +8,12 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerTransformationData {
 
+    /// <summary>
+    /// _transformationState is a field that holds a game object wich contains components that are responible for setting
+    /// sprites, animations, and hitboxes for each transformation state.
+    /// </summary>
     [SerializeField]
-    GameObject _hitBox;
+    GameObject _transformationState;
 
     // Refer to CharacterController2D for variable descriptions    
     [SerializeField]
@@ -44,6 +48,6 @@ public class PlayerTransformationData {
     public float dashDistance => _dashDistance;
     public float dashSpeed => _dashSpeed;
     public int maxDashes => _maxDashes;
-    public GameObject hitBox => _hitBox;
+    public GameObject transformationState => _transformationState;
 }
   
