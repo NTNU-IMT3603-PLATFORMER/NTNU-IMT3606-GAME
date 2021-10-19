@@ -11,7 +11,10 @@ abstract public class Entity : MonoBehaviour {
     /// <summary>
     /// The damage the entity does to other entities
     /// </summary>
-    public int baseDamage => _baseDamage;
+    public int baseDamage {
+        get => _baseDamage;
+        set => _baseDamage = value;
+    }
 
     public abstract void Respawn();
     public abstract void Die();
