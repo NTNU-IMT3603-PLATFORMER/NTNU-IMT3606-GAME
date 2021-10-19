@@ -7,9 +7,12 @@ public class PlayerAnimation : MonoBehaviour {
     [SerializeField, Tooltip("Animator controlling animations")]        Animator _animator;
     [SerializeField, Tooltip("PlayerMovement connected to player")]     PlayerMovement _playerMovement;
     [SerializeField, Tooltip("PlayerCombat connected to player")]     PlayerCombat _playerCombat;
+    [SerializeField, Tooltip("PlayerTransformation connected to player")] PlayerTransformation _playerTransformation;
 
     private void Start() {
         _playerCombat.eventOnAttack.AddListener(AttackAnimationListener);
+        _playerTransformation.eventOnTransform.AddListener(TransformAnimationListener);
+
     }
     void Update () {
         _animator.SetBool("move", _playerMovement.isMoving && !_playerMovement.characterController.isDashing);
@@ -21,4 +24,7 @@ public class PlayerAnimation : MonoBehaviour {
         _animator.SetTrigger("isAttacking"); 
     }
 
+    void TransformAnimationListener() {
+        _animator.SetTrigger("isTransforming");
+    }
 }
