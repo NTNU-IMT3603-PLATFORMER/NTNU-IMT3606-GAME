@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// PlayerTransformation handles the logic behind when a player tranforms from one state to another in the game.
@@ -24,6 +25,9 @@ public class PlayerTransformation : MonoBehaviour {
     [SerializeField]
     PlayerTransformationData _owlData;
 
+    UnityEvent _eventOnTransform = new UnityEvent();
+    public UnityEvent eventOnTransform => _eventOnTransform;
+
     /// <summary>
     /// Transformation contains the different transformation that the player is capable of doing.
     /// </summary>
@@ -39,6 +43,9 @@ public class PlayerTransformation : MonoBehaviour {
     /// </summary>
     /// <param name="transformation">Is of type enum</param>
     public void TransformInto(Transformation transformation) {
+
+        
+
         PlayerTransformationData data = null;
         switch (transformation) {
             case Transformation.Druid:
@@ -81,6 +88,7 @@ public class PlayerTransformation : MonoBehaviour {
         }
         
         data.transformationState.SetActive(true);
+        eventOnTransform.Invoke();
     }
         
    
