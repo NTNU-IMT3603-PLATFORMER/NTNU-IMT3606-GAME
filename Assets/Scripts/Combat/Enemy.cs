@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+
     [SerializeField, Tooltip("The layer which contains the player character")]
     LayerMask _playerLayers;
     [SerializeField, Tooltip("How often the enemy can do contact damage")]
     float _contactDamageRate;
 
     float _nextAttackTime = 0f;
+
+    public Transform respawnPoint;
+    [SerializeField, Tooltip("What prefab to respawn")]
+    GameObject _entityPrefab;
+    GameObject LastEnemy;
+    GameObject enemy;
 
 
     void Update() {
@@ -25,13 +32,25 @@ public class Enemy : Entity
 
     }
 
+    
+
+
     public override void Respawn() {
+        GameObject clone = (GameObject)Instantiate(_entityPrefab, respawnPoint.position, Quaternion.identity);
+        LastEnemy = GameObject.Find(_entityPrefab.name + "(Clone)");
+        LastEnemy.name = _entityPrefab.name;
+        
     }
 
     public override void Die() {
         Debug.Log("Enemy died!");
 
+        //gameObject.SetActive(false);
+        Respawn();
         Destroy(gameObject);
+        
+        
+
     }
 
 

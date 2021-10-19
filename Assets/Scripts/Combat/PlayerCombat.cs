@@ -6,6 +6,12 @@ using UnityEngine.Events;
 public class PlayerCombat : Entity {
 
 
+
+
+    public Transform respawnPoint;
+    [SerializeField, Tooltip("What prefab to respawn")]
+    GameObject _entityPrefab;
+
     [SerializeField, Tooltip("The range of the player attack as a float")]
     float _attackRange;
     [SerializeField, Tooltip("How often the player can attack")]
@@ -68,10 +74,12 @@ public class PlayerCombat : Entity {
 
 
     public override void Respawn() {
+        Instantiate(_entityPrefab, respawnPoint.position, Quaternion.identity);
     }
 
     public override void Die() {
-        Debug.Log("Player died");
+        Destroy(gameObject);
+        Respawn();
     }
 
     private void OnDrawGizmosSelected() {
@@ -81,3 +89,4 @@ public class PlayerCombat : Entity {
         Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
     }
 }
+    

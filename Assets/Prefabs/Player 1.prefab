@@ -770,10 +770,19 @@ MonoBehaviour:
   _rigidbody: {fileID: 6756408635211062561}
   _health: 10
   _baseDamage: 1
+<<<<<<< HEAD
   _attackRange: 0.7
   _attackRate: 1
   _attackPoint: {fileID: 7173411423311663283}
   _enemyLayers:
+=======
+  respawnPoint: {fileID: 0}
+  _entityPrefab: {fileID: 0}
+  _attackRange: 0.5
+  _attackRate: 1
+  attackPoint: {fileID: 7173411423311663283}
+  enemyLayers:
+>>>>>>> 96b0b08 (Added enemy respawn)
     serializedVersion: 2
     m_Bits: 256
 --- !u!114 &1640178019
