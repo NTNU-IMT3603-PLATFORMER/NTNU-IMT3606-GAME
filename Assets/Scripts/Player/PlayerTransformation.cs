@@ -9,8 +9,6 @@ public class PlayerTransformation : MonoBehaviour {
 
     CharacterController2D _characterController2D;
     PlayerCombat _playerCombat;
-    Rigidbody2D _myBody;
-    SpriteRenderer _spriteRenderer;
 
     public Transform Transformations;
     
@@ -88,8 +86,6 @@ public class PlayerTransformation : MonoBehaviour {
    
 
     void Start() {
-        _myBody = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _characterController2D = GetComponent<CharacterController2D>();
         _playerCombat = GetComponent<PlayerCombat>();
     }
