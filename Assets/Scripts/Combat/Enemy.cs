@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    [SerializeField]
+    [SerializeField, Tooltip("The layer which contains the player character")]
     LayerMask _playerLayers;
     [SerializeField, Tooltip("How often the enemy can do contact damage")]
     float _contactDamageRate;
