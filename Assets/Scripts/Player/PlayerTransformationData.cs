@@ -40,6 +40,16 @@ public class PlayerTransformationData {
     [SerializeField]
     int _maxDashes;
 
+
+    [SerializeField]
+    int _baseDamage;
+
+    [SerializeField]
+    float _attackRange;
+
+    [SerializeField]
+    float _attackRate;
+
     public float jumpHeight => _jumpHeight;
     public bool enableWallSlide => _enableWallSlide;
     public bool enableWallJump => _enableWallJump;
@@ -49,5 +59,10 @@ public class PlayerTransformationData {
     public float dashSpeed => _dashSpeed;
     public int maxDashes => _maxDashes;
     public GameObject transformationState => _transformationState;
+
+
+    public int baseDamage => _baseDamage;
+    public float attackRange => _attackRange;
+    public float attackRate => _attackRate;
 }
   
