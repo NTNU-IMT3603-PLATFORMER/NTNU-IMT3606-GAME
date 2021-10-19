@@ -135,6 +135,7 @@ MonoBehaviour:
   _animator: {fileID: 6626841}
   _playerMovement: {fileID: 3019713065761910456}
   _playerCombat: {fileID: 8771794195340416335}
+  _playerTransformation: {fileID: 0}
 --- !u!1 &1544729877
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +305,7 @@ MonoBehaviour:
   _animator: {fileID: 1768441261}
   _playerMovement: {fileID: 3019713065761910456}
   _playerCombat: {fileID: 8771794195340416335}
+  _playerTransformation: {fileID: 0}
 --- !u!1 &1775359390
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +441,7 @@ MonoBehaviour:
   _animator: {fileID: 1775359393}
   _playerMovement: {fileID: 3019713065761910456}
   _playerCombat: {fileID: 8771794195340416335}
+  _playerTransformation: {fileID: 0}
 --- !u!1 &1862786809
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +577,7 @@ MonoBehaviour:
   _animator: {fileID: 1862786812}
   _playerMovement: {fileID: 3019713065761910456}
   _playerCombat: {fileID: 8771794195340416335}
+  _playerTransformation: {fileID: 0}
 --- !u!1 &6323048931623072014
 GameObject:
   m_ObjectHideFlags: 0
