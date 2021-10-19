@@ -723,43 +723,55 @@ MonoBehaviour:
   _druidData:
     _transformationState: {fileID: 1768441258}
     _jumpHeight: 1
-    _enableWallSlide: 1
-    _enableWallJump: 1
     _extraAirJumps: 1
-    _enableDashing: 1
     _dashDistance: 1
     _dashSpeed: 1
     _maxDashes: 1
+    _enableWallSlide: 1
+    _enableWallJump: 1
+    _enableDashing: 1
+    _baseDamage: 0
+    _attackRange: 0
+    _attackRate: 0
   _polarBearData:
     _transformationState: {fileID: 1775359390}
     _jumpHeight: 1
-    _enableWallSlide: 1
-    _enableWallJump: 1
     _extraAirJumps: 1
-    _enableDashing: 1
     _dashDistance: 1
     _dashSpeed: 1
     _maxDashes: 1
+    _enableWallSlide: 1
+    _enableWallJump: 1
+    _enableDashing: 1
+    _baseDamage: 0
+    _attackRange: 0
+    _attackRate: 0
   _desertCatData:
     _transformationState: {fileID: 1862786809}
     _jumpHeight: 1
-    _enableWallSlide: 1
-    _enableWallJump: 1
     _extraAirJumps: 1
-    _enableDashing: 1
     _dashDistance: 1
     _dashSpeed: 1
     _maxDashes: 1
+    _enableWallSlide: 1
+    _enableWallJump: 1
+    _enableDashing: 1
+    _baseDamage: 0
+    _attackRange: 0
+    _attackRate: 0
   _owlData:
     _transformationState: {fileID: 6626838}
     _jumpHeight: 1
-    _enableWallSlide: 1
-    _enableWallJump: 1
     _extraAirJumps: 1
-    _enableDashing: 1
     _dashDistance: 1
     _dashSpeed: 1
     _maxDashes: 1
+    _enableWallSlide: 1
+    _enableWallJump: 1
+    _enableDashing: 1
+    _baseDamage: 0
+    _attackRange: 0
+    _attackRate: 0
 --- !u!1 &7173411423311663280
 GameObject:
   m_ObjectHideFlags: 0
