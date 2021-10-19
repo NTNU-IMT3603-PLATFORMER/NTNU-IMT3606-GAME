@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 9181358111602262556}
   - component: {fileID: 9181358111602262557}
   - component: {fileID: 8250206809502471091}
-  m_Layer: 0
-  m_Name: Enemy
+  m_Layer: 8
+  m_Name: CoolEnemyBP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -146,9 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _followDistance: 1
+  _followDistance: 5
   _patrolMode: 1
-  _isGroundEnemy: 0
+  _isGroundEnemy: 1
 --- !u!114 &8250206809502471091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +163,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 3
   _baseDamage: 1
+  respawnPoint: {fileID: 3835879522741948915, guid: 615c0d0b6d06b514eb29ea0a745af653, type: 3}
+  _entityPrefab: {fileID: 6109901076284375006, guid: 1db821ca411f62b4fb83faa32bf43f80, type: 3}
