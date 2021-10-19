@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerTransformation : MonoBehaviour {
 
     CharacterController2D _characterController2D;
+    PlayerCombat _playerCombat;
     Rigidbody2D _myBody;
     SpriteRenderer _spriteRenderer;
 
@@ -70,6 +71,12 @@ public class PlayerTransformation : MonoBehaviour {
         _characterController2D.dashSpeed = data.dashSpeed;
         
         _characterController2D.maxDashes = data.maxDashes;
+
+        _playerCombat.baseDamage = data.baseDamage;
+
+        _playerCombat.attackRange = data.attackRange;
+
+        _playerCombat.attackRate = data.attackRate;
         
         foreach (Transform child in Transformations) {
             child.gameObject.SetActive(false);
@@ -84,6 +91,7 @@ public class PlayerTransformation : MonoBehaviour {
         _myBody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _characterController2D = GetComponent<CharacterController2D>();
+        _playerCombat = GetComponent<PlayerCombat>();
     }
 
     // Update is called once per frame
