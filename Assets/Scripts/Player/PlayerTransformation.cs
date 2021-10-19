@@ -11,7 +11,7 @@ public class PlayerTransformation : MonoBehaviour {
     Rigidbody2D _myBody;
     SpriteRenderer _spriteRenderer;
 
-    public Transform hitBoxes;
+    public Transform Transformations;
     
     [SerializeField]
     PlayerTransformationData _druidData;
@@ -71,11 +71,11 @@ public class PlayerTransformation : MonoBehaviour {
         
         _characterController2D.maxDashes = data.maxDashes;
         
-        foreach (Transform child in hitBoxes) {
+        foreach (Transform child in Transformations) {
             child.gameObject.SetActive(false);
         }
         
-        data.hitBox.SetActive(true);
+        data.transformationState.SetActive(true);
     }
         
    
