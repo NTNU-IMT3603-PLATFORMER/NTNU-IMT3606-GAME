@@ -5,15 +5,16 @@ using UnityEngine.Events;
 
 public class PlayerCombat : Entity {
 
+
     [SerializeField, Tooltip("The range of the player attack as a float")]
     float _attackRange;
     [SerializeField, Tooltip("How often the player can attack")]
     float _attackRate;
 
     [SerializeField, Tooltip("The attack point of the player")]
-    Transform attackPoint;
+    Transform _attackPoint;
     [SerializeField, Tooltip("The layer which should be counted as enemies")]
-    LayerMask enemyLayers;
+    LayerMask _enemyLayers;
 
     /// <summary>
     /// The range of the player attack
@@ -57,7 +58,7 @@ public class PlayerCombat : Entity {
     void Attack() {
         // Invokes the listener of eventOnAttack 
         eventOnAttack.Invoke();
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, _attackRange, enemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayers);
 
         foreach(Collider2D enemy in hitEnemies) {
             Debug.Log("We hit " + enemy.name);
@@ -74,9 +75,9 @@ public class PlayerCombat : Entity {
     }
 
     private void OnDrawGizmosSelected() {
-        if (attackPoint == null)
+        if (_attackPoint == null)
             return;
 
-        Gizmos.DrawWireSphere(attackPoint.position, _attackRange);
+        Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
     }
 }
