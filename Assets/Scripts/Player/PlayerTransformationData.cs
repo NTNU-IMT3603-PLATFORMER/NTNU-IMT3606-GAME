@@ -15,21 +15,14 @@ public class PlayerTransformationData {
     [SerializeField]
     GameObject _transformationState;
 
+
+    [Header("CharacterController2D")]
     // Refer to CharacterController2D for variable descriptions    
     [SerializeField]
     float _jumpHeight;
 
     [SerializeField]
-    bool _enableWallSlide;
-
-    [SerializeField]
-    bool _enableWallJump;
-
-    [SerializeField]
     int _extraAirJumps;
-
-    [SerializeField]
-    bool _enableDashing;
 
     [SerializeField]
     float _dashDistance;
@@ -40,7 +33,17 @@ public class PlayerTransformationData {
     [SerializeField]
     int _maxDashes;
 
+    [SerializeField]
+    bool _enableWallSlide;
 
+    [SerializeField]
+    bool _enableWallJump;
+
+    [SerializeField]
+    bool _enableDashing;
+
+
+    [Header("PlayerCombat")]
     [SerializeField]
     int _baseDamage;
 
