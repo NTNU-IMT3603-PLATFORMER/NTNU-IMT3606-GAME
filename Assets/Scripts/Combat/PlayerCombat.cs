@@ -15,7 +15,23 @@ public class PlayerCombat : Entity {
     [SerializeField, Tooltip("The layer which should be counted as enemies")]
     LayerMask enemyLayers;
 
-    
+    /// <summary>
+    /// The range of the player attack
+    /// </summary>
+    public float attackRange {
+        get => _attackRange;
+        set => _attackRange = value;
+    }
+
+    /// <summary>
+    /// How often the player can attack
+    /// </summary>
+    public float attackRate {
+        get => _attackRate;
+        set => _attackRate = value;
+    }
+
+
     float _nextAttackTime = 0f;
 
     UnityEvent _eventOnAttack = new UnityEvent();
