@@ -14,6 +14,7 @@ public class PB_Data : MonoBehaviour {
     public GameObject player { get; private set; }
 
     public CharacterController2D characterController2D { get; private set; }
+    public EnemyEntity enemyEntity { get; private set; }
     public AttackStrategy currentAttackStrategy { get; set; }
 
     public float speed => _speed;
@@ -29,6 +30,7 @@ public class PB_Data : MonoBehaviour {
     void Start () {
         player = GameObject.FindWithTag("Player");
         characterController2D = GetComponentInParent<CharacterController2D>();
+        enemyEntity = GetComponentInParent<EnemyEntity>();
     }
 
 }

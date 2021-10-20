@@ -12,6 +12,7 @@ public class PB_ChargeState : State<PB_Data> {
         Vector2 moveDirection = (data.player.transform.position - transform.position).normalized;
 
         data.characterController2D.Move(true, moveDirection, false, true);
+        data.enemyEntity.invincible = true;
     }
 
     public override void OnFixedUpdateState() {
@@ -25,6 +26,10 @@ public class PB_ChargeState : State<PB_Data> {
                 fsm.ChangeState<PB_AttackState>();
             }
         }
+    }
+
+    public override void OnExitState() {
+        data.enemyEntity.invincible = false;
     }
 
 }

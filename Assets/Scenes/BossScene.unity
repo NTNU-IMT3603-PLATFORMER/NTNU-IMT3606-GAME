@@ -24821,6 +24821,18 @@ PrefabInstance:
       propertyPath: _playerCombat
       value: 
       objectReference: {fileID: 1303758963}
+    - target: {fileID: 8949481511618684602, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684602, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949481511618684602, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684603, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -24908,6 +24920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 100
   _baseDamage: 5
+  _invincible: 0
 --- !u!1 &1336636613
 GameObject:
   m_ObjectHideFlags: 0
@@ -26056,8 +26069,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ad08c2b84e88fa0bceefc0ed02c12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 200
+  _health: 10
   _baseDamage: 10
+  _invincible: 0
 --- !u!114 &1608138113825728563
 MonoBehaviour:
   m_ObjectHideFlags: 0
