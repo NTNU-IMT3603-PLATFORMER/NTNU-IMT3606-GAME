@@ -21,6 +21,11 @@ public abstract class Entity : MonoBehaviour {
 
 
     /// <summary>
+    /// The health of the entity
+    /// </summary>
+    public int health => _health;
+
+    /// <summary>
     /// The damage the entity does to other entities
     /// </summary>
 <<<<<<< HEAD
