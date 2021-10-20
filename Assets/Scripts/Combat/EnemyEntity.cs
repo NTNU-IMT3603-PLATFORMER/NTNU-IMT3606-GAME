@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Entity
-{
+public class EnemyEntity : Entity {
 
     [SerializeField, Tooltip("The layer which contains the player character")]
     LayerMask _playerLayers;
@@ -23,7 +22,7 @@ public class Enemy : Entity
         if (_nextAttackTime <= 0) {
             Collider2D[] hitPlayer = Physics2D.OverlapBoxAll(transform.position, new Vector2(1, 1), 0, _playerLayers);
             foreach (Collider2D player in hitPlayer) {
-                player.GetComponent<PlayerCombat>().TakeDamage(baseDamage);
+                player.GetComponent<PlayerEntity>().InflictDamage(baseDamage);
                 _nextAttackTime = _contactDamageRate;
             }
         } else {
@@ -31,9 +30,6 @@ public class Enemy : Entity
         }
 
     }
-
-    
-
 
     public override void Respawn() {
         GameObject clone = (GameObject)Instantiate(Resources.Load<GameObject>("CoolEnemy"), respawnPoint.position, Quaternion.identity);
@@ -57,4 +53,5 @@ public class Enemy : Entity
     public void Attack() {
 
     }
+
 }

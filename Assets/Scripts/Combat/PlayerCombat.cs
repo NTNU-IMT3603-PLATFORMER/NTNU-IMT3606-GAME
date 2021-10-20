@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerCombat : Entity {
-
-
-
+public class PlayerCombat : EntityCombat {
 
     public Transform respawnPoint;
     [SerializeField, Tooltip("What prefab to respawn")]
@@ -38,9 +35,6 @@ public class PlayerCombat : Entity {
         set => _attackRate = value;
     }
 
-
-    float _nextAttackTime = 0f;
-
     UnityEvent _eventOnAttack = new UnityEvent();
 
     /// <summary>
@@ -48,12 +42,18 @@ public class PlayerCombat : Entity {
     /// </summary>
     public UnityEvent eventOnAttack => _eventOnAttack;
 
+    Entity _player;
+    float _nextAttackTime;
+
+    void Start () {
+        _player = GetComponent<Entity>();
+    }
+
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (_nextAttackTime <= 0) {
             if (Input.GetButtonDown("Attack")) {
-                Attack();
+                Attack(_player.baseDamage);
                 _nextAttackTime = _attackRate;
             }
         } else {
@@ -68,25 +68,16 @@ public class PlayerCombat : Entity {
 
         foreach(Collider2D enemy in hitEnemies) {
             Debug.Log("We hit " + enemy.name);
-            enemy.GetComponent<Enemy>().TakeDamage(baseDamage);
+            enemy.GetComponent<EnemyEntity>().InflictDamage(_player.baseDamage);
         }
     }
-
-
-    public override void Respawn() {
-        Instantiate(Resources.Load<GameObject>("Player1"), respawnPoint.position, Quaternion.identity);
-    }
-
-    public override void Die() {
-        Destroy(gameObject);
-        Respawn();
-    }
-
+    
     private void OnDrawGizmosSelected() {
         if (_attackPoint == null)
             return;
 
         Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
     }
+
 }
     

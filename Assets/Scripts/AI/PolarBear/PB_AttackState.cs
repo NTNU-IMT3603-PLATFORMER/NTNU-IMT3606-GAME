@@ -13,6 +13,8 @@ public class PB_AttackState : State<PB_Data> {
     // The time before the AI is allowed to change strategy
     float _strategyDecisionCountdown;
 
+    EnemyCombat _enemyCombat;
+    float _attackTimeLeft;
     Vector2 _move;
 
     // Mappings to the weights set in inspector
@@ -26,6 +28,12 @@ public class PB_AttackState : State<PB_Data> {
     bool isWithinNormalAttackRange => data.player.transform.position.IsWithinDistanceOf(transform.position, 1f);
     bool isWithinChargeAttackRange => data.player.transform.position.IsWithinDistanceOf(transform.position, 8f);
     bool isWithinShockwaveAttackRange => data.player.transform.position.IsWithinDistanceOf(transform.position, 10f);
+
+    protected override void Initialize() {
+        base.Initialize();
+
+        _enemyCombat = GetComponentInParent<EnemyCombat>();
+    }
 
     public override void OnEnterState() {
         UpdateStrategy();
@@ -62,7 +70,8 @@ public class PB_AttackState : State<PB_Data> {
 
     void NormalAttackLogic() {
         if (isWithinNormalAttackRange) {
-            // TODO: Perform regular attack
+            // Perform regular attack
+            _enemyCombat.AttackIfPossible();
         }
     }
 

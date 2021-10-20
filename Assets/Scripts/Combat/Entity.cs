@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Entity : MonoBehaviour {
 
-    //[SerializeField, Tooltip("The Character Controller")]
-    //CharacterController2D _characterController2D;
+public abstract class Entity : MonoBehaviour {
+
     [SerializeField, Tooltip("The rigidbody of the entity")]
     Rigidbody2D _rigidbody;
+
     [SerializeField, Tooltip("The health of the entity")]
     int _health;
     [SerializeField, Tooltip("The damage the entity does to other entities")]
@@ -27,7 +27,7 @@ abstract public class Entity : MonoBehaviour {
     public abstract void Respawn();
     public abstract void Die();
 
-    public void TakeDamage(int damage) {
+    public void InflictDamage(int damage) {
         _health -= damage;
 
         if (_health <= 0) {
@@ -52,4 +52,5 @@ abstract public class Entity : MonoBehaviour {
         Debug.Log(moveDirection.normalized);
         _rigidbody.velocity = moveDirection.normalized * 10f;
     }
+    
 }
