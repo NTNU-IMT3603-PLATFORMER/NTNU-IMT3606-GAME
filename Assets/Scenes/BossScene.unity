@@ -25981,6 +25981,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1608138113324503754, guid: f1dd6958143dcc2209fd61e853d49530, type: 3}
+      propertyPath: _prefabShockwave
+      value: 
+      objectReference: {fileID: 3364352483872361612, guid: 07d0d5d74d93d544f9351081805be159, type: 3}
+    - target: {fileID: 1608138113324503754, guid: f1dd6958143dcc2209fd61e853d49530, type: 3}
+      propertyPath: _prefabShockwaveOffset.y
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4725855602142787617, guid: f1dd6958143dcc2209fd61e853d49530, type: 3}
       propertyPath: m_Name
       value: PolarBearBoss
