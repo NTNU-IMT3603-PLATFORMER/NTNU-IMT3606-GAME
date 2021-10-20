@@ -173,6 +173,8 @@ public class CharacterController2D : MonoBehaviour {
     public UnityEvent eventOnLeftGround => _eventOnLeftGround;
     public UnityEvent eventOnJump => _eventOnJump;
 
+    public Rigidbody2D movingPlatformRigidbody { get; set; }
+
     float _timeLeftToAllowJump;
     float _timeLeftToAllowDash;
     float _dashDistanceLeft;
@@ -210,24 +212,12 @@ public class CharacterController2D : MonoBehaviour {
         // Flip (player) logic
         FlipLogic();
 
-        // Temporary fix
-        if (transform.parent != null) {
-            transform.position = transform.position + (transform.parent.position - _lastParentCoordinates);
-            
-            _lastParentCoordinates = transform.parent.position;
-        }
+        // Add moving platform velocity if on a platform
+        targetVelocity += movingPlatformRigidbody?.velocity ?? Vector2.zero;
 
         // Apply target velocity at the end
         _rigidbody.velocity = targetVelocity;
         _lastVelocity = targetVelocity;
-    }
-
-    /// <summary>
-    /// Call this when updating the parent of this object
-    /// </summary>
-    public void SetParent (Transform parent) {
-        transform.parent = parent;
-        _lastParentCoordinates = parent?.position.ToVec2() ?? Vector3.zero;
     }
 
     void UpdateProperties (Vector2 movement) {
@@ -239,10 +229,16 @@ public class CharacterController2D : MonoBehaviour {
 
         if (isGrounded && !wasGrounded) {
             eventOnGrounded.Invoke(groundCollider);
+
+            // Set moving platform rigidbody (if we are on a moving platform)
+            movingPlatformRigidbody = groundCollider.GetComponentInParent<MovingPlatform>()?.rb;
         }
 
         if (!isGrounded && wasGrounded) {
             eventOnLeftGround.Invoke();
+
+            // Can't be on moving platform if we are in the air
+            movingPlatformRigidbody = null;
         }
         
         if (isFacingRight && movement.x < 0f && !isDashing) {
