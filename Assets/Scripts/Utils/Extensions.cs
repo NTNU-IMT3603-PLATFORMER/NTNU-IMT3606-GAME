@@ -50,4 +50,12 @@ public static class Extensions {
         return (targetPosition - position).sqrMagnitude <= distance * distance;
     }
 
+    /// <summary>
+    /// 2D version of:
+    /// <see cref="IsWithinDistanceOf(Vector3, Vector3, float)"/>
+    /// </summary>
+    public static bool IsWithinDistanceOf (this Vector2 position, Vector2 targetPosition, float distance) {
+        return (targetPosition - position).sqrMagnitude <= distance * distance;
+    }
+
 }
