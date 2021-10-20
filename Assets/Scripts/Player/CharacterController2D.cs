@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour {
 
@@ -168,12 +169,21 @@ public class CharacterController2D : MonoBehaviour {
     /// </summary>
     public int currentDashes { get; private set; }
 
+    public UnityEvent<Collider2D> eventOnGrounded => _eventOnGrounded;
+    public UnityEvent eventOnLeftGround => _eventOnLeftGround;
+    public UnityEvent eventOnJump => _eventOnJump;
+
     float _timeLeftToAllowJump;
     float _timeLeftToAllowDash;
     float _dashDistanceLeft;
 
     Vector2 _lastVelocity;
     float _gravityScaleBeforeDash;
+    Vector3 _lastParentCoordinates;
+
+    UnityEvent<Collider2D> _eventOnGrounded = new UnityEvent<Collider2D>();
+    UnityEvent _eventOnLeftGround = new UnityEvent();
+    UnityEvent _eventOnJump = new UnityEvent();
 
     /// <summary>
     /// Move the character. 
@@ -200,14 +210,40 @@ public class CharacterController2D : MonoBehaviour {
         // Flip (player) logic
         FlipLogic();
 
+        // Temporary fix
+        if (transform.parent != null) {
+            transform.position = transform.position + (transform.parent.position - _lastParentCoordinates);
+            
+            _lastParentCoordinates = transform.parent.position;
+        }
+
         // Apply target velocity at the end
         _rigidbody.velocity = targetVelocity;
         _lastVelocity = targetVelocity;
     }
 
+    /// <summary>
+    /// Call this when updating the parent of this object
+    /// </summary>
+    public void SetParent (Transform parent) {
+        transform.parent = parent;
+        _lastParentCoordinates = parent?.position.ToVec2() ?? Vector3.zero;
+    }
+
     void UpdateProperties (Vector2 movement) {
-        isGrounded = Physics2D.OverlapCircle(_groundCheckPoint.position, _groundCheckRadius, _groundCheckMask) != null;
         isFacingWall = Physics2D.OverlapCircle(_wallCheckPoint.position, _wallCheckRadius, _wallCheckMask) != null;
+
+        bool wasGrounded = isGrounded;
+        Collider2D groundCollider = Physics2D.OverlapCircle(_groundCheckPoint.position, _groundCheckRadius, _groundCheckMask);
+        isGrounded = groundCollider != null;
+
+        if (isGrounded && !wasGrounded) {
+            eventOnGrounded.Invoke(groundCollider);
+        }
+
+        if (!isGrounded && wasGrounded) {
+            eventOnLeftGround.Invoke();
+        }
         
         if (isFacingRight && movement.x < 0f && !isDashing) {
             isFacingRight = false;
@@ -258,6 +294,7 @@ public class CharacterController2D : MonoBehaviour {
                 if (canJumpFromGroundOrWall || currentJumps <= _extraAirJumps) {
                     // Jump
                     targetVelocity.y = jumpVelocity;
+                    eventOnJump.Invoke();
 
                     // Add wall push for wall jumping
                     if (_enableWallJump && isHuggingWall) {
