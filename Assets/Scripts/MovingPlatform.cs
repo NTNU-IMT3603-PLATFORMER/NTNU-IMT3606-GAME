@@ -13,7 +13,7 @@ public class MovingPlatform : MonoBehaviour
     {
         rb.MovePosition(Vector3.MoveTowards(transform.position, waypoints[target].position, moveSpeed * Time.deltaTime));
         //use data
-        if(transform.position == waypoints[target].position)
+        if(rb.position.IsWithinDistanceOf(waypoints[target].position, 0.2f))
         {
             if(target == waypoints.Count - 1)
             {
