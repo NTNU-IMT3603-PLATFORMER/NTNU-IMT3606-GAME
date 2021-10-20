@@ -48,7 +48,15 @@ public class PB_ShockwaveState : State<PB_Data> {
         // Wait until we hit ground
         yield return new WaitUntil(() => data.characterController2D.isGrounded);
 
-        // TODO: Spawn shockwave here
+        // Spawn shockwave here
+        Vector3 position = transform.position + data.prefabShockwaveOffset;
+        Quaternion rotation = data.prefabShockwave.transform.rotation;
+
+        GameObject effect1 = Instantiate<GameObject> (data.prefabShockwave, position, rotation);
+        effect1.GetComponent<SpunUpDirt>().moveLeft = false;
+
+        GameObject effect2 = Instantiate<GameObject> (data.prefabShockwave, position, rotation);
+        effect2.GetComponent<SpunUpDirt>().moveLeft = true;
 
         // Wait a little bit to catch our breath
         _phase = Phase.Wait;
