@@ -50,6 +50,6 @@ abstract public class Entity : MonoBehaviour {
             moveDirection = new Vector2(1, 1);
         }
         Debug.Log(moveDirection.normalized);
-        _rigidbody.AddForce(moveDirection.normalized * 200f);
+        _rigidbody.velocity = moveDirection.normalized * 10f;
     }
 }
