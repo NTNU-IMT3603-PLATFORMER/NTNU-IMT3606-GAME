@@ -78,7 +78,7 @@ public class PlayerTransformation : MonoBehaviour {
 
         _playerCombat.attackRange = data.attackRange;
 
-        _playerCombat.attackRate = data.attackRate;
+        _playerCombat.attackCooldown = data.attackCooldown;
         
         foreach (Transform child in Transformations) {
             child.gameObject.SetActive(false);
