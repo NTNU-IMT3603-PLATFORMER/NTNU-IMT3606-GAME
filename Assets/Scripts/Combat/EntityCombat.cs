@@ -61,7 +61,6 @@ public abstract class EntityCombat : MonoBehaviour {
         IEnumerable<Entity> uniqueEntities = hitEnemies.Select(c => c.GetComponentInParent<Entity>()).Distinct();
 
         foreach(Entity entity in uniqueEntities) {
-            Debug.Log("We hit " + entity.name);
             entity.InflictDamage(damage);
         }
 
