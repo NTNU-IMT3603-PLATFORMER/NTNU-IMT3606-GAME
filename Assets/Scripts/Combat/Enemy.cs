@@ -36,7 +36,7 @@ public class Enemy : Entity
 
 
     public override void Respawn() {
-        GameObject clone = (GameObject)Instantiate(_entityPrefab, respawnPoint.position, Quaternion.identity);
+        GameObject clone = (GameObject)Instantiate(Resources.Load<GameObject>("CoolEnemy"), respawnPoint.position, Quaternion.identity);
         LastEnemy = GameObject.Find(_entityPrefab.name + "(Clone)");
         LastEnemy.name = _entityPrefab.name;
         
@@ -46,10 +46,10 @@ public class Enemy : Entity
         Debug.Log("Enemy died!");
 
         //gameObject.SetActive(false);
+        
+        
         Respawn();
         Destroy(gameObject);
-        
-        
 
     }
 
