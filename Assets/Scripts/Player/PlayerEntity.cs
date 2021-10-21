@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class PlayerEntity : Entity {
 
-    public Transform respawnPoint;
+    Transform _respawnPoint;
+    Cinemachine.CinemachineVirtualCamera _playerCamera;
+
+    void Start () {
+        _respawnPoint = GameObject.FindWithTag("PlayerRespawnPoint").transform;
+        _playerCamera = GameObject.FindWithTag("MainCamera").GetComponentInParent<Cinemachine.CinemachineVirtualCamera>();
+    }
 
     public override void Respawn() {
-        Instantiate(Resources.Load<GameObject>("Player1"), respawnPoint.position, Quaternion.identity);
+        GameObject newPlayer = Instantiate(Resources.Load<GameObject>("Player"), _respawnPoint.position, Quaternion.identity);
+        _playerCamera.Follow = newPlayer.transform;
     }
 
     public override void Die() {

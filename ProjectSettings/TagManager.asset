@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Boundary
   - MovingPlatform
+  - PlayerRespawnPoint
   layers:
   - Default
   - TransparentFX

@@ -11,9 +11,9 @@ public class PlayerAnimation : MonoBehaviour {
     PlayerTransformation _playerTransformation;
 
     void Start() {
-        _playerMovement = GetComponent<PlayerMovement>();
-        _playerCombat = GetComponent<PlayerCombat>();
-        _playerTransformation = GetComponent<PlayerTransformation>();
+        _playerMovement = GetComponentInParent<PlayerMovement>();
+        _playerCombat = GetComponentInParent<PlayerCombat>();
+        _playerTransformation = GetComponentInParent<PlayerTransformation>();
 
         _playerCombat.eventOnAttack.AddListener(AttackAnimationListener);
         _playerTransformation.eventOnTransform.AddListener(TransformAnimationListener);
