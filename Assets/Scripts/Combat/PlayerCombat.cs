@@ -74,7 +74,7 @@ public class PlayerCombat : Entity {
 
 
     public override void Respawn() {
-        Instantiate(_entityPrefab, respawnPoint.position, Quaternion.identity);
+        Instantiate(Resources.Load<GameObject>("Player1"), respawnPoint.position, Quaternion.identity);
     }
 
     public override void Die() {
