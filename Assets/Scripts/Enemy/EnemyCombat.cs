@@ -4,22 +4,13 @@ using UnityEngine;
 
 public class EnemyCombat : EntityCombat {
 
-    [SerializeField, Tooltip("How often the enemy can attack")]
-    float _attackRate;
-
-    EnemyEntity _enemy;
-
     float _timeLeftToAllowAttack;
 
     public void AttackIfPossible (float attackMultiplier = 1f) {
         if (_timeLeftToAllowAttack <= 0f) {
-            Attack((int)(_enemy.baseDamage * attackMultiplier));
-            _timeLeftToAllowAttack = _attackRate;
+            Attack((int)(baseDamage * attackMultiplier));
+            _timeLeftToAllowAttack = attackRate;
         }
-    }
-
-    void Start () {
-        _enemy = GetComponent<EnemyEntity>();
     }
 
     void Update () {

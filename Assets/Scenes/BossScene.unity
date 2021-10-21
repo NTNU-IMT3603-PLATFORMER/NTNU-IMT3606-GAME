@@ -25187,12 +25187,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459beac7f2fcd9947b339f5eeb3bca9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseDamage: 0
   _attackRange: 1
+  _attackRate: 2
   attackPoint: {fileID: 426352859}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
-  _attackRate: 2
 --- !u!114 &1303758964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25205,22 +25206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e75db107cf2c3bc71b3705967346f8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 0}
   _health: 10
-  _baseDamage: 5
   _invincible: 0
---- !u!114 &1303758965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1303758962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e24e8b4d0a1ea139647b218df4a72c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterController2D: {fileID: 0}
+  respawnPoint: {fileID: 0}
 --- !u!1 &1336636613
 GameObject:
   m_ObjectHideFlags: 0
@@ -26573,9 +26562,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ad08c2b84e88fa0bceefc0ed02c12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 0}
   _health: 10
-  _baseDamage: 2
   _invincible: 0
+  _playerLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  _contactDamageRate: 0
+  respawnPoint: {fileID: 0}
+  LastEnemy: {fileID: 0}
 --- !u!114 &1608138113825728563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26588,12 +26583,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39aadaeb3e2bc54f5aafae0ecce09e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseDamage: 0
   _attackRange: 1
+  _attackRate: 1
   attackPoint: {fileID: 402330291}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  _attackRate: 1
 --- !u!4 &1608138113825728569 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4725855602142787623, guid: f1dd6958143dcc2209fd61e853d49530, type: 3}

@@ -5,43 +5,6 @@ using UnityEngine.Events;
 
 public class PlayerCombat : EntityCombat {
 
-    public Transform respawnPoint;
-    [SerializeField, Tooltip("What prefab to respawn")]
-    GameObject _entityPrefab;
-
-    [SerializeField, Tooltip("The range of the player attack as a float")]
-    float _attackRange;
-    [SerializeField, Tooltip("How often the player can attack")]
-    float _attackRate;
-
-    [SerializeField, Tooltip("The attack point of the player")]
-    Transform _attackPoint;
-    [SerializeField, Tooltip("The layer which should be counted as enemies")]
-    LayerMask _enemyLayers;
-
-    /// <summary>
-    /// The range of the player attack
-    /// </summary>
-    public float attackRange {
-        get => _attackRange;
-        set => _attackRange = value;
-    }
-
-    /// <summary>
-    /// How often the player can attack
-    /// </summary>
-    public float attackRate {
-        get => _attackRate;
-        set => _attackRate = value;
-    }
-
-    UnityEvent _eventOnAttack = new UnityEvent();
-
-    /// <summary>
-    /// Unity event for when the player is attacking
-    /// </summary>
-    public UnityEvent eventOnAttack => _eventOnAttack;
-
     Entity _player;
     float _nextAttackTime;
 
@@ -53,30 +16,12 @@ public class PlayerCombat : EntityCombat {
     void Update() {
         if (_nextAttackTime <= 0) {
             if (Input.GetButtonDown("Attack")) {
-                Attack(_player.baseDamage);
-                _nextAttackTime = _attackRate;
+                Attack(baseDamage);
+                _nextAttackTime = attackRate;
             }
         } else {
             _nextAttackTime -= Time.deltaTime; 
         }
-    }
-
-    void Attack() {
-        // Invokes the listener of eventOnAttack 
-        eventOnAttack.Invoke();
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayers);
-
-        foreach(Collider2D enemy in hitEnemies) {
-            Debug.Log("We hit " + enemy.name);
-            enemy.GetComponent<EnemyEntity>().InflictDamage(_player.baseDamage);
-        }
-    }
-    
-    private void OnDrawGizmosSelected() {
-        if (_attackPoint == null)
-            return;
-
-        Gizmos.DrawWireSphere(_attackPoint.position, _attackRange);
     }
 
 }

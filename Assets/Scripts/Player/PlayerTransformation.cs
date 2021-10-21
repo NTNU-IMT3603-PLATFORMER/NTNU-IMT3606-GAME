@@ -43,9 +43,6 @@ public class PlayerTransformation : MonoBehaviour {
     /// </summary>
     /// <param name="transformation">Is of type enum</param>
     public void TransformInto(Transformation transformation) {
-
-        
-
         PlayerTransformationData data = null;
         switch (transformation) {
             case Transformation.Druid:
@@ -90,8 +87,6 @@ public class PlayerTransformation : MonoBehaviour {
         data.transformationState.SetActive(true);
         eventOnTransform.Invoke();
     }
-        
-   
 
     void Start() {
         _characterController2D = GetComponent<CharacterController2D>();
