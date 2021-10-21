@@ -6,23 +6,14 @@ using UnityEngine.Events;
 
 public abstract class EntityCombat : MonoBehaviour {
 
-    [SerializeField, Tooltip("The damage the entity does to other entities")]   int _baseDamage;
-    [SerializeField, Tooltip("The range of the player attack as a float")]
-    float _attackRange;
-    [SerializeField, Tooltip("How often the player can attack")]
-    float _attackRate;
+    [SerializeField, Tooltip("The damage the entity does to other entities")]       int _baseDamage;
+    [SerializeField, Tooltip("The range of the entity attack as a float")]          float _attackRange;
+    [SerializeField, Tooltip("How often the entity can attack")]                    float _attackCooldown;
 
-    [SerializeField, Tooltip("The attack point of the player")]
-    Transform attackPoint;
-    [SerializeField, Tooltip("The layer which should be counted as enemies")]
-    LayerMask enemyLayers;
+    [SerializeField, Tooltip("The attack point of the player")]                     Transform attackPoint;
+    [SerializeField, Tooltip("The layer(s) which should be counted as enemies")]    LayerMask enemyLayers;
 
     UnityEvent _eventOnAttack = new UnityEvent();
-
-    /// <summary>
-    /// Unity event for when the player is attacking
-    /// </summary>
-    public UnityEvent eventOnAttack => _eventOnAttack;
 
     /// <summary>
     /// The damage the entity does to other entities
@@ -41,12 +32,21 @@ public abstract class EntityCombat : MonoBehaviour {
     }
 
     /// <summary>
-    /// How often the player can attack
+    /// Controls how often the player can attack
     /// </summary>
-    public float attackRate {
-        get => _attackRate;
-        set => _attackRate = value;
+    public float attackCooldown {
+        get => _attackCooldown;
+        set => _attackCooldown = value;
     }
+
+    public float timeLeftToAllowAttack { get; protected set; }
+
+    /// <summary>
+    /// Unity event for when the player is attacking
+    /// </summary>
+    public UnityEvent eventOnAttack => _eventOnAttack;
+
+    public bool canAttack => timeLeftToAllowAttack <= 0f;
 
     /// <summary>
     /// Perform an attack.
@@ -64,6 +64,21 @@ public abstract class EntityCombat : MonoBehaviour {
             Debug.Log("We hit " + entity.name);
             entity.InflictDamage(damage);
         }
+
+        timeLeftToAllowAttack = attackCooldown;
+    }
+
+    /// <summary>
+    /// Will be called every Update
+    /// </summary>
+    public virtual void UpdateCombat () {
+        if (timeLeftToAllowAttack > 0) {
+            timeLeftToAllowAttack -= Time.deltaTime; 
+        }
+    }
+
+    void Update () {
+        UpdateCombat();
     }
 
     void OnDrawGizmosSelected() {

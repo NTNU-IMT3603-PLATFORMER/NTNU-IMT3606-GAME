@@ -219,6 +219,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13837530}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &21451840 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2139015949, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+  m_PrefabInstance: {fileID: 1303758961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &31718210
 GameObject:
   m_ObjectHideFlags: 3
@@ -25104,10 +25109,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 211268840, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: m_Name
+      value: Transformations
+      objectReference: {fileID: 0}
+    - target: {fileID: 733198179, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+      propertyPath: _druidData._transformationState
+      value: 
+      objectReference: {fileID: 21451840}
     - target: {fileID: 8949481511618684597, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: _playerCombat
       value: 
-      objectReference: {fileID: 1303758963}
+      objectReference: {fileID: 0}
     - target: {fileID: 8949481511618684602, guid: a9c50bbe9e264312f84234025713989d, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -25187,9 +25200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459beac7f2fcd9947b339f5eeb3bca9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 0
-  _attackRange: 1
-  _attackRate: 2
+  _baseDamage: 1
+  _attackRange: 2
+  _attackCooldown: 1
   attackPoint: {fileID: 426352859}
   enemyLayers:
     serializedVersion: 2
@@ -25206,10 +25219,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e75db107cf2c3bc71b3705967346f8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 1303758969}
   _health: 10
   _invincible: 0
   respawnPoint: {fileID: 0}
+--- !u!50 &1303758969 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8949481511618684601, guid: a9c50bbe9e264312f84234025713989d, type: 3}
+  m_PrefabInstance: {fileID: 1303758961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1336636613
 GameObject:
   m_ObjectHideFlags: 0
@@ -26585,7 +26603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseDamage: 0
   _attackRange: 1
-  _attackRate: 1
+  _attackCooldown: 0
   attackPoint: {fileID: 402330291}
   enemyLayers:
     serializedVersion: 2

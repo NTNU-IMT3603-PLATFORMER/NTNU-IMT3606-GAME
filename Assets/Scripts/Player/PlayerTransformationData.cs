@@ -51,7 +51,7 @@ public class PlayerTransformationData {
     float _attackRange;
 
     [SerializeField]
-    float _attackRate;
+    float _attackCooldown;
 
     public float jumpHeight => _jumpHeight;
     public bool enableWallSlide => _enableWallSlide;
@@ -66,6 +66,6 @@ public class PlayerTransformationData {
 
     public int baseDamage => _baseDamage;
     public float attackRange => _attackRange;
-    public float attackRate => _attackRate;
+    public float attackCooldown => _attackCooldown;
 }
   
