@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EntityCombat : MonoBehaviour {
+public abstract class EntityCombat : MonoBehaviour {
 
+    [SerializeField, Tooltip("The damage the entity does to other entities")]   int _baseDamage;
     [SerializeField, Tooltip("The range of the player attack as a float")]
     float _attackRange;
+    [SerializeField, Tooltip("How often the player can attack")]
+    float _attackRate;
 
     [SerializeField, Tooltip("The attack point of the player")]
     Transform attackPoint;
@@ -20,6 +23,30 @@ public class EntityCombat : MonoBehaviour {
     /// Unity event for when the player is attacking
     /// </summary>
     public UnityEvent eventOnAttack => _eventOnAttack;
+
+    /// <summary>
+    /// The damage the entity does to other entities
+    /// </summary>
+    public int baseDamage {
+        get => _baseDamage;
+        set => _baseDamage = value;
+    }
+
+    /// <summary>
+    /// The range of the player attack
+    /// </summary>
+    public float attackRange {
+        get => _attackRange;
+        set => _attackRange = value;
+    }
+
+    /// <summary>
+    /// How often the player can attack
+    /// </summary>
+    public float attackRate {
+        get => _attackRate;
+        set => _attackRate = value;
+    }
 
     /// <summary>
     /// Perform an attack.
@@ -45,6 +72,5 @@ public class EntityCombat : MonoBehaviour {
 
         Gizmos.DrawWireSphere(attackPoint.position, _attackRange);
     }
-
 
 }
