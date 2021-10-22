@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &171724910622258903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1794115572780841516}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1794115572780841516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171724910622258903}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.96, y: 0.06, z: -3.4938848}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6109901076284374993}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6109901076284375006
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +43,8 @@ GameObject:
   - component: {fileID: 6109901076284374995}
   - component: {fileID: 6109901076284375004}
   - component: {fileID: 6109901076284375005}
-  - component: {fileID: 6475781845616684659}
+  - component: {fileID: 2893841025299573231}
+  - component: {fileID: 7944877114959693317}
   m_Layer: 8
   m_Name: CoolEnemy
   m_TagString: Untagged
@@ -31,7 +62,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.09, y: -0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1794115572780841516}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74,7 +106,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 8596640243658272642, guid: 5d4daff38e3d9174b873918abcf2c1d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -147,9 +179,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 1
   _followDistance: 5
-  _patrolMode: 1
+  _patrolMode: 0
   _isGroundEnemy: 1
---- !u!114 &6475781845616684659
+--- !u!114 &2893841025299573231
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,10 +190,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 6109901076284375006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a7bcf557b81a364ea0ff60f2ce9d0c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 39aadaeb3e2bc54f5aafae0ecce09e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 3
   _baseDamage: 1
-  respawnPoint: {fileID: 3835879522741948915, guid: 615c0d0b6d06b514eb29ea0a745af653, type: 3}
-  _entityPrefab: {fileID: 6109901076284375006}
+  _attackRange: 0.5
+  _attackCooldown: 1
+  attackPoint: {fileID: 1794115572780841516}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &7944877114959693317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109901076284375006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81ad08c2b84e88fa0bceefc0ed02c12d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 6109901076284374995}
+  _health: 5
+  _invincible: 0
+  _playerLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  _contactDamageRate: 1
+  respawnPoint: {fileID: 0}
+  LastEnemy: {fileID: 0}
