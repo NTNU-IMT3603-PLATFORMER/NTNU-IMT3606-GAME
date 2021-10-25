@@ -76,12 +76,11 @@ public class EnemyMovement : MonoBehaviour
     void FollowPlayerMovement(float yVelocity) {
         // This makes the enemy move towards the player
         // Uses + 1 to make the enemy stop infront of the player
-        if (isToTheRight) {
-            _sr.flipX = false;
-            _enemyBody.velocity = new Vector2(-_speed, yVelocity);
-        } else  if (isToTheLeft){
-            _sr.flipX = true;
-            _enemyBody.velocity = new Vector2(_speed, yVelocity);
+        _enemyBody.velocity = new Vector2(isToTheRight ? -_speed : _speed, yVelocity);
+
+        if ((isToTheRight && transform.localScale.x < 0) || (isToTheLeft && transform.localScale.x > 0)) {
+            // Flip enemy
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
     }
 
