@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3282305385520948244}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Transformations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3282305385969106158}
   - component: {fileID: 3282305385969106153}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Owl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3282305386374934345}
   - component: {fileID: 3282305386374934350}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: PolarBear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3282305386918378488}
   - component: {fileID: 3282305386918378491}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: DesertCat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 852165501}
   - component: {fileID: 852165504}
   - component: {fileID: 852165502}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Druid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
