@@ -19,9 +19,10 @@ public class EnemyEntity : Entity {
     public UnityEvent eventOnDeath => _eventOnDeath;
 
     public override void Respawn() {
+        // TODO: Should probably cache this at some point in the future
         GameObject prefab = Resources.Load<GameObject>("CoolEnemy");
 
-        GameObject clone = (GameObject)Instantiate(prefab, respawnPoint.position, Quaternion.identity);
+        GameObject clone = Instantiate<GameObject>(prefab, respawnPoint.position, Quaternion.identity);
         clone.name = prefab.name;
     }
 

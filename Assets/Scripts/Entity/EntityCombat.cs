@@ -60,7 +60,10 @@ public abstract class EntityCombat : MonoBehaviour {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, _attackRange, enemyLayers);
 
         // We want unique entities because some entities might have multiple colliders
-        IEnumerable<Entity> uniqueEntities = hitEnemies.Select(c => c.GetComponentInParent<Entity>()).Distinct();
+        IEnumerable<Entity> uniqueEntities = hitEnemies
+            .Select(c => c.GetComponentInParent<Entity>())
+            .Where(c => c != null)
+            .Distinct();
 
 
         foreach(Entity entity in uniqueEntities) {
