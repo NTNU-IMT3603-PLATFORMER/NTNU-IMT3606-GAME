@@ -11,9 +11,8 @@ public abstract class EntityCombat : MonoBehaviour {
     [SerializeField, Tooltip("How often the entity can attack")]                            float _attackCooldown;
     [SerializeField, Tooltip("How much the entities attack will knockback the opponent")]   float _knockbackAmount;
 
-    [SerializeField, Tooltip("The attack point of the player")]                             Transform attackPoint;
-    [SerializeField, Tooltip("The layer(s) which should be counted as enemies")]            LayerMask enemyLayers;
-
+    [SerializeField, Tooltip("The attack point of the entity")]                             Transform _attackPoint;
+    [SerializeField, Tooltip("The layer(s) which should be counted as enemies")]            LayerMask _enemyLayers;
 
     UnityEvent _eventOnAttack = new UnityEvent();
 
@@ -26,7 +25,7 @@ public abstract class EntityCombat : MonoBehaviour {
     }
 
     /// <summary>
-    /// The range of the player attack
+    /// The range of the entity attack
     /// </summary>
     public float attackRange {
         get => _attackRange;
@@ -34,17 +33,25 @@ public abstract class EntityCombat : MonoBehaviour {
     }
 
     /// <summary>
-    /// Controls how often the player can attack
+    /// Controls how often the entity can attack
     /// </summary>
     public float attackCooldown {
         get => _attackCooldown;
         set => _attackCooldown = value;
     }
 
+    /// <summary>
+    /// The attack point of the entity
+    /// </summary>
+    public Transform attackPoint {
+        get => _attackPoint;
+        set => _attackPoint = value;
+    }
+
     public float timeLeftToAllowAttack { get; protected set; }
 
     /// <summary>
-    /// Unity event for when the player is attacking
+    /// Unity event for when the entity is attacking
     /// </summary>
     public UnityEvent eventOnAttack => _eventOnAttack;
 
@@ -57,7 +64,7 @@ public abstract class EntityCombat : MonoBehaviour {
     public virtual void Attack(int damage) {
         // Invokes the listener of eventOnAttack 
         eventOnAttack.Invoke();
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, _attackRange, enemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, _attackRange, _enemyLayers);
 
         // We want unique entities because some entities might have multiple colliders
         IEnumerable<Entity> uniqueEntities = hitEnemies
