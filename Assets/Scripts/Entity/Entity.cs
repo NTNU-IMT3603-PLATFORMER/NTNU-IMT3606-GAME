@@ -6,14 +6,16 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour {
 
     [SerializeField, Tooltip("The rigidbody of the entity")]                        Rigidbody2D _rigidbody;
-    [SerializeField, Tooltip("The health of the entity")]                           int _health;
+    [SerializeField, Tooltip("The health of the entity")]                           int _health = 10;
     [SerializeField, Tooltip("If true, inflicting damage will have no effect")]     bool _invincible;
     [SerializeField, Tooltip("The color the entity will get when hit")]             Color _onhitColor;
+    [SerializeField, Tooltip("Time to respawn after death")]                        float _respawnTime = 10f;
+    [SerializeField, Tooltip("Should the entity respawn after death?")]             bool _shouldRespawn = true;
 
     CharacterController2D _characterController2D;
     Renderer _renderer;
 
-    public void Awake() {
+    void Awake() {
         _characterController2D = GetComponent<CharacterController2D>();
         _renderer = GetComponentInChildren<Renderer>();
     }
@@ -31,8 +33,31 @@ public abstract class Entity : MonoBehaviour {
         set => _invincible = value;
     }
 
+    /// <summary>
+    /// Should the entity respawn after death?
+    public bool shouldRespawn {
+        get => _shouldRespawn;
+        set => _shouldRespawn = value;
+    }
+
     public abstract void Respawn();
     public abstract void Die();
+
+    /// <summary>
+    /// Call respawn after provided amount of seconds.
+    /// Works even if you destroy this entity
+    /// </summary>
+    public void RespawnAfterSeconds (float seconds) {
+        RunAfterSeconds.Create(seconds, () => Respawn());
+    }
+
+    /// <summary>
+    /// Respawn entity after waiting respawn time.
+    /// Works even if you destroy this entity
+    /// </summary>
+    public void RespawnAfterRespawnTime () {
+        RespawnAfterSeconds(_respawnTime);
+    }
 
     /// <summary>
     /// Called every update. 
@@ -84,7 +109,7 @@ public abstract class Entity : MonoBehaviour {
         yield return new WaitForSeconds(0.3f);
         _characterController2D.isHit = false;
     }
-    
+
     void Update () {
         UpdateEntity();
     }

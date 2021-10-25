@@ -29,9 +29,19 @@ public class EnemyEntity : Entity {
         Debug.Log("Enemy died!");
         
         eventOnDeath.Invoke();
-        Respawn();
         Destroy(gameObject);
 
+        if (shouldRespawn) {
+            RespawnAfterRespawnTime();
+        }
+    }
+
+    void Start () {
+        // Auto-generate respawn point if a manual one is not set
+        if (respawnPoint == null) {
+            respawnPoint = new GameObject("EnemyRespawnPoint (auto-generated)").transform;
+            respawnPoint.position = transform.position;
+        }
     }
 
 }
