@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyCombat : EntityCombat {
 
-    PlayerEntity _player;
-
     public void AttackIfPossible (float attackMultiplier = 1f) {
         if (canAttack) {
             Attack((int)(baseDamage * attackMultiplier));
@@ -15,13 +13,9 @@ public class EnemyCombat : EntityCombat {
     public override void UpdateCombat() {
         base.UpdateCombat();
 
-        if (_player.transform.position.ToVec2().IsWithinDistanceOf(attackPoint.position, attackRange)) {
+        if (PlayerEntity.INSTANCE.transform.position.ToVec2().IsWithinDistanceOf(attackPoint.position, attackRange)) {
             AttackIfPossible();
         }
-    }
-
-    void Start () {
-        _player = GameObject.FindWithTag("Player").GetComponent<PlayerEntity>();
     }
 
 }

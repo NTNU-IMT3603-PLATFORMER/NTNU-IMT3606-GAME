@@ -15,17 +15,15 @@ public class HUD : MonoBehaviour{
     [SerializeField]
     Sprite _heart_empty;
 
-    PlayerEntity _playerEntity;
     Image[] _hearts;
 
     void Start () {
         _hearts = _heartsHolder.GetComponentsInChildren<Image>();
-        _playerEntity = GameObject.FindWithTag("Player").GetComponent<PlayerEntity>();
     }
 
     void Update() {
         for (int i = 0; i < _hearts.Length; i++) {
-            if(i <= _playerEntity.health) {
+            if(i <= PlayerEntity.INSTANCE.health) {
                 _hearts[i].sprite = _heart_full;
             } else {
                 _hearts[i].sprite = _heart_empty;
