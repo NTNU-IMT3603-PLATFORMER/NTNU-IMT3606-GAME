@@ -27,7 +27,7 @@ public abstract class Entity : MonoBehaviour {
     public abstract void Respawn();
     public abstract void Die();
 
-    public virtual void InflictDamage(int damage) {
+    public virtual void InflictDamage(int damage, Transform opponentTransform) {
         if (invincible) {
             return;
         }
@@ -38,24 +38,21 @@ public abstract class Entity : MonoBehaviour {
             Die();
         }
 
-        Knockback();
+        Knockback(opponentTransform);
     }
 
-    public void Knockback() {
-        Collider2D[] otherEntity = Physics2D.OverlapBoxAll(_rigidbody.transform.position, new Vector2(1,1), 0);
-        Vector2 moveDirection = new Vector2(0,0);
-        foreach(Collider2D entity in otherEntity) {
-            if(entity.tag != _rigidbody.tag) {
-                moveDirection = _rigidbody.transform.position - entity.transform.position;
-                Debug.Log(entity.tag);
-            }
-        }
-        
-        if(moveDirection == new Vector2(0,0)) {
-            moveDirection = new Vector2(1, 1);
+    public void Knockback(Transform opponentTransform) {
+        Vector2 moveDirection = _rigidbody.transform.position - opponentTransform.transform.position;
+
+        if(moveDirection == Vector2.zero) {
+            moveDirection = Vector2.one;
         }
         Debug.Log(moveDirection.normalized);
         _rigidbody.velocity = moveDirection.normalized * 10f;
+    }
+
+    public void onhitFlash() {
+        
     }
     
 }
