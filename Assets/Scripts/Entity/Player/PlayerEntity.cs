@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class PlayerEntity : Entity {
 
+    const string RESPAWN_TAG = "PlayerRespawnPoint";
+
     Transform _respawnPoint;
     Cinemachine.CinemachineVirtualCamera _playerCamera;
 
     void Start () {
-        _respawnPoint = GameObject.FindWithTag("PlayerRespawnPoint").transform;
+        _respawnPoint = GameObject.FindWithTag(RESPAWN_TAG)?.transform;
+
+        if (_respawnPoint == null) {
+            Debug.LogError($"Respawn point not found! Create a new empty gameobject and assign it tag '{RESPAWN_TAG}' and make sure it is not disabled!");
+        }
+
         _playerCamera = GameObject.FindWithTag("MainCamera").GetComponentInParent<Cinemachine.CinemachineVirtualCamera>();
     }
 
