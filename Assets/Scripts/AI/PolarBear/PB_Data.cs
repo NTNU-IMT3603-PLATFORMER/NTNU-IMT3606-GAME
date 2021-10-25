@@ -11,7 +11,7 @@ public class PB_Data : MonoBehaviour {
     [SerializeField, Tooltip("The effect that should be spawned when performing shockwave attack")]     GameObject _prefabShockwave;
     [SerializeField, Tooltip("Offset for prefabShockwave position when spawned")]                       Vector3 _prefabShockwaveOffset = new Vector3(0f, -0.5f, 0f);
 
-    public GameObject player { get; private set; }
+    public GameObject player => PlayerEntity.INSTANCE.gameObject;
 
     public CharacterController2D characterController2D { get; private set; }
     public EnemyEntity enemyEntity { get; private set; }
@@ -28,7 +28,6 @@ public class PB_Data : MonoBehaviour {
     }
 
     void Start () {
-        player = GameObject.FindWithTag("Player");
         characterController2D = GetComponentInParent<CharacterController2D>();
         enemyEntity = GetComponentInParent<EnemyEntity>();
     }

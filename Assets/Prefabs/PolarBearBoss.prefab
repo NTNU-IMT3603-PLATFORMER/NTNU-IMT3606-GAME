@@ -428,12 +428,13 @@ MonoBehaviour:
   _rigidbody: {fileID: 4725855602142787621}
   _health: 10
   _invincible: 0
+  _respawnTime: 10
+  _shouldRespawn: 0
   _playerLayers:
     serializedVersion: 2
     m_Bits: 128
   _contactDamageRate: 0.5
   respawnPoint: {fileID: 0}
-  LastEnemy: {fileID: 0}
 --- !u!114 &1608138113825728563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,7 +450,7 @@ MonoBehaviour:
   _baseDamage: 2
   _attackRange: 1
   _attackCooldown: 1
-  attackPoint: {fileID: 402330291}
-  enemyLayers:
+  _attackPoint: {fileID: 402330291}
+  _enemyLayers:
     serializedVersion: 2
     m_Bits: 128

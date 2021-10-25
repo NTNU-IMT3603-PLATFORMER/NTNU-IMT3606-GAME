@@ -5,15 +5,9 @@ using UnityEngine.Events;
 
 public class EnemyEntity : Entity {
 
-    [SerializeField, Tooltip("The layer which contains the player character")]
-    LayerMask _playerLayers;
-    [SerializeField, Tooltip("How often the enemy can do contact damage")]
-    float _contactDamageRate;
-
-    public Transform respawnPoint;
-    [SerializeField, Tooltip("What prefab to respawn")]
-    GameObject LastEnemy;
-    GameObject enemy;
+    [SerializeField, Tooltip("The layer which contains the player character")]  LayerMask _playerLayers;
+    [SerializeField, Tooltip("How often the enemy can do contact damage")]      float _contactDamageRate;
+    [SerializeField, Tooltip("Point where entity will respawn if applicable")]  Transform respawnPoint;
 
     UnityEvent _eventOnDeath = new UnityEvent();
     public UnityEvent eventOnDeath => _eventOnDeath;
@@ -40,7 +34,7 @@ public class EnemyEntity : Entity {
     void Start () {
         // Auto-generate respawn point if a manual one is not set
         if (respawnPoint == null) {
-            respawnPoint = new GameObject("EnemyRespawnPoint (auto-generated)").transform;
+            respawnPoint = new GameObject("(AUTO) EnemyRespawnPoint").transform;
             respawnPoint.position = transform.position;
         }
     }
