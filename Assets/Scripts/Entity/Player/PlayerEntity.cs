@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class PlayerEntity : Entity {
 
+    /// <summary>
+    /// Global instance of PlayerEntity
+    /// Use this for reference, as normal
+    /// references will be destroyed when 
+    /// player dies!
+    /// </summary>
+    public static PlayerEntity INSTANCE { get; private set; }
+
     const string RESPAWN_TAG = "PlayerRespawnPoint";
 
     Transform _respawnPoint;
     Cinemachine.CinemachineVirtualCamera _playerCamera;
 
     void Start () {
+        INSTANCE = this;
         _respawnPoint = GameObject.FindWithTag(RESPAWN_TAG)?.transform;
 
         if (_respawnPoint == null) {
@@ -20,6 +29,8 @@ public class PlayerEntity : Entity {
     }
 
     public override void Respawn() {
+        INSTANCE = this;
+
         GameObject newPlayer = Instantiate(Resources.Load<GameObject>("Player"), _respawnPoint.position, Quaternion.identity);
         _playerCamera.Follow = newPlayer.transform;
     }

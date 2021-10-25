@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
-{
+public class EnemyMovement : MonoBehaviour {
     const string BOUNDARY_TAG = "Boundary";
-    const string PLAYER_TAG = "Player";
 
     [Header("Enemy Variables")]
     [SerializeField, Tooltip("The speed of the enemy")]
@@ -20,7 +18,6 @@ public class EnemyMovement : MonoBehaviour
     bool _isGroundEnemy;
 
     SpriteRenderer _sr;
-    Transform _target;
     Rigidbody2D _enemyBody;
 
     bool _moveRight;
@@ -44,21 +41,24 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     public bool isToTheLeft { get; private set; }
 
+    /// <summary>
+    /// Who should we go after and attack?
+    /// </summary>
+    public Transform target => PlayerEntity.INSTANCE.transform;
 
     // Start is called before the first frame update
     void Start() {
         // Gets all the relevant components needed
         _sr = GetComponent<SpriteRenderer>();
-        _target = GameObject.FindGameObjectWithTag(PLAYER_TAG).transform;
         _enemyBody = GetComponent<Rigidbody2D>();
 
         _followPlayer = false;
     }
 
     void FixedUpdate() {
-        isAbovePlayer = transform.position.y > _target.position.y + 1;
-        isToTheRight = transform.position.x > _target.position.x + 1;
-        isToTheLeft = transform.position.x + 1 < _target.position.x;
+        isAbovePlayer = transform.position.y > target.position.y + 1;
+        isToTheRight = transform.position.x > target.position.x + 1;
+        isToTheLeft = transform.position.x + 1 < target.position.x;
         CheckMovement(); 
     }
 
@@ -87,7 +87,7 @@ public class EnemyMovement : MonoBehaviour
 
     void CheckMovement() {
         // Player to enemy distance check
-        if ((Vector2.Distance(transform.position, _target.position) < _followDistance) && !_followPlayer && !_patrolMode) {
+        if ((Vector2.Distance(transform.position, target.position) < _followDistance) && !_followPlayer && !_patrolMode) {
             _followPlayer = true;
         }
 
