@@ -5,11 +5,10 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour {
 
-    [SerializeField, Tooltip("The rigidbody of the entity")]
-    Rigidbody2D _rigidbody;
-
-    [SerializeField, Tooltip("The health of the entity")]                       int _health;
-    [SerializeField, Tooltip("If true, inflicting damage will have no effect")] bool _invincible;
+    [SerializeField, Tooltip("The rigidbody of the entity")]                        Rigidbody2D _rigidbody;
+    [SerializeField, Tooltip("The health of the entity")]                           int _health;
+    [SerializeField, Tooltip("If true, inflicting damage will have no effect")]     bool _invincible;
+    [SerializeField, Tooltip("The color the entity will get when hit")]             Color _onhitColor;
 
     /// <summary>
     /// The health of the entity
@@ -38,6 +37,7 @@ public abstract class Entity : MonoBehaviour {
             Die();
         }
 
+        StartCoroutine(onhitFlash());
         Knockback(opponentTransform);
     }
 
@@ -51,8 +51,10 @@ public abstract class Entity : MonoBehaviour {
         _rigidbody.velocity = moveDirection.normalized * 10f;
     }
 
-    public void onhitFlash() {
-        
+    public IEnumerator onhitFlash() {
+        GetComponent<Renderer>().material.color = _onhitColor;
+        yield return new WaitForSeconds(0.3f);
+        GetComponent<Renderer>().material.color = Color.white;
     }
     
 }
