@@ -34,6 +34,17 @@ public abstract class Entity : MonoBehaviour {
     public abstract void Respawn();
     public abstract void Die();
 
+    /// <summary>
+    /// Called every update. 
+    /// Use this instead of regular Update
+    /// </summary>  
+    public virtual void UpdateEntity () {
+        // Die if falling outside world
+        if (transform.position.y < -100) {
+            Die();
+        }
+    }
+
     public virtual void InflictDamage(int damage, Transform opponentTransform, float knockbackAmount) {
         if (invincible) {
             return;
@@ -74,4 +85,8 @@ public abstract class Entity : MonoBehaviour {
         _characterController2D.isHit = false;
     }
     
+    void Update () {
+        UpdateEntity();
+    }
+
 }
