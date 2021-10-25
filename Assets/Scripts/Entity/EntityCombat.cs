@@ -60,8 +60,9 @@ public abstract class EntityCombat : MonoBehaviour {
         // We want unique entities because some entities might have multiple colliders
         IEnumerable<Entity> uniqueEntities = hitEnemies.Select(c => c.GetComponentInParent<Entity>()).Distinct();
 
+
         foreach(Entity entity in uniqueEntities) {
-            entity.InflictDamage(damage);
+            entity.InflictDamage(damage, transform);
         }
 
         timeLeftToAllowAttack = attackCooldown;
