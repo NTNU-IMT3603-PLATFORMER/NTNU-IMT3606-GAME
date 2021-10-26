@@ -118,6 +118,7 @@ public class CharacterController2D : MonoBehaviour {
         set => _maxDashes = value;
     }
 
+
     /// <summary>
     /// Is the player on ground?
     /// </summary>
@@ -169,6 +170,12 @@ public class CharacterController2D : MonoBehaviour {
     /// </summary>
     public int currentDashes { get; private set; }
 
+    /// <summary>
+    /// Check if the Character has been hit recently, used to stop movement to make knockback possible.
+    /// </summary>
+    public bool isHit { get; set; }
+
+
     public UnityEvent<Collider2D> eventOnGrounded => _eventOnGrounded;
     public UnityEvent eventOnLeftGround => _eventOnLeftGround;
     public UnityEvent eventOnJump => _eventOnJump;
@@ -192,6 +199,9 @@ public class CharacterController2D : MonoBehaviour {
     /// Should be called from FixedUpdate
     /// </summary>
     public void Move (bool isMovement, Vector2 movement, bool jump, bool dash) {
+        if(isHit) {
+            return;
+        }
         Vector2 targetVelocity = _rigidbody.velocity;
 
         // Update properties relating to state of player
