@@ -26,7 +26,7 @@ public abstract class Entity : MonoBehaviour {
     public abstract void Respawn();
     public abstract void Die();
 
-    public virtual void InflictDamage(int damage, Transform opponentTransform) {
+    public virtual void InflictDamage(int damage, Transform opponentTransform, float knockbackAmount) {
         if (invincible) {
             return;
         }
@@ -38,17 +38,19 @@ public abstract class Entity : MonoBehaviour {
         }
 
         StartCoroutine(onhitFlash());
-        Knockback(opponentTransform);
+        if (knockbackAmount != 0f) {
+            Knockback(opponentTransform, knockbackAmount);
+        }
     }
 
-    public void Knockback(Transform opponentTransform) {
+    public void Knockback(Transform opponentTransform, float knockbackAmount) {
         Vector2 moveDirection = _rigidbody.transform.position - opponentTransform.transform.position;
 
         if(moveDirection == Vector2.zero) {
             moveDirection = Vector2.one;
         }
         Debug.Log(moveDirection.normalized);
-        _rigidbody.velocity = moveDirection.normalized * 10f;
+        _rigidbody.velocity = moveDirection.normalized * knockbackAmount;
     }
 
     public IEnumerator onhitFlash() {
