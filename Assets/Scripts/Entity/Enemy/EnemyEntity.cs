@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyEntity : Entity {
 
@@ -14,6 +15,9 @@ public class EnemyEntity : Entity {
     GameObject LastEnemy;
     GameObject enemy;
 
+    UnityEvent _eventOnDeath = new UnityEvent();
+    public UnityEvent eventOnDeath => _eventOnDeath;
+
     public override void Respawn() {
         GameObject prefab = Resources.Load<GameObject>("CoolEnemy");
 
@@ -24,6 +28,7 @@ public class EnemyEntity : Entity {
     public override void Die() {
         Debug.Log("Enemy died!");
         
+        eventOnDeath.Invoke();
         Respawn();
         Destroy(gameObject);
 
