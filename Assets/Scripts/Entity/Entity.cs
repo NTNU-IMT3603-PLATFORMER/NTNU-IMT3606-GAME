@@ -10,6 +10,12 @@ public abstract class Entity : MonoBehaviour {
     [SerializeField, Tooltip("If true, inflicting damage will have no effect")]     bool _invincible;
     [SerializeField, Tooltip("The color the entity will get when hit")]             Color _onhitColor;
 
+    CharacterController2D _characterController2D;
+
+    public void Awake() {
+        _characterController2D = GetComponent<CharacterController2D>();
+    }
+
     /// <summary>
     /// The health of the entity
     /// </summary>
@@ -30,6 +36,7 @@ public abstract class Entity : MonoBehaviour {
         if (invincible) {
             return;
         }
+        _characterController2D.isHit = true;
 
         _health -= damage;
 
@@ -38,6 +45,7 @@ public abstract class Entity : MonoBehaviour {
         }
 
         StartCoroutine(onhitFlash());
+        StartCoroutine(onHitNoMove());
         if (knockbackAmount != 0f) {
             Knockback(opponentTransform, knockbackAmount);
         }
@@ -54,9 +62,14 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public IEnumerator onhitFlash() {
-        GetComponent<Renderer>().material.color = _onhitColor;
+        GetComponentInChildren<Renderer>().material.color = _onhitColor;
         yield return new WaitForSeconds(0.3f);
-        GetComponent<Renderer>().material.color = Color.white;
+        GetComponentInChildren<Renderer>().material.color = Color.white;
+    }
+
+    public IEnumerator onHitNoMove() {
+        yield return new WaitForSeconds(0.3f);
+        _characterController2D.isHit = false;
     }
     
 }
