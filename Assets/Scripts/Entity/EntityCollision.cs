@@ -20,6 +20,8 @@ public class EntityCollision : MonoBehaviour {
     public UnityEvent<Entity> eventOnEntityCollisionEnter => _eventOnEntityCollisionEnter;
     public UnityEvent<Entity> eventOnEntityCollisionExit => _eventOnEntityCollisionExit;
 
+    public bool IsCollidingWith (Entity entity) => _collidingEntities.ContainsKey(entity);
+
     void OnCollisionEnter2D(Collision2D collision) {
         AddColliderIfApplicable(collision.collider);
     }
