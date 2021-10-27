@@ -9,7 +9,7 @@ public class SpunUpDirt : MonoBehaviour {
     [SerializeField, Tooltip("Cooldown for inflicting damage to player")]   float _damageCooldown = 0.5f;
     [SerializeField, Tooltip("Radius for inflicting damage")]               float _damageRadius = 0.8f;
 
-    PlayerEntity _playerEntity;
+    PlayerEntity _playerEntity => PlayerEntity.INSTANCE;
     float _timeLeftToInflictDamage;
     bool _moveLeft;
 
@@ -19,10 +19,6 @@ public class SpunUpDirt : MonoBehaviour {
     public bool moveLeft {
         get => _moveLeft;
         set => _moveLeft = value;
-    }
-
-    void Start () {
-        _playerEntity = GameObject.FindWithTag("Player").GetComponent<PlayerEntity>();
     }
 
     void Update () {
