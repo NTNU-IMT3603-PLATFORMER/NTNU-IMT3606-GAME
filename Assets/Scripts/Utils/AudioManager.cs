@@ -8,10 +8,10 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
+    [SerializeField]
+    Sound[] _sounds;
 
-    public Sound[] sounds;
-
-    public static AudioManager instance;
+    public static AudioManager instance { get; private set;}
 
     // Start is called before the first frame update
     void Awake()
@@ -29,7 +29,7 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-      foreach(Sound s in sounds)
+      foreach(Sound s in _sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
    
     public void PlaySound (string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(_sounds, sound => sound.name == name);
         if(s == null)
         {
             return;
