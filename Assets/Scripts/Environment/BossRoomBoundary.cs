@@ -6,15 +6,13 @@ public class BossRoomBoundary : MonoBehaviour
 {
     AudioSource _bossMusic;
     AudioSource _journeyTheme;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    void OnTriggerEnter2D(Collider2D other) {
-        _bossMusic = GetComponent<AudioSource>();
+    void Start(){
+         _bossMusic = GetComponent<AudioSource>();
         _journeyTheme = GameObject.Find("LevelTheme").GetComponent<AudioSource>();
+    }
+    
+    void OnTriggerEnter2D(Collider2D other) {
         _journeyTheme.Stop();
         _bossMusic.Play();
     }
