@@ -699,56 +699,56 @@ MonoBehaviour:
   Transformations: {fileID: 3282305385520948244}
   _druidData:
     _transformationState: {fileID: 3282305386920188912}
-    _jumpHeight: 2
+    _jumpHeight: 2.5
     _extraAirJumps: 1
     _dashDistance: 4
-    _dashSpeed: 4
+    _dashSpeed: 20
     _maxDashes: 1
     _enableWallSlide: 1
     _enableWallJump: 1
     _enableDashing: 1
-    _baseDamage: 0
-    _attackRange: 0
-    _attackCooldown: 0
+    _baseDamage: 1
+    _attackRange: 0.7
+    _attackCooldown: 0.3
   _polarBearData:
     _transformationState: {fileID: 921692571276312867}
     _jumpHeight: 1
     _extraAirJumps: 0
     _dashDistance: 2
-    _dashSpeed: 2
+    _dashSpeed: 10
     _maxDashes: 1
     _enableWallSlide: 1
     _enableWallJump: 1
     _enableDashing: 1
-    _baseDamage: 0
-    _attackRange: 0
-    _attackCooldown: 0
+    _baseDamage: 5
+    _attackRange: 0.7
+    _attackCooldown: 1.5
   _desertCatData:
     _transformationState: {fileID: 4430601735309145805}
-    _jumpHeight: 1
+    _jumpHeight: 3.5
     _extraAirJumps: 1
-    _dashDistance: 1
-    _dashSpeed: 1
+    _dashDistance: 4
+    _dashSpeed: 40
     _maxDashes: 1
     _enableWallSlide: 1
     _enableWallJump: 1
     _enableDashing: 1
-    _baseDamage: 0
-    _attackRange: 0
-    _attackCooldown: 0
+    _baseDamage: 1
+    _attackRange: 0.7
+    _attackCooldown: 0.1
   _owlData:
     _transformationState: {fileID: 6614379699465943655}
-    _jumpHeight: 3
+    _jumpHeight: 4
     _extraAirJumps: 10
     _dashDistance: 4
-    _dashSpeed: 4
+    _dashSpeed: 20
     _maxDashes: 1
     _enableWallSlide: 1
     _enableWallJump: 0
     _enableDashing: 1
-    _baseDamage: 0
-    _attackRange: 0
-    _attackCooldown: 0
+    _baseDamage: 1
+    _attackRange: 0.7
+    _attackCooldown: 0.3
 --- !u!114 &3282305385595425023
 MonoBehaviour:
   m_ObjectHideFlags: 0
