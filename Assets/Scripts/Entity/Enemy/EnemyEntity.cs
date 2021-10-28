@@ -5,9 +5,10 @@ using UnityEngine.Events;
 
 public class EnemyEntity : Entity {
 
-    [SerializeField, Tooltip("The layer which contains the player character")]  LayerMask _playerLayers;
-    [SerializeField, Tooltip("How often the enemy can do contact damage")]      float _contactDamageRate;
-    [SerializeField, Tooltip("Point where entity will respawn if applicable")]  Transform respawnPoint;
+    [SerializeField, Tooltip("The layer which contains the player character")]      LayerMask _playerLayers;
+    [SerializeField, Tooltip("How often the enemy can do contact damage")]          float _contactDamageRate;
+    [SerializeField, Tooltip("Point where entity will respawn if applicable")]      Transform _respawnPoint;
+    [SerializeField, Tooltip("Time to wait until destroying object after death")]   float _lastBreathTime;
 
     UnityEvent _eventOnDeath = new UnityEvent();
     public UnityEvent eventOnDeath => _eventOnDeath;
@@ -16,7 +17,7 @@ public class EnemyEntity : Entity {
         // TODO: Should probably cache this at some point in the future
         GameObject prefab = Resources.Load<GameObject>("CoolEnemy");
 
-        GameObject clone = Instantiate<GameObject>(prefab, respawnPoint.position, Quaternion.identity);
+        GameObject clone = Instantiate<GameObject>(prefab, _respawnPoint.position, Quaternion.identity);
         clone.name = prefab.name;
     }
 
@@ -24,6 +25,11 @@ public class EnemyEntity : Entity {
         Debug.Log("Enemy died!");
         
         eventOnDeath.Invoke();
+        StartCoroutine(OnDie());
+    }
+
+    IEnumerator OnDie () {
+        yield return new WaitForSeconds(_lastBreathTime);
         Destroy(gameObject);
 
         if (shouldRespawn) {
@@ -33,9 +39,9 @@ public class EnemyEntity : Entity {
 
     void Start () {
         // Auto-generate respawn point if a manual one is not set
-        if (respawnPoint == null) {
-            respawnPoint = new GameObject("(AUTO) EnemyRespawnPoint").transform;
-            respawnPoint.position = transform.position;
+        if (_respawnPoint == null) {
+            _respawnPoint = new GameObject("(AUTO) EnemyRespawnPoint").transform;
+            _respawnPoint.position = transform.position;
         }
     }
 

@@ -102,14 +102,17 @@ public class EnemyMovement : MonoBehaviour {
                 _enemyBody.isKinematic = true;
             }
             _enemyBody.velocity = new Vector2(_speed, _enemyBody.velocity.y);
-            _sr.flipX = true;
+            // Flip
+            transform.localScale = new Vector3(-1.3f, transform.localScale.y, transform.localScale.z);
         } else {
             if (!_isGroundEnemy){
                 _enemyBody.isKinematic = true;
             }
             _enemyBody.velocity = new Vector2(-_speed, _enemyBody.velocity.y);
-            _sr.flipX = false;
+            // Flip
+            transform.localScale = new Vector3(1.3f, transform.localScale.y, transform.localScale.z);
         }
     }
+
 }
 
