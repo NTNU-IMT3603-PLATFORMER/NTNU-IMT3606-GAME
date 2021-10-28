@@ -31,7 +31,7 @@ public class PlayerEntity : Entity {
     public override void Respawn() {
         INSTANCE = this;
 
-        GameObject newPlayer = Instantiate(Resources.Load<GameObject>("Player"), _respawnPoint.position, Quaternion.identity);
+        GameObject newPlayer = Instantiate(Resources.Load<GameObject>("Player"), _respawnPoint.position.ToVec2(), Quaternion.identity);
         _playerCamera.Follow = newPlayer.transform;
     }
 
