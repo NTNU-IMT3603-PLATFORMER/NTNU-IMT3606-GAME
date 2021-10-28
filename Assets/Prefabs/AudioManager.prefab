@@ -50,27 +50,3 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: theme
-    clip: {fileID: 8300000, guid: a109c78ca3b890e458af97680f05002e, type: 3}
-    volume: 0.169
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: titletheme
-    clip: {fileID: 8300000, guid: 5bd2ff52852bc5943b5e54d6e269806e, type: 3}
-    volume: 0.169
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: journeytheme
-    clip: {fileID: 8300000, guid: a967368f12b32bb4b8977910d1c255cb, type: 3}
-    volume: 0.169
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: bossmusic
-    clip: {fileID: 8300000, guid: de29df385a081694fbaa11b9ee7cc359, type: 3}
-    volume: 0.169
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
