@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using System;
+using UnityEngine.SceneManagement;
 
 
 
@@ -11,6 +12,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     Sound[] _sounds;
 
+    private const string TUTORIAL_SCENE_NAME = "Level_tutorial";
+    private const string MAIN_MENU_SCENE_NAME = "StartMenu";
+
+    String _scene;
     public static AudioManager instance { get; private set;}
 
     // Start is called before the first frame update
@@ -52,6 +57,6 @@ public class AudioManager : MonoBehaviour
 
      void Start()
     {
-        PlaySound("theme");
+        
     }
 }
