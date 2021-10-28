@@ -11,9 +11,11 @@ public abstract class Entity : MonoBehaviour {
     [SerializeField, Tooltip("The color the entity will get when hit")]             Color _onhitColor;
 
     CharacterController2D _characterController2D;
+    Renderer _renderer;
 
     public void Awake() {
         _characterController2D = GetComponent<CharacterController2D>();
+        _renderer = GetComponentInChildren<Renderer>();
     }
 
     /// <summary>
@@ -62,9 +64,9 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public IEnumerator onhitFlash() {
-        GetComponentInChildren<Renderer>().material.color = _onhitColor;
+        _renderer.material.color = _onhitColor;
         yield return new WaitForSeconds(0.3f);
-        GetComponentInChildren<Renderer>().material.color = Color.white;
+        _renderer.material.color = Color.white;
     }
 
     public IEnumerator onHitNoMove() {
