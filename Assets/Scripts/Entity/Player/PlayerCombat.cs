@@ -10,6 +10,7 @@ public class PlayerCombat : EntityCombat {
 
         if (Input.GetButtonDown("Attack") && canAttack) {
             Attack(baseDamage);
+            FindObjectOfType<AudioManager>().PlaySound("swordhit");
         }
     }
 
