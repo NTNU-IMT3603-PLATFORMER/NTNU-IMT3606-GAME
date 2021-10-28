@@ -43,22 +43,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1ea8a55af439141947114eb0cf078e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: running
-    clip: {fileID: 8300000, guid: 295b884a8b0de5148b0c6fa6981efa65, type: 3}
-    volume: 0.2
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
+  _sounds:
   - name: swordhit
     clip: {fileID: 8300000, guid: 7e9287d0cc7133f43aeac2d8d4d32ed2, type: 3}
-    volume: 0.2
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: theme
     clip: {fileID: 8300000, guid: a109c78ca3b890e458af97680f05002e, type: 3}
-    volume: 0.2
+    volume: 0.169
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}

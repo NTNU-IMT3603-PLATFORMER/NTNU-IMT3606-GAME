@@ -20,7 +20,7 @@ public class EntityCollisionDamage : MonoBehaviour {
     }
 
     void OnEntityCollisionEnter (Entity entity) {
-        entity.InflictDamage(_damage);
+        entity.InflictDamage(_damage, transform, 10f);
     }
 
 }

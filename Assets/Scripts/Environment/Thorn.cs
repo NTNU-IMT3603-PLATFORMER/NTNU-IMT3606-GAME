@@ -11,7 +11,7 @@ public class Thorn : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D trig) {
         Entity entity = trig.GetComponentInParent<Entity>();
         if (entity != null){
-            entity.InflictDamage(THORN_DAMAGE);
+            entity.InflictDamage(THORN_DAMAGE, transform, 10f);
         }
     }
 }

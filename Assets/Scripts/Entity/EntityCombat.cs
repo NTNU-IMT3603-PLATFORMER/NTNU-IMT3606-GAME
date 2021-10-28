@@ -15,6 +15,7 @@ public abstract class EntityCombat : MonoBehaviour {
     [SerializeField, Tooltip("The layer(s) which should be counted as enemies")]            LayerMask _enemyLayers;
 
     UnityEvent _eventOnAttack = new UnityEvent();
+    Entity _entity;
 
     /// <summary>
     /// The damage the entity does to other entities
@@ -69,7 +70,7 @@ public abstract class EntityCombat : MonoBehaviour {
         // We want unique entities because some entities might have multiple colliders
         IEnumerable<Entity> uniqueEntities = hitEnemies
             .Select(c => c.GetComponentInParent<Entity>())
-            .Where(c => c != null)
+            .Where(c => c != null && c != _entity)
             .Distinct();
 
 
@@ -91,6 +92,10 @@ public abstract class EntityCombat : MonoBehaviour {
 
     void Update () {
         UpdateCombat();
+    }
+
+    void Awake () {
+        _entity = GetComponent<Entity>();
     }
 
     void OnDrawGizmosSelected() {

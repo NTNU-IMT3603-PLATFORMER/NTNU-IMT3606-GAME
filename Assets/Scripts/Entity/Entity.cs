@@ -95,7 +95,7 @@ public abstract class Entity : MonoBehaviour {
         if(moveDirection == Vector2.zero) {
             moveDirection = Vector2.one;
         }
-        Debug.Log(moveDirection.normalized);
+        
         _rigidbody.velocity = moveDirection.normalized * knockbackAmount;
     }
 
