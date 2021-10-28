@@ -9,15 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: 115a092b408b7d14281caa345cdb60e6
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/Level_Tutorial.unity
     guid: e72f5b37adb7ef847a9d4fa452a2524d
-  - enabled: 1
-    path: Assets/Scenes/CombatTestScene.unity
-    guid: 1f5f05d3708724d409c54e01ea3e9b43
-  - enabled: 1
-    path: Assets/Scenes/BossScene.unity
-    guid: 9ad92fa862d5755b9aa5f974b8706ac4
   m_configObjects: {}
