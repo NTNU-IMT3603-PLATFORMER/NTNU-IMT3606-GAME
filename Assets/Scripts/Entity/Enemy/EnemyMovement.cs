@@ -19,6 +19,7 @@ public class EnemyMovement : MonoBehaviour {
 
     SpriteRenderer _sr;
     Rigidbody2D _enemyBody;
+    CharacterController2D _characterController;
 
     bool _moveRight;
     bool _followPlayer;
@@ -51,6 +52,7 @@ public class EnemyMovement : MonoBehaviour {
         // Gets all the relevant components needed
         _sr = GetComponent<SpriteRenderer>();
         _enemyBody = GetComponent<Rigidbody2D>();
+        _characterController = GetComponent<CharacterController2D>();
 
         _followPlayer = false;
     }
@@ -76,7 +78,7 @@ public class EnemyMovement : MonoBehaviour {
     void FollowPlayerMovement(float yVelocity) {
         // This makes the enemy move towards the player
         // Uses + 1 to make the enemy stop infront of the player
-        _enemyBody.velocity = new Vector2(isToTheRight ? -_speed : _speed, yVelocity);
+        _characterController.Move(true, new Vector2(isToTheRight ? -_speed : _speed, yVelocity), false, false);
 
         if ((isToTheRight && transform.localScale.x < 0) || (isToTheLeft && transform.localScale.x > 0)) {
             // Flip enemy
@@ -101,14 +103,14 @@ public class EnemyMovement : MonoBehaviour {
             if (!_isGroundEnemy) {
                 _enemyBody.isKinematic = true;
             }
-            _enemyBody.velocity = new Vector2(_speed, _enemyBody.velocity.y);
+            _characterController.Move(true, new Vector2(_speed, _enemyBody.velocity.y), false, false);
             // Flip
             transform.localScale = new Vector3(-1.3f, transform.localScale.y, transform.localScale.z);
         } else {
             if (!_isGroundEnemy){
                 _enemyBody.isKinematic = true;
             }
-            _enemyBody.velocity = new Vector2(-_speed, _enemyBody.velocity.y);
+            _characterController.Move(true, new Vector2(-_speed, _enemyBody.velocity.y), false, false);
             // Flip
             transform.localScale = new Vector3(1.3f, transform.localScale.y, transform.localScale.z);
         }
