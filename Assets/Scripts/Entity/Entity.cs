@@ -70,7 +70,7 @@ public abstract class Entity : MonoBehaviour {
         }
     }
 
-    public virtual void InflictDamage(int damage, Transform opponentTransform, float knockbackAmount) {
+    public virtual void InflictDamage(int damage, Vector3 hitPosition, float knockbackAmount) {
         if (invincible) {
             return;
         }
@@ -85,12 +85,12 @@ public abstract class Entity : MonoBehaviour {
         StartCoroutine(onhitFlash());
         StartCoroutine(onHitNoMove());
         if (knockbackAmount != 0f) {
-            Knockback(opponentTransform, knockbackAmount);
+            Knockback(hitPosition, knockbackAmount);
         }
     }
 
-    public void Knockback(Transform opponentTransform, float knockbackAmount) {
-        Vector2 moveDirection = _rigidbody.transform.position - opponentTransform.transform.position;
+    public void Knockback(Vector3 hitPosition, float knockbackAmount) {
+        Vector2 moveDirection = _rigidbody.transform.position - hitPosition;
 
         if(moveDirection == Vector2.zero) {
             moveDirection = Vector2.one;
