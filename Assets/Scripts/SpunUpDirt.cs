@@ -24,7 +24,7 @@ public class SpunUpDirt : MonoBehaviour {
     void Update () {
         if (_timeLeftToInflictDamage <= 0f) {
             if (_playerEntity.transform.position.IsWithinDistanceOf(transform.position, _damageRadius)){
-                _playerEntity.InflictDamage(_damage, transform, 10f);
+                _playerEntity.InflictDamage(_damage, transform.position, 10f);
                 _timeLeftToInflictDamage = _damageCooldown;
             }
         } else {
