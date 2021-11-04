@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -189,6 +190,7 @@ public class CharacterController2D : MonoBehaviour {
     Vector2 _lastVelocity;
     float _gravityScaleBeforeDash;
     Vector3 _lastParentCoordinates;
+    Collider2D[] _childColliders;
 
     UnityEvent<Collider2D> _eventOnGrounded = new UnityEvent<Collider2D>();
     UnityEvent _eventOnLeftGround = new UnityEvent();
@@ -364,11 +366,25 @@ public class CharacterController2D : MonoBehaviour {
         if (_flipIfChangingDirection) {
             // Flip player when facing another direction
             bool flipX = _startFacingRight ? !isFacingRight : isFacingRight;
-            transform.localScale = new Vector3(flipX ? -1f : 1f, 1f, 1f);   
+            transform.localScale = new Vector3(flipX ? -1f : 1f, 1f, 1f);
+
+            // Flip all child colliders because Unity doesn't like when colliders have
+            // scale -1 :)
+            foreach (Collider2D collider in _childColliders) {
+                collider.transform.localScale = new Vector3(flipX ? 1f : -1f, 1f, 1f);
+            }
         }
     }
 
     void Start () {
         isFacingRight = _startFacingRight;
+        
+        Collider2D[] attachedColliders = transform.GetComponents<Collider2D>();
+
+        // Get all child colliders and don't include the ones on the current gameobject
+        _childColliders = transform
+            .GetComponentsInChildren<Collider2D>(true)
+            .Where(c => !attachedColliders.Contains(c))
+            .ToArray();
     }
 }
