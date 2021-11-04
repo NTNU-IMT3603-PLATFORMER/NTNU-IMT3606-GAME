@@ -58,9 +58,9 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        isAbovePlayer = transform.position.y > target.position.y + 1;
-        isToTheRight = transform.position.x > target.position.x + 1;
-        isToTheLeft = transform.position.x + 1 < target.position.x;
+        isAbovePlayer = transform.position.y > target.position.y;
+        isToTheRight = transform.position.x > target.position.x;
+        isToTheLeft = transform.position.x < target.position.x;
         CheckMovement(); 
     }
 
@@ -79,11 +79,6 @@ public class EnemyMovement : MonoBehaviour {
         // This makes the enemy move towards the player
         // Uses + 1 to make the enemy stop infront of the player
         _characterController.Move(true, new Vector2(isToTheRight ? -_speed : _speed, yVelocity), false, false);
-
-        if ((isToTheRight && transform.localScale.x < 0) || (isToTheLeft && transform.localScale.x > 0)) {
-            // Flip enemy
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        }
     }
 
 
