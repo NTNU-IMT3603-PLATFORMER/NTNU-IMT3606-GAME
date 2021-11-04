@@ -104,15 +104,11 @@ public class EnemyMovement : MonoBehaviour {
                 _enemyBody.isKinematic = true;
             }
             _characterController.Move(true, new Vector2(_speed, _enemyBody.velocity.y), false, false);
-            // Flip
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         } else {
             if (!_isGroundEnemy){
                 _enemyBody.isKinematic = true;
             }
             _characterController.Move(true, new Vector2(-_speed, _enemyBody.velocity.y), false, false);
-            // Flip
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
     }
 
