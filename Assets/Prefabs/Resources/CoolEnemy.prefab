@@ -428,7 +428,7 @@ MonoBehaviour:
   _jumpResetTime: 0.25
   _extraAirJumps: 0
   _flipIfChangingDirection: 1
-  _startFacingRight: 1
+  _startFacingRight: 0
   _enableWallSlide: 0
   _minWallSlideGravityVelocity: -2
   _enableWallJump: 0
