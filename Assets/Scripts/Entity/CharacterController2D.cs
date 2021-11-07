@@ -387,4 +387,15 @@ public class CharacterController2D : MonoBehaviour {
             .Where(c => !attachedColliders.Contains(c))
             .ToArray();
     }
+
+    void OnDrawGizmosSelected() {
+        if (_groundCheckPoint != null) {
+            Gizmos.DrawWireSphere(_groundCheckPoint.position, _groundCheckRadius);
+        }
+
+        if (_wallCheckPoint != null) {
+            Gizmos.DrawWireSphere(_wallCheckPoint.position, _wallCheckRadius);
+        }
+    }
+
 }
