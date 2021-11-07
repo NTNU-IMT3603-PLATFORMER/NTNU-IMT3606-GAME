@@ -225,7 +225,7 @@ public class CharacterController2D : MonoBehaviour {
         FlipLogic();
 
         // Add moving platform velocity if on a platform
-        targetVelocity += movingPlatformRigidbody?.velocity ?? Vector2.zero;
+        targetVelocity += new Vector2(movingPlatformRigidbody?.velocity.x ?? 0f, 0f);
 
         // Apply target velocity at the end
         _rigidbody.velocity = targetVelocity;
