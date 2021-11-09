@@ -7,8 +7,9 @@ public class PlayerEntity : Entity {
 
     [SerializeField, Tooltip("Max amount of blood the entity can have")]            int _maxBloodLevel = 9;
 
-    [SerializeField]
     int _bloodLevel = 0;
+
+    public int bloodlevel => _bloodLevel;
 
     /// <summary>
     /// Global instance of PlayerEntity
