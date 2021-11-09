@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerCombat : EntityCombat {
-    
+
+
     public override void UpdateCombat() {
         base.UpdateCombat();
 
