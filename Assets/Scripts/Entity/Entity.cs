@@ -20,10 +20,15 @@ public abstract class Entity : MonoBehaviour {
         _renderer = GetComponentInChildren<Renderer>();
     }
 
+   
     /// <summary>
     /// The health of the entity
     /// </summary>
-    public int health => _health;
+    public int health {
+        get => _health;
+        set => _health = value;
+    }
+
     
     /// <summary>
     /// If true, inflicting damage will have no effect
@@ -42,6 +47,11 @@ public abstract class Entity : MonoBehaviour {
 
     public abstract void Respawn();
     public abstract void Die();
+
+    public virtual void AddBlood() {
+       // Empty because only the PlayerEntity will need this function. 
+    }
+
 
     /// <summary>
     /// Call respawn after provided amount of seconds.
@@ -82,8 +92,8 @@ public abstract class Entity : MonoBehaviour {
             Die();
         }
 
-        StartCoroutine(onhitFlash());
-        StartCoroutine(onHitNoMove());
+        StartCoroutine(OnhitFlash());
+        StartCoroutine(OnHitNoMove());
         if (knockbackAmount != 0f) {
             Knockback(hitPosition, knockbackAmount);
         }
@@ -99,13 +109,13 @@ public abstract class Entity : MonoBehaviour {
         _rigidbody.velocity = moveDirection.normalized * knockbackAmount;
     }
 
-    public IEnumerator onhitFlash() {
+    public IEnumerator OnhitFlash() {
         _renderer.material.color = _onhitColor;
         yield return new WaitForSeconds(0.3f);
         _renderer.material.color = Color.white;
     }
 
-    public IEnumerator onHitNoMove() {
+    public IEnumerator OnHitNoMove() {
         yield return new WaitForSeconds(0.3f);
         _characterController2D.isHit = false;
     }

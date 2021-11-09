@@ -76,8 +76,8 @@ public abstract class EntityCombat : MonoBehaviour {
 
         foreach(Entity entity in uniqueEntities) {
             entity.InflictDamage(damage, transform.position, _knockbackAmount);
+            _entity.AddBlood();
         }
-
         timeLeftToAllowAttack = attackCooldown;
     }
 

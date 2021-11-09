@@ -5,11 +5,7 @@ using UnityEngine;
 public class PlayerEntity : Entity {
 
 
-    [SerializeField, Tooltip("Max amount of blood the entity can have")]            int _maxBloodLevel = 9;
-
-    [SerializeField]
     int _bloodLevel = 0;
-
     /// <summary>
     /// Global instance of PlayerEntity
     /// Use this for reference, as normal
@@ -46,26 +42,7 @@ public class PlayerEntity : Entity {
         Respawn();
     }
 
-    public void Heal() {
-        if (_bloodLevel >= 3) {
-            health++;
-            _bloodLevel -= 3;
-        }
+    public void addBlood() {
+        _bloodLevel++;
     }
-    public override void AddBlood() {
-        if(_bloodLevel < _maxBloodLevel) {
-            _bloodLevel++;
-        }
-    }
-    public override void UpdateEntity () {
-        // Die if falling outside world
-        if (transform.position.y < -100) {
-            Die();
-        }
-        if (Input.GetButtonDown("Heal")) {
-            Heal();
-        }
-    }
-
-
 }
