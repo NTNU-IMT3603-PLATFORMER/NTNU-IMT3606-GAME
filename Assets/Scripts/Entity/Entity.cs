@@ -7,6 +7,7 @@ public abstract class Entity : MonoBehaviour {
 
     [SerializeField, Tooltip("The rigidbody of the entity")]                        Rigidbody2D _rigidbody;
     [SerializeField, Tooltip("The health of the entity")]                           int _health = 10;
+    [SerializeField, Tooltip("The max health of the entity")]                       int _maxHealth = 10;
     [SerializeField, Tooltip("If true, inflicting damage will have no effect")]     bool _invincible;
     [SerializeField, Tooltip("The color the entity will get when hit")]             Color _onhitColor;
     [SerializeField, Tooltip("Time to respawn after death")]                        float _respawnTime = 10f;
@@ -20,7 +21,12 @@ public abstract class Entity : MonoBehaviour {
         _renderer = GetComponentInChildren<Renderer>();
     }
 
-   
+
+    /// <summary>
+    /// The max health of the entity
+    /// </summary>
+    public int maxHealth => _maxHealth;
+
     /// <summary>
     /// The health of the entity
     /// </summary>
