@@ -9,7 +9,8 @@ public class EnemyEntity : Entity {
     [SerializeField, Tooltip("How often the enemy can do contact damage")]          float _contactDamageRate;
     [SerializeField, Tooltip("Point where entity will respawn if applicable")]      Transform _respawnPoint;
     [SerializeField, Tooltip("Time to wait until destroying object after death")]   float _lastBreathTime;
-
+    [SerializeField, Tooltip("What spirit drop prefab to drop")]                    GameObject _spiritDropPrefab;
+    GameObject _spiritTarget;
     UnityEvent _eventOnDeath = new UnityEvent();
     public UnityEvent eventOnDeath => _eventOnDeath;
 
@@ -31,6 +32,12 @@ public class EnemyEntity : Entity {
     IEnumerator OnDie () {
         yield return new WaitForSeconds(_lastBreathTime);
         Destroy(gameObject);
+
+        _spiritTarget = GameObject.FindGameObjectWithTag("Player");
+
+        var go = Instantiate(_spiritDropPrefab, transform.position, Quaternion.identity);
+
+        go.GetComponent<follow>().Target = _spiritTarget.transform;
 
         if (shouldRespawn) {
             RespawnAfterRespawnTime();

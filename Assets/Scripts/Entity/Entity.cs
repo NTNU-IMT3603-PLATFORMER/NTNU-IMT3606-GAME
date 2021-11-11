@@ -12,6 +12,7 @@ public abstract class Entity : MonoBehaviour {
     [SerializeField, Tooltip("The color the entity will get when hit")]             Color _onhitColor;
     [SerializeField, Tooltip("Time to respawn after death")]                        float _respawnTime = 10f;
     [SerializeField, Tooltip("Should the entity respawn after death?")]             bool _shouldRespawn = true;
+    public int spirits = 0;
 
     CharacterController2D _characterController2D;
     Renderer _renderer;
