@@ -14,7 +14,6 @@ public class HUD : MonoBehaviour{
 
     [Header("Blood Bar")]
     [SerializeField]        Slider _slider;
-    [SerializeField]        PlayerEntity _playerEntity;
 
     Image[] _hearts;
     Image _fill;
@@ -39,7 +38,7 @@ public class HUD : MonoBehaviour{
         }
     }
     public void UpdateBloodBar() {
-        _slider.value = _playerEntity.bloodlevel;
+        _slider.value = PlayerEntity.INSTANCE.bloodlevel;
         if (_slider.value < 3) {
             _fill.color = Color.white;
         } else {

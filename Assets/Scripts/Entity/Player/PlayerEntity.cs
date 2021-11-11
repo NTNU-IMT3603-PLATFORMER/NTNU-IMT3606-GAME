@@ -9,6 +9,9 @@ public class PlayerEntity : Entity {
 
     int _bloodLevel = 0;
 
+    /// <summary>
+    /// The blood level of the player
+    /// </summary>
     public int bloodlevel => _bloodLevel;
 
     /// <summary>
@@ -48,7 +51,7 @@ public class PlayerEntity : Entity {
     }
 
     public void Heal() {
-        if (_bloodLevel >= 3) {
+        if (_bloodLevel >= 3 && health < maxHealth) {
             health++;
             _bloodLevel -= 3;
         }

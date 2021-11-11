@@ -752,7 +752,6 @@ MonoBehaviour:
   _heart_full: {fileID: 21300000, guid: 0ea674a97f379fb4983a4c4644c38d61, type: 3}
   _heart_empty: {fileID: 21300000, guid: 75cf14170bdf4ec4ba5b7099663eb02a, type: 3}
   _slider: {fileID: 1477357586}
-  _playerEntity: {fileID: 0}
 --- !u!1 &1201377281858202475
 GameObject:
   m_ObjectHideFlags: 0
