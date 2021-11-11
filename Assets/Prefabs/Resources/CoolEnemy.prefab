@@ -400,6 +400,7 @@ MonoBehaviour:
   _contactDamageRate: 1
   _respawnPoint: {fileID: 0}
   _lastBreathTime: 0.7
+  _spiritDropPrefab: {fileID: 373906247569683343, guid: 0a59e2129a8fc84449e68fc294823d00, type: 3}
 --- !u!114 &1411653668
 MonoBehaviour:
   m_ObjectHideFlags: 0
