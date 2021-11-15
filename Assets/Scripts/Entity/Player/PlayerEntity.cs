@@ -36,6 +36,8 @@ public class PlayerEntity : Entity {
         }
 
         _playerCamera = GameObject.FindWithTag("MainCamera").GetComponentInParent<Cinemachine.CinemachineVirtualCamera>();
+        
+        Checkpoints.INSTANCE.eventOnReachedCheckpoint.AddListener(OnReachedCheckpoint);
     }
 
     public override void Respawn() {
@@ -77,4 +79,10 @@ public class PlayerEntity : Entity {
             StartCoroutine(OnHitInvincibility());
         }
     }
+
+    void OnReachedCheckpoint (Checkpoint checkpoint) {
+        // Update respawn point to checkpoint
+        _respawnPoint.transform.position = checkpoint.transform.position;
+    }
+    
 }
