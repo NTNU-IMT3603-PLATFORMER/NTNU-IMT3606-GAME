@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class representing a single checkpoint
+/// </summary>
 [RequireComponent(typeof(EntityCollision))]
 public class Checkpoint : MonoBehaviour {
 

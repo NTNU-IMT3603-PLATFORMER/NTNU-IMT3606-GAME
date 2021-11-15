@@ -4,6 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class controlling checkpoints and 
+/// checkpoint behaviour in general
+/// </summary>
 public class Checkpoints : MonoBehaviour {
 
     Checkpoint[] _checkpoints;
