@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(EntityCollision))]
 public class CharacterController2D : MonoBehaviour {
 
     [SerializeField, Tooltip("Mandatory rigidbody that will be used for moving character")]                             Rigidbody2D _rigidbody;
@@ -355,10 +356,19 @@ public class CharacterController2D : MonoBehaviour {
 
             // Check if dash is finished
             if (_dashDistanceLeft <= 0f) {
-                isDashing = false;
-                _rigidbody.gravityScale = _gravityScaleBeforeDash;
+                EndDash();
                 targetVelocity = Vector2.zero;
             }
+        }
+    }
+
+    void EndDash () {
+        // Extra check to see if we are indeed dashing, because
+        // if dash hasn't started, _gravityScaleBeforeDash
+        // hasn't been set
+        if (isDashing) {
+            isDashing = false;
+            _rigidbody.gravityScale = _gravityScaleBeforeDash;
         }
     }
 
@@ -386,6 +396,16 @@ public class CharacterController2D : MonoBehaviour {
             .GetComponentsInChildren<Collider2D>(true)
             .Where(c => !attachedColliders.Contains(c))
             .ToArray();
+
+        // Register entity collision handler
+        GetComponent<EntityCollision>().eventOnEntityCollisionEnter.AddListener(OnEntityCollisionEnter);
+    }
+
+    void OnEntityCollisionEnter (Entity entity) {
+        // We want to end dash when colliding with another entity
+        // as getting knocked back and then continuing to dash looks
+        // strange :)
+        EndDash();
     }
 
     void OnDrawGizmosSelected() {
