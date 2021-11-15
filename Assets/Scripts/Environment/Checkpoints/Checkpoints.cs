@@ -31,6 +31,10 @@ public class Checkpoints : MonoBehaviour {
     /// </summary>
     public int currentCheckpoint => _currentCheckpoint;
 
+    /// <summary>
+    /// Gets called by each checkpoint when player
+    /// reaches them
+    /// </summary>
     public void OnCheckpointEnter (Checkpoint checkpoint) {
         int index = Array.IndexOf(_checkpoints, checkpoint);
 
