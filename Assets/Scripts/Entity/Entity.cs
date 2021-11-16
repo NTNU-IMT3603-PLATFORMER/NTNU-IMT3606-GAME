@@ -98,7 +98,7 @@ public abstract class Entity : MonoBehaviour {
         if (_health <= 0) {
             Die();
         }
-
+        StartCoroutine(OnHitInvincibility());
         StartCoroutine(OnhitFlash());
         StartCoroutine(OnHitNoMove());
         if (knockbackAmount != 0f) {
@@ -114,6 +114,17 @@ public abstract class Entity : MonoBehaviour {
         }
         
         _rigidbody.velocity = moveDirection.normalized * knockbackAmount;
+    }
+
+    public IEnumerator OnHitInvincibility() {
+        invincible = true;
+        for (var i = 0; i < 3; i++){
+            _renderer.material.color = new Color(1f,1f,1f,.5f);
+            yield return new WaitForSeconds(0.2f);
+            _renderer.material.color = Color.white;
+            yield return new WaitForSeconds(0.2f);
+        }
+        invincible = false;
     }
 
     public IEnumerator OnhitFlash() {
