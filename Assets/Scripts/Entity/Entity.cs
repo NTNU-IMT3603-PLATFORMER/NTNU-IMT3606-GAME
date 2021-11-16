@@ -19,7 +19,6 @@ public abstract class Entity : MonoBehaviour {
 
     void Awake() {
         _characterController2D = GetComponent<CharacterController2D>();
-        _renderer = GetComponentInChildren<Renderer>();
     }
 
 
@@ -98,6 +97,8 @@ public abstract class Entity : MonoBehaviour {
         if (_health <= 0) {
             Die();
         }
+        // TODO: Find a better way to fetch the renderer
+        _renderer = GetComponentInChildren<Renderer>();
         StartCoroutine(OnHitInvincibility());
         StartCoroutine(OnhitFlash());
         StartCoroutine(OnHitNoMove());
