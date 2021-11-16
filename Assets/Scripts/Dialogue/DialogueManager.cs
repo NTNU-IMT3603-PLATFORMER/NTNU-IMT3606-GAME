@@ -13,6 +13,26 @@ public class DialogueManager : MonoBehaviour {
 
     public void StartDialogue(Dialogue dialogue) {
         Debug.Log("Starting conversation with " + dialogue.name);
+
+        _sentences.Clear();
+
+        foreach(string sentence in dialogue.sentences) {
+            _sentences.Enqueue(sentence);
+        }
     }
 
+    public bool DisplayNextSentence() {
+        if(_sentences.Count == 0) {
+            EndDialogue();
+            return true;
+        }
+
+        string sentence = _sentences.Dequeue();
+        Debug.Log(sentence);
+        return false;
+    }
+
+    void EndDialogue() {
+        Debug.Log("End of conversation");
+    }
 }
