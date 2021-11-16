@@ -14,7 +14,7 @@ public class Thorn : MonoBehaviour {
     }
     
     // Inflicts damage if the game object is an entity
-    private void OnTriggerEnter2D(Collider2D collider) {
+    private void OnTriggerStay2D(Collider2D collider) {
         Entity entity = collider.GetComponentInParent<Entity>();
 
         if (entity != null){
