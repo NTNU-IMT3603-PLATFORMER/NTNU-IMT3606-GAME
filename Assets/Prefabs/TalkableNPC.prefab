@@ -509,13 +509,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d628f516afb954aa8584dfe85d001f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
+  _dialogue:
     _name: Bad bitch
     _sentences:
     - Hello There!
     - You need to save the world bro :)
     - Kill all the animals and shit
-    - You got this
+    - Good luck
 --- !u!61 &7147420384449598634
 BoxCollider2D:
   m_ObjectHideFlags: 0
