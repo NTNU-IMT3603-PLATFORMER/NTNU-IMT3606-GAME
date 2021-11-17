@@ -35,6 +35,7 @@ public class DialogueTrigger : MonoBehaviour
     }
 
     void OnTriggerExit2D(Collider2D other) {
-        _dialogueManager.ResetDialogue(dialogue);     
+        _dialogueManager.EndDialogue();
+        _firstTalk = true;
     }
 }
