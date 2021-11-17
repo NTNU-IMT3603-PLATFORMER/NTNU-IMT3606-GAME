@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour 
 {
-    public Dialogue dialogue;
+    [SerializeField]    Dialogue _dialogue;
+
+    DialogueManager _dialogueManager;
     Vector3 _npcPosition;
     bool _firstTalk;
-    DialogueManager _dialogueManager;
 
     private void Start() {
         _npcPosition = transform.position;
@@ -18,7 +19,7 @@ public class DialogueTrigger : MonoBehaviour
     public void TriggerDialogue ()
     {
         if(_firstTalk) {
-            _dialogueManager.StartDialogue(dialogue);
+            _dialogueManager.StartDialogue(_dialogue);
             _firstTalk = false;
         } else {
             _firstTalk = _dialogueManager.DisplayNextSentence();
