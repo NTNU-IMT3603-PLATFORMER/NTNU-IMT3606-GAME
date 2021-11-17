@@ -71,5 +71,22 @@ public class PlayerEntity : Entity {
         }
     }
 
+    public override void InflictDamage(int damage, Vector3 hitPosition, float knockbackAmount) {
+        if (invincible) {
+            return;
+        }
+        characterController2D.isHit = true;
 
+        health -= damage;
+
+        if (health <= 0) {
+            Die();
+        }
+        StartCoroutine(OnHitInvincibility());
+        StartCoroutine(OnhitFlash());
+        StartCoroutine(OnHitNoMove());
+        if (knockbackAmount != 0f) {
+            Knockback(hitPosition, knockbackAmount);
+        }
+    }
 }
