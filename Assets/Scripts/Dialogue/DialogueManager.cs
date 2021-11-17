@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour {
+
+    [SerializeField]    Text _nameText;
+    [SerializeField]    Text _dialogueText;
 
     Queue<string> _sentences;
 
@@ -12,13 +16,14 @@ public class DialogueManager : MonoBehaviour {
     }
 
     public void StartDialogue(Dialogue dialogue) {
-        Debug.Log("Starting conversation with " + dialogue.name);
-
+        _nameText.text = dialogue.name;
         _sentences.Clear();
 
         foreach(string sentence in dialogue.sentences) {
             _sentences.Enqueue(sentence);
         }
+
+        DisplayNextSentence();
     }
 
     public bool DisplayNextSentence() {
@@ -28,11 +33,20 @@ public class DialogueManager : MonoBehaviour {
         }
 
         string sentence = _sentences.Dequeue();
-        Debug.Log(sentence);
+        _dialogueText.text = sentence;
         return false;
     }
 
     void EndDialogue() {
         Debug.Log("End of conversation");
+    }
+
+    public void ResetDialogue(Dialogue dialogue) {
+        _sentences.Clear();
+
+        foreach(string sentence in dialogue.sentences) {
+            _sentences.Enqueue(sentence);
+        }
+
     }
 }
