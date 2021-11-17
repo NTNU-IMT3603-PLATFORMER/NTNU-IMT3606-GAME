@@ -8,11 +8,15 @@ public class DialogueManager : MonoBehaviour {
     [SerializeField]    Text _nameText;
     [SerializeField]    Text _dialogueText;
 
+    Canvas _textBoxCanvas;
+
     Queue<string> _sentences;
 
     // Start is called before the first frame update
     void Start() {
         _sentences = new Queue<string>();
+        _textBoxCanvas = transform.parent.GetComponentInChildren<Canvas>();
+        _textBoxCanvas.enabled = false;
     }
 
     public void StartDialogue(Dialogue dialogue) {
@@ -24,6 +28,7 @@ public class DialogueManager : MonoBehaviour {
         }
 
         DisplayNextSentence();
+        _textBoxCanvas.enabled = true;
     }
 
     public bool DisplayNextSentence() {
@@ -37,16 +42,9 @@ public class DialogueManager : MonoBehaviour {
         return false;
     }
 
-    void EndDialogue() {
+    public void EndDialogue() {
         Debug.Log("End of conversation");
-    }
-
-    public void ResetDialogue(Dialogue dialogue) {
         _sentences.Clear();
-
-        foreach(string sentence in dialogue.sentences) {
-            _sentences.Enqueue(sentence);
-        }
-
+        _textBoxCanvas.enabled = false;
     }
 }
