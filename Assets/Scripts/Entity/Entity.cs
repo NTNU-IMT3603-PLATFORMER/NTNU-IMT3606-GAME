@@ -116,23 +116,38 @@ public abstract class Entity : MonoBehaviour {
         _rigidbody.velocity = moveDirection.normalized * knockbackAmount;
     }
 
+    /// <summary>
+    /// OnHitInvincibility makes the entity unable to take damage for roughly 1.2 seconds
+    /// 0.31 + (0.1483 * 6) = 1.1998 ~ 1.2 seconds of invincibility
+    /// </summary>
     public IEnumerator OnHitInvincibility() {
+        invincible = true;
+        
+        // TODO: Fix this because what the fuck even is this
+        yield return new WaitForSeconds(0.31f);
         // TODO: Find a better way to set the renderer when transforming.
         _renderer = GetComponentInChildren<Renderer>();
-        invincible = true;
+
         for (var i = 0; i < 3; i++){
-            _renderer.material.color = new Color(1f,1f,1f,.5f);
-            yield return new WaitForSeconds(0.2f);
-            _renderer.material.color = Color.white;
-            yield return new WaitForSeconds(0.2f);
+            Color defaultColor = Color.white;
+            Color invincibleColor = defaultColor;
+            invincibleColor.a = 0.5f;
+            _renderer.material.color = invincibleColor;
+            yield return new WaitForSeconds(0.1483f);
+            _renderer.material.color = defaultColor;
+            yield return new WaitForSeconds(0.1483f);
         }
         invincible = false;
     }
 
     public IEnumerator OnhitFlash() {
-        _renderer.material.color = _onhitColor;
+        _renderer = GetComponentInChildren<Renderer>();
+        Color defaultColor = _renderer.material.color;
+        Color onHitColor = _onhitColor;
+        onHitColor.a = defaultColor.a;
+        _renderer.material.color = onHitColor;
         yield return new WaitForSeconds(0.3f);
-        _renderer.material.color = Color.white;
+        _renderer.material.color = defaultColor;
     }
 
     public IEnumerator OnHitNoMove() {
