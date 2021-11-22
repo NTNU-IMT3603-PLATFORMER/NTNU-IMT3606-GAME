@@ -10,8 +10,9 @@ public class PlayerEntity : Entity {
 
     int _bloodLevel = 0;
     float _startTime = 0f;
-    double _currentPosition;
-    
+    float _currentPosition;
+    int _spirits = 0;
+
     /// <summary>
     /// The blood level of the player
     /// </summary>
@@ -30,6 +31,14 @@ public class PlayerEntity : Entity {
     CharacterController2D _characterController2D;
     Transform _respawnPoint;
     Cinemachine.CinemachineVirtualCamera _playerCamera;
+
+    /// <summary>
+    /// Current amount of spirits the player has absorbed
+    /// </summary>
+    public int spirits {
+        get => _spirits;
+        set => _spirits = value;
+    }
 
     void Start () {
         _characterController2D = GetComponent<CharacterController2D>();
@@ -77,7 +86,7 @@ public class PlayerEntity : Entity {
         }
         if (Input.GetButtonDown("Heal")) {
             _startTime = Time.time;
-            _currentPosition = Math.Round(transform.position.x, 1);
+            _currentPosition = (float) Math.Round(transform.position.x, 1);
         }
 
         // TODO: Play a healing animation/use some effects while the healing button is held down
@@ -88,7 +97,7 @@ public class PlayerEntity : Entity {
                 || (_currentPosition != Math.Round(transform.position.x,1))
             ){
                 _startTime = Time.time;
-                _currentPosition = Math.Round(transform.position.x,1);
+                _currentPosition = (float) Math.Round(transform.position.x,1);
                 return;
             }   
             
