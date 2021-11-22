@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 public abstract class Entity : MonoBehaviour {
+
+    protected const float ON_HIT_FLASH_TIME = 0.3f;
 
     [SerializeField, Tooltip("The rigidbody of the entity")]                        Rigidbody2D _rigidbody;
     [SerializeField, Tooltip("The health of the entity")]                           int _health = 10;
@@ -13,8 +15,10 @@ public abstract class Entity : MonoBehaviour {
     [SerializeField, Tooltip("Time to respawn after death")]                        float _respawnTime = 10f;
     [SerializeField, Tooltip("Should the entity respawn after death?")]             bool _shouldRespawn = true;
 
-    CharacterController2D _characterController2D;
-    Renderer _renderer;
+    protected CharacterController2D _characterController2D;
+    protected Renderer _renderer;
+
+    UnityEvent<int> _eventOnTakingDamage = new UnityEvent<int>();
 
     void Awake() {
         _characterController2D = GetComponent<CharacterController2D>();
@@ -22,6 +26,11 @@ public abstract class Entity : MonoBehaviour {
     }
 
     public CharacterController2D characterController2D =>_characterController2D;
+
+    /// <summary>
+    /// Events that is invoked when something has inflicted damage to this entity
+    /// </summary>
+    public UnityEvent<int> eventOnTakingDamage => _eventOnTakingDamage;
 
     /// <summary>
     /// The max health of the entity
@@ -36,7 +45,6 @@ public abstract class Entity : MonoBehaviour {
         set => _health = value;
     }
 
-    
     /// <summary>
     /// If true, inflicting damage will have no effect
     /// </summary>
@@ -56,10 +64,10 @@ public abstract class Entity : MonoBehaviour {
     public abstract void Respawn();
     public abstract void Die();
 
-    public virtual void AddBlood() {
-       // Empty because only the PlayerEntity will need this function. 
-    }
-
+    /// <summary>
+    /// Add 1 to entity's blood bar if applicable
+    /// </summary>
+    public virtual void AddBlood() {}
 
     /// <summary>
     /// Call respawn after provided amount of seconds.
@@ -99,11 +107,18 @@ public abstract class Entity : MonoBehaviour {
         if (_health <= 0) {
             Die();
         }
-        StartCoroutine(OnhitFlash());
+
+        // Start hit effects
+        StartCoroutine(OnHitEffects());
+
+        // Start coroutine ensuring player cannot move for a short period
         StartCoroutine(OnHitNoMove());
+
         if (knockbackAmount != 0f) {
             Knockback(hitPosition, knockbackAmount);
         }
+
+        eventOnTakingDamage.Invoke(damage);
     }
 
     public void Knockback(Vector3 hitPosition, float knockbackAmount) {
@@ -116,37 +131,15 @@ public abstract class Entity : MonoBehaviour {
         _rigidbody.velocity = moveDirection.normalized * knockbackAmount;
     }
 
-    /// <summary>
-    /// OnHitInvincibility makes the entity unable to take damage for roughly 1.2 seconds
-    /// 0.31 + (0.1483 * 6) = 1.1998 ~ 1.2 seconds of invincibility
-    /// </summary>
-    public IEnumerator OnHitInvincibility() {
-        invincible = true;
-        
-        // TODO: Fix this because what the fuck even is this
-        yield return new WaitForSeconds(0.31f);
-        // TODO: Find a better way to set the renderer when transforming.
+    public virtual IEnumerator OnHitEffects () {
         _renderer = GetComponentInChildren<Renderer>();
 
-        for (var i = 0; i < 3; i++){
-            Color defaultColor = Color.white;
-            Color invincibleColor = defaultColor;
-            invincibleColor.a = 0.5f;
-            _renderer.material.color = invincibleColor;
-            yield return new WaitForSeconds(0.1483f);
-            _renderer.material.color = defaultColor;
-            yield return new WaitForSeconds(0.1483f);
-        }
-        invincible = false;
-    }
-
-    public IEnumerator OnhitFlash() {
-        _renderer = GetComponentInChildren<Renderer>();
         Color defaultColor = _renderer.material.color;
         Color onHitColor = _onhitColor;
+
         onHitColor.a = defaultColor.a;
         _renderer.material.color = onHitColor;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(ON_HIT_FLASH_TIME);
         _renderer.material.color = defaultColor;
     }
 
