@@ -109,11 +109,25 @@ public class PlayerEntity : Entity {
         }
     }
 
-    public override void InflictDamage(int damage, Vector3 hitPosition, float knockbackAmount) {
-        base.InflictDamage(damage, hitPosition, knockbackAmount);
-        if (!invincible) {
-            StartCoroutine(OnHitInvincibility());
+    public override IEnumerator OnHitEffects() {
+        // Perform Entity OnHitEffects first before player-specific effects
+        yield return base.OnHitEffects();
+
+        invincible = true;
+
+        // TODO: Find a better way to set the renderer when transforming.
+        _renderer = GetComponentInChildren<Renderer>();
+
+        for (var i = 0; i < 3; i++){
+            Color defaultColor = Color.white;
+            Color invincibleColor = defaultColor;
+            invincibleColor.a = 0.5f;
+            _renderer.material.color = invincibleColor;
+            yield return new WaitForSeconds(0.1483f);
+            _renderer.material.color = defaultColor;
+            yield return new WaitForSeconds(0.1483f);
         }
+        invincible = false;
     }
 
     void OnReachedCheckpoint (Checkpoint checkpoint) {
