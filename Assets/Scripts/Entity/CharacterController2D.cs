@@ -233,6 +233,16 @@ public class CharacterController2D : MonoBehaviour {
         _lastVelocity = targetVelocity;
     }
 
+    public void EndDash () {
+        // Extra check to see if we are indeed dashing, because
+        // if dash hasn't started, _gravityScaleBeforeDash
+        // hasn't been set
+        if (isDashing) {
+            isDashing = false;
+            _rigidbody.gravityScale = _gravityScaleBeforeDash;
+        }
+    }
+
     void UpdateProperties (Vector2 movement) {
         isFacingWall = Physics2D.OverlapCircle(_wallCheckPoint.position, _wallCheckRadius, _wallCheckMask) != null;
 
@@ -359,16 +369,6 @@ public class CharacterController2D : MonoBehaviour {
                 EndDash();
                 targetVelocity = Vector2.zero;
             }
-        }
-    }
-
-    void EndDash () {
-        // Extra check to see if we are indeed dashing, because
-        // if dash hasn't started, _gravityScaleBeforeDash
-        // hasn't been set
-        if (isDashing) {
-            isDashing = false;
-            _rigidbody.gravityScale = _gravityScaleBeforeDash;
         }
     }
 

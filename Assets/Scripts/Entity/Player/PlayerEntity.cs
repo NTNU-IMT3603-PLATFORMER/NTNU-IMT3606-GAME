@@ -6,7 +6,7 @@ using System;
 public class PlayerEntity : Entity {
 
 
-    [SerializeField, Tooltip("Amount of time it takes for the player to heal")]     float _healTime = 1.141f;
+    [SerializeField, Tooltip("Amount of time it takes for the player to heal")]         float _healTime = 1.141f;
     [SerializeField, Tooltip("Max amount of blood the entity can have")]                int _maxBloodLevel = 9;
     [SerializeField, Tooltip("Time after taking damage where player is invincible")]    float onHitInvincibilityTime = 1.2f;
     [SerializeField, Tooltip("Amount of flashes for on hit invincibility effect")]      int onHitInvincibilityFlashAmount = 3;

@@ -100,7 +100,9 @@ public abstract class Entity : MonoBehaviour {
         if (invincible) {
             return;
         }
+        
         _characterController2D.isHit = true;
+        _characterController2D.EndDash();
 
         _health -= damage;
 
