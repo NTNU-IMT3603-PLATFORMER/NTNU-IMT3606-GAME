@@ -5,8 +5,11 @@ using System;
 
 public class PlayerEntity : Entity {
 
-    [SerializeField, Tooltip("Max amount of blood the entity can have")]            int _maxBloodLevel = 9;
+
     [SerializeField, Tooltip("Amount of time it takes for the player to heal")]     float _healTime = 1.141f;
+    [SerializeField, Tooltip("Max amount of blood the entity can have")]                int _maxBloodLevel = 9;
+    [SerializeField, Tooltip("Time after taking damage where player is invincible")]    float onHitInvincibilityTime = 1.2f;
+    [SerializeField, Tooltip("Amount of flashes for on hit invincibility effect")]      int onHitInvincibilityFlashAmount = 3;
 
     int _bloodLevel = 0;
     float _startTime = 0f;
@@ -110,23 +113,34 @@ public class PlayerEntity : Entity {
     }
 
     public override IEnumerator OnHitEffects() {
-        // Perform Entity OnHitEffects first before player-specific effects
-        yield return base.OnHitEffects();
-
         invincible = true;
+
+        // Perform base Entity OnHitEffects first before player-specific effects
+        yield return base.OnHitEffects();
 
         // TODO: Find a better way to set the renderer when transforming.
         _renderer = GetComponentInChildren<Renderer>();
 
-        for (var i = 0; i < 3; i++){
+        // Subtract time spent on Entity base effects
+        float timeLeft = onHitInvincibilityTime - ON_HIT_FLASH_TIME;
+
+        // Calculate time that should be spent on each flash
+        float timePerFlash = timeLeft / onHitInvincibilityFlashAmount;
+
+        for (var i = 0; i < onHitInvincibilityFlashAmount; i++){
             Color defaultColor = Color.white;
             Color invincibleColor = defaultColor;
             invincibleColor.a = 0.5f;
+            
+            // Set color to invincibility color
             _renderer.material.color = invincibleColor;
-            yield return new WaitForSeconds(0.1483f);
+            yield return new WaitForSeconds(timePerFlash / 2f);
+
+            // Set color to default color
             _renderer.material.color = defaultColor;
-            yield return new WaitForSeconds(0.1483f);
+            yield return new WaitForSeconds(timePerFlash / 2f);
         }
+
         invincible = false;
     }
 
