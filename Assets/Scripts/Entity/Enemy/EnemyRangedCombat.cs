@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyRangedCombat : EnemyCombat {
-    // Start is called before the first frame update
-    void Start() {
 
-    }
 
-    // Update is called once per frame
-    void Update() {
+    public override void Attack(int damage) {
 
+        
+
+        timeLeftToAllowAttack = attackCooldown;
     }
 }
