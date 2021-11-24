@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyMovement : MonoBehaviour {
     const string BOUNDARY_TAG = "Boundary";
@@ -56,8 +57,8 @@ public class EnemyMovement : MonoBehaviour {
 
         _followPlayer = false;
 
-        if(!_isGroundEnemy) {
-            _enemyBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+        if (!_isGroundEnemy) {
+            _enemyBody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
     }
 
@@ -65,7 +66,7 @@ public class EnemyMovement : MonoBehaviour {
         isAbovePlayer = transform.position.y > target.position.y;
         isToTheRight = transform.position.x > target.position.x;
         isToTheLeft = transform.position.x < target.position.x;
-        CheckMovement(); 
+        CheckMovement();
     }
 
     void OnTriggerEnter2D(Collider2D trig) {
@@ -82,7 +83,11 @@ public class EnemyMovement : MonoBehaviour {
     void FollowPlayerMovement(float yVelocity) {
         // This makes the enemy move towards the player
         // Uses + 1 to make the enemy stop infront of the player
-        _characterController.Move(true, new Vector2(isToTheRight ? -_speed : _speed, yVelocity), false, false);
+        if(Math.Round(transform.position.x, 1) == Math.Round(target.position.x, 1)) {
+            _characterController.Move(true, new Vector2(0, yVelocity), false, false);
+        } else {
+            _characterController.Move(true, new Vector2(isToTheRight ? -_speed : _speed, yVelocity), false, false);
+        }
     }
 
 
@@ -92,8 +97,14 @@ public class EnemyMovement : MonoBehaviour {
             _followPlayer = true;
         }
 
+        if (transform.position.IsWithinDistanceOf(target.position, 5) && isAbovePlayer) {
+            _enemyBody.position = new Vector2(_enemyBody.position.x, _enemyBody.position.y - 0.3f * Time.fixedDeltaTime);
+        } else if (transform.position.IsWithinDistanceOf(target.position, 5)) {
+            _enemyBody.position = new Vector2(_enemyBody.position.x, _enemyBody.position.y + 0.3f * Time.fixedDeltaTime);
+        } 
+
         // Logic to check whether the enemy should patrol or follow the player
-        if (_followPlayer && _isGroundEnemy){
+        if (_followPlayer && _isGroundEnemy) {
             FollowPlayerMovement(_enemyBody.velocity.y);
         } else if (_followPlayer && !_isGroundEnemy) {
             FollowPlayerMovement(isAbovePlayer ? -_speed : _speed);
