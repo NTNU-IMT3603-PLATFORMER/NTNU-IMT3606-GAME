@@ -289,10 +289,10 @@ GameObject:
   - component: {fileID: 6409391820719857955}
   - component: {fileID: 6409391820719857965}
   - component: {fileID: 7095947789363075317}
+  - component: {fileID: 6409391820719857964}
   - component: {fileID: 880455166382178004}
   - component: {fileID: 7516460966018070336}
   - component: {fileID: 880455166382178007}
-  - component: {fileID: 6409391820719857964}
   - component: {fileID: 6409391820719857963}
   m_Layer: 8
   m_Name: CoolRangedEnemy
@@ -384,6 +384,27 @@ MonoBehaviour:
   _respawnPoint: {fileID: 0}
   _lastBreathTime: 0.7
   _spiritDropPrefab: {fileID: 373906247569683343, guid: 0a59e2129a8fc84449e68fc294823d00, type: 3}
+--- !u!114 &6409391820719857964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6409391820719857966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f377d04d95157344a70cdb9cffaae3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseDamage: 1
+  _attackRange: 10
+  _attackCooldown: 5
+  _knockbackAmount: 10
+  _attackPoint: {fileID: 1503634742143149276}
+  _enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  _prefabRangedAttack: {fileID: 8068170859998569413, guid: 9cd724d76d4890846ae8779b61fc6a6f, type: 3}
 --- !u!114 &880455166382178004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,27 +472,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.75008154}
   serializedVersion: 2
   m_Radius: 0.20255382
---- !u!114 &6409391820719857964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6409391820719857966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f377d04d95157344a70cdb9cffaae3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseDamage: 1
-  _attackRange: 10
-  _attackCooldown: 5
-  _knockbackAmount: 10
-  _attackPoint: {fileID: 1503634742143149276}
-  _enemyLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  _prefabRangedAttack: {fileID: 8068170859998569413, guid: 9cd724d76d4890846ae8779b61fc6a6f, type: 3}
 --- !u!114 &6409391820719857963
 MonoBehaviour:
   m_ObjectHideFlags: 0
