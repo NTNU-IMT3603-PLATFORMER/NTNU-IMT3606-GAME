@@ -55,6 +55,10 @@ public class EnemyMovement : MonoBehaviour {
         _characterController = GetComponent<CharacterController2D>();
 
         _followPlayer = false;
+
+        if(!_isGroundEnemy) {
+            _enemyBody.constraints = RigidbodyConstraints2D.FreezePositionY;
+        }
     }
 
     void FixedUpdate() {
@@ -89,20 +93,13 @@ public class EnemyMovement : MonoBehaviour {
         }
 
         // Logic to check whether the enemy should patrol or follow the player
-        _enemyBody.isKinematic = false;
         if (_followPlayer && _isGroundEnemy){
             FollowPlayerMovement(_enemyBody.velocity.y);
         } else if (_followPlayer && !_isGroundEnemy) {
             FollowPlayerMovement(isAbovePlayer ? -_speed : _speed);
         } else if (_moveRight) {
-            if (!_isGroundEnemy) {
-                _enemyBody.isKinematic = true;
-            }
             _characterController.Move(true, new Vector2(_speed, _enemyBody.velocity.y), false, false);
         } else {
-            if (!_isGroundEnemy){
-                _enemyBody.isKinematic = true;
-            }
             _characterController.Move(true, new Vector2(-_speed, _enemyBody.velocity.y), false, false);
         }
     }
