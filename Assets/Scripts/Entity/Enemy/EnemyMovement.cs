@@ -18,6 +18,10 @@ public class EnemyMovement : MonoBehaviour {
     [SerializeField, Tooltip("Is Ground Enemy toggles between grounded and flying enemies")]
     bool _isGroundEnemy;
 
+    [Header("Ranged Enemy Properties")]
+    [SerializeField, Tooltip("Follow distance for vertical movement")]
+    float _followDistanceVertical;
+
     SpriteRenderer _sr;
     Rigidbody2D _enemyBody;
     CharacterController2D _characterController;
@@ -97,11 +101,13 @@ public class EnemyMovement : MonoBehaviour {
             _followPlayer = true;
         }
 
-        if (transform.position.IsWithinDistanceOf(target.position, 5) && isAbovePlayer) {
+        if (transform.position.IsWithinDistanceOf(target.position, _followDistanceVertical) && isAbovePlayer) {
             _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, -0.3f);
-        } else if (transform.position.IsWithinDistanceOf(target.position, 5)) {
+        } else if (transform.position.IsWithinDistanceOf(target.position, _followDistanceVertical)) {
             _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, 0.3f);
-        } 
+        } else {
+            _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, 0);
+        }
 
         // Logic to check whether the enemy should patrol or follow the player
         if (_followPlayer && _isGroundEnemy) {
