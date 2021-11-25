@@ -8,12 +8,24 @@ public class RangedAttack : MonoBehaviour {
     Rigidbody2D _rigidbody;
     float _timeLeft = 2f;
 
+    float _projectileSpeed;
+
+
+    public float projectileSpeed {
+        get => _projectileSpeed;
+        set => _projectileSpeed = value;
+    }
+
+    public float timeLeft {
+        get => _timeLeft;
+        set => _timeLeft = value;
+    }
 
     // Start is called before the first frame update
     void Start() {
         _player = PlayerEntity.INSTANCE.transform;
         _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.velocity = (_player.position - transform.position).normalized * 5;
+        _rigidbody.velocity = (_player.position - transform.position).normalized * _projectileSpeed;
     }
 
     // Update is called once per frame
