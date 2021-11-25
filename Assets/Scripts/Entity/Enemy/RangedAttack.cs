@@ -11,11 +11,7 @@ public class RangedAttack : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         _player = PlayerEntity.INSTANCE.transform;
-        if (transform.position.x > _player.position.x) {
-            _movementDirection = new Vector3(-1, 0, 0);
-        } else {
-            _movementDirection = new Vector3(1, 0, 0);
-        }
+        _movementDirection = (_player.position - transform.position).normalized;
     }
 
     // Update is called once per frame

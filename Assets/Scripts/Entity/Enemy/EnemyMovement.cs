@@ -58,7 +58,7 @@ public class EnemyMovement : MonoBehaviour {
         _followPlayer = false;
 
         if (!_isGroundEnemy) {
-            _enemyBody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+            _enemyBody.gravityScale = 0;
         }
     }
 
@@ -98,9 +98,9 @@ public class EnemyMovement : MonoBehaviour {
         }
 
         if (transform.position.IsWithinDistanceOf(target.position, 5) && isAbovePlayer) {
-            _enemyBody.position = new Vector2(_enemyBody.position.x, _enemyBody.position.y - 0.3f * Time.fixedDeltaTime);
+            _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, -0.3f);
         } else if (transform.position.IsWithinDistanceOf(target.position, 5)) {
-            _enemyBody.position = new Vector2(_enemyBody.position.x, _enemyBody.position.y + 0.3f * Time.fixedDeltaTime);
+            _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, 0.3f);
         } 
 
         // Logic to check whether the enemy should patrol or follow the player
