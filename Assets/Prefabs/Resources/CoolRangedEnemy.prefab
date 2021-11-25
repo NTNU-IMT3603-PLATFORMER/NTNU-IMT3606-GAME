@@ -132,7 +132,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009639934, y: -0.568697}
+  m_Offset: {x: -0.23294193, y: -0.53434277}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -143,7 +143,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6722759, y: 0.76866555}
+  m_Size: {x: 1.146604, y: 1.1122074}
   m_EdgeRadius: 0
 --- !u!1 &1034165084223465511
 GameObject:
@@ -247,7 +247,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
+  m_Sprite: {fileID: -4795363162621231457, guid: 6d7cd4f7505dc674c891ca8946cfd98b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -268,7 +268,7 @@ Animator:
   m_GameObject: {fileID: 1947297271877012873}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fcda1a01096c925439a2b1a090e33eb7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 17416659cc086114ba98756fe74c76f2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -336,7 +336,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 73ec91e97bf28170e87e3df77534f2f9, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -356,7 +356,8 @@ MonoBehaviour:
   _speed: 1
   _followDistance: 7.5
   _patrolMode: 0
-  _isGroundEnemy: 1
+  _isGroundEnemy: 0
+  _followDistanceVertical: 5
 --- !u!114 &7095947789363075317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,13 +399,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseDamage: 1
   _attackRange: 10
-  _attackCooldown: 5
+  _attackCooldown: 4
   _knockbackAmount: 10
   _attackPoint: {fileID: 1503634742143149276}
   _enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  _prefabRangedAttack: {fileID: 8068170859998569413, guid: 9cd724d76d4890846ae8779b61fc6a6f, type: 3}
+  _prefabRangedAttack: {fileID: 1950532395576369288, guid: 9cd724d76d4890846ae8779b61fc6a6f, type: 3}
+  _projectileSpeed: 5
+  _projectileTime: 3
 --- !u!114 &880455166382178004
 MonoBehaviour:
   m_ObjectHideFlags: 0
