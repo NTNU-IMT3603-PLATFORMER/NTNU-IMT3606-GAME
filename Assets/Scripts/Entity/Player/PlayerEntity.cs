@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerEntity : Entity {
 
-
     [SerializeField, Tooltip("Max amount of blood the entity can have")]            int _maxBloodLevel = 9;
+    [SerializeField, Tooltip("Amount of time it takes for the player to heal")]     float _healTime = 1.141f;
 
     int _bloodLevel = 0;
-
+    float _startTime = 0f;
+    double _currentPosition;
+    
     /// <summary>
     /// The blood level of the player
     /// </summary>
@@ -24,10 +27,12 @@ public class PlayerEntity : Entity {
 
     const string RESPAWN_TAG = "PlayerRespawnPoint";
 
+    CharacterController2D _characterController2D;
     Transform _respawnPoint;
     Cinemachine.CinemachineVirtualCamera _playerCamera;
 
     void Start () {
+        _characterController2D = GetComponent<CharacterController2D>();
         INSTANCE = this;
         _respawnPoint = GameObject.FindWithTag(RESPAWN_TAG)?.transform;
 
@@ -58,18 +63,40 @@ public class PlayerEntity : Entity {
             _bloodLevel -= 3;
         }
     }
+
     public override void AddBlood() {
         if(_bloodLevel < _maxBloodLevel) {
             _bloodLevel++;
         }
     }
+
     public override void UpdateEntity () {
         // Die if falling outside world
         if (transform.position.y < -100) {
             Die();
         }
         if (Input.GetButtonDown("Heal")) {
-            Heal();
+            _startTime = Time.time;
+            _currentPosition = Math.Round(transform.position.x, 1);
+        }
+
+        // TODO: Play a healing animation/use some effects while the healing button is held down
+        if (Input.GetButton("Heal")){
+            // Abort healing if the character is hit, is moving, or is not on the ground
+            if (_characterController2D.isHit
+                || !_characterController2D.isGrounded
+                || (_currentPosition != Math.Round(transform.position.x,1))
+            ){
+                _startTime = Time.time;
+                _currentPosition = Math.Round(transform.position.x,1);
+                return;
+            }   
+            
+            if (_startTime + _healTime <= Time.time){
+                Heal();
+                _startTime = Time.time;
+            }
+            return;
         }
     }
 
