@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyRangedCombat : EnemyCombat {
 
-    [SerializeField]    Transform _prefabRangedAttack;
+    [SerializeField]    GameObject _prefabRangedAttack;
 
     /// <summary>
     /// Ranged attack
@@ -12,8 +12,7 @@ public class EnemyRangedCombat : EnemyCombat {
     /// <param name="damage">The damage the attack does</param>
     public override void Attack(int damage) {
         // Instantiate a ranged attack at the attack position
-        Instantiate(_prefabRangedAttack, attackPoint.position, Quaternion.identity);
-        
+        GameObject rangedAttack = Instantiate<GameObject>(_prefabRangedAttack, attackPoint.position, Quaternion.identity);
 
         timeLeftToAllowAttack = attackCooldown;
     }
