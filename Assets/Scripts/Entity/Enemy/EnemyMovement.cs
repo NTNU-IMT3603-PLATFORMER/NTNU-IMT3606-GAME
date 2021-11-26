@@ -101,12 +101,14 @@ public class EnemyMovement : MonoBehaviour {
             _followPlayer = true;
         }
 
-        if (transform.position.IsWithinDistanceOf(target.position, _followDistanceVertical) && isAbovePlayer) {
-            _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, -0.3f);
-        } else if (transform.position.IsWithinDistanceOf(target.position, _followDistanceVertical)) {
-            _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, 0.3f);
-        } else {
-            _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, 0);
+        if (!_isGroundEnemy) {
+            if (transform.position.IsWithinDistanceOf(target.position, _followDistanceVertical) && isAbovePlayer) {
+                _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, -0.3f);
+            } else if (transform.position.IsWithinDistanceOf(target.position, _followDistanceVertical)) {
+                _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, 0.3f);
+            } else {
+                _enemyBody.velocity = new Vector2(_enemyBody.velocity.x, 0);
+            }
         }
 
         // Logic to check whether the enemy should patrol or follow the player
