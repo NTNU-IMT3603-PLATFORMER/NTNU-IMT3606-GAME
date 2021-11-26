@@ -97,7 +97,7 @@ public class PlayerEntity : Entity {
             // Abort healing if the character is hit, is moving, or is not on the ground
             if (_characterController2D.isHit
                 || !_characterController2D.isGrounded
-                || (_currentPosition != Math.Round(transform.position.x,1))
+                || (_currentPosition != (float) Math.Round(transform.position.x,1))
             ){
                 _startTime = Time.time;
                 _currentPosition = (float) Math.Round(transform.position.x,1);
