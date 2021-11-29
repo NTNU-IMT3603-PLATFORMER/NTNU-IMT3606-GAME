@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
+    const string FIRST_LEVEL_SCENE = "Ice_Level_1";
+
     [SerializeField, Tooltip("The options menu panel")]  Transform _optionsMenu;
 
     public void PlayGame() {
-        SceneManager.LoadScene("Level_Tutorial");
+        SceneManager.LoadScene(FIRST_LEVEL_SCENE);
     }
 
     public void QuitGame() {
