@@ -10,6 +10,16 @@ public class FadePanel : MonoBehaviour {
 
     Image _image;
 
+    /// <summary>
+    /// Controls fade target for black screen. 
+    /// Target of 0 is no black screen. 
+    /// Target of 1 is full black screen
+    /// </summary>
+    public float fadeTarget {
+        get => _fadeTarget;
+        set => _fadeTarget = value;
+    }
+
     void Start () {
         _image = GetComponent<Image>();
         
