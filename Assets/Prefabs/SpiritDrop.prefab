@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373906246353424276}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3336363, y: -0.72473663, z: 7.3007445}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 373906247569683342}
@@ -121,8 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 373906247569683342}
-  - component: {fileID: 373906247569683340}
-  - component: {fileID: 373906247569683341}
+  - component: {fileID: 6775147773992811183}
   m_Layer: 0
   m_Name: SpiritDrop
   m_TagString: Untagged
@@ -138,33 +137,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373906247569683343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.786364, y: 0.41473663, z: -7.3007445}
+  m_LocalPosition: {x: 11.786364, y: 0.41473663, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 373906246353424274}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &373906247569683340
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373906247569683343}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 650d99b3c8df6004a8ec2e8bdd7c7b34, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &373906247569683341
+--- !u!114 &6775147773992811183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,8 +153,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 373906247569683343}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7aa8d636183c7d408926cf1b2590267, type: 3}
+  m_Script: {fileID: 11500000, guid: d85833287d966d87e838b24c4cf46946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 5890679034600322630, guid: c9c592b2a69823c9b8edf951cdb68bf3, type: 3}
-  _travelTime: 100
+  _speed: 5
+  _distanceToFollowPlayer: 10
