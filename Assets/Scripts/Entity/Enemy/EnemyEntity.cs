@@ -34,9 +34,7 @@ public class EnemyEntity : Entity {
 
         _spiritTarget = GameObject.FindGameObjectWithTag("Player");
 
-        var go = Instantiate(_spiritDropPrefab, transform.position, Quaternion.identity);
-
-        go.GetComponent<follow>().Target = _spiritTarget.transform;
+        Instantiate<GameObject>(_spiritDropPrefab, transform.position, Quaternion.identity);
 
         if (shouldRespawn) {
             RespawnAfterRespawnTime();
