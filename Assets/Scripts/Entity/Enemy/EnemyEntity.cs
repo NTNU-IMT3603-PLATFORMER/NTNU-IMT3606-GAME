@@ -8,7 +8,6 @@ public class EnemyEntity : Entity {
     [SerializeField, Tooltip("The layer which contains the player character")]      LayerMask _playerLayers;
     [SerializeField, Tooltip("How often the enemy can do contact damage")]          float _contactDamageRate;
     [SerializeField, Tooltip("Point where entity will respawn if applicable")]      Transform _respawnPoint;
-    [SerializeField, Tooltip("Time to wait until destroying object after death")]   float _lastBreathTime;
     [SerializeField, Tooltip("What spirit drop prefab to drop")]                    GameObject _spiritDropPrefab;
     GameObject _spiritTarget;
     UnityEvent _eventOnDeath = new UnityEvent();
@@ -30,7 +29,7 @@ public class EnemyEntity : Entity {
     }
 
     IEnumerator OnDie () {
-        yield return new WaitForSeconds(_lastBreathTime);
+        yield return new WaitForSeconds(lastBreathTime);
         Destroy(gameObject);
 
         _spiritTarget = GameObject.FindGameObjectWithTag("Player");
