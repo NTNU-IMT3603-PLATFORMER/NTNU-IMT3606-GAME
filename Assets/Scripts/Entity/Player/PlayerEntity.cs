@@ -42,19 +42,6 @@ public class PlayerEntity : Entity {
         set => _spirits = value;
     }
 
-    void Start () {
-        INSTANCE = this;
-        _respawnPoint = GameObject.FindWithTag(RESPAWN_TAG)?.transform;
-
-        if (_respawnPoint == null) {
-            Debug.LogError($"Respawn point not found! Create a new empty gameobject and assign it tag '{RESPAWN_TAG}' and make sure it is not disabled!");
-        }
-
-        _playerCamera = GameObject.FindWithTag("MainCamera").GetComponentInParent<Cinemachine.CinemachineVirtualCamera>();
-        
-        Checkpoints.INSTANCE.eventOnReachedCheckpoint.AddListener(OnReachedCheckpoint);
-    }
-
     public override void Respawn() {
         INSTANCE = this;
 
@@ -64,8 +51,7 @@ public class PlayerEntity : Entity {
 
     public override void Die() {
         AudioManager.instance.PlaySound("playerdeath");
-        Destroy(gameObject);
-        Respawn();
+        StartCoroutine(OnDie());
     }
 
     public void Heal() {
@@ -95,8 +81,8 @@ public class PlayerEntity : Entity {
         // TODO: Play a healing animation/use some effects while the healing button is held down
         if (Input.GetButton("Heal")){
             // Abort healing if the character is hit, is moving, or is not on the ground
-            if (_characterController2D.isHit
-                || !_characterController2D.isGrounded
+            if (characterController2D.isHit
+                || !characterController2D.isGrounded
                 || (_currentPosition != (float) Math.Round(transform.position.x,1))
             ){
                 _startTime = Time.time;
@@ -149,6 +135,25 @@ public class PlayerEntity : Entity {
     void OnReachedCheckpoint (Checkpoint checkpoint) {
         // Update respawn point to checkpoint
         _respawnPoint.transform.position = checkpoint.transform.position;
+    }
+
+    void Start () {
+        INSTANCE = this;
+        _respawnPoint = GameObject.FindWithTag(RESPAWN_TAG)?.transform;
+
+        if (_respawnPoint == null) {
+            Debug.LogError($"Respawn point not found! Create a new empty gameobject and assign it tag '{RESPAWN_TAG}' and make sure it is not disabled!");
+        }
+
+        _playerCamera = GameObject.FindWithTag("MainCamera").GetComponentInParent<Cinemachine.CinemachineVirtualCamera>();
+        
+        Checkpoints.INSTANCE.eventOnReachedCheckpoint.AddListener(OnReachedCheckpoint);
+    }
+
+    IEnumerator OnDie () {
+        yield return new WaitForSeconds(lastBreathTime);
+        Destroy(gameObject);
+        Respawn();
     }
     
 }

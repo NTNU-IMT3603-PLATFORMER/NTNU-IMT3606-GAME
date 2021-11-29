@@ -14,6 +14,7 @@ public abstract class Entity : MonoBehaviour {
     [SerializeField, Tooltip("The color the entity will get when hit")]             Color _onhitColor;
     [SerializeField, Tooltip("Time to respawn after death")]                        float _respawnTime = 10f;
     [SerializeField, Tooltip("Should the entity respawn after death?")]             bool _shouldRespawn = true;
+    [SerializeField, Tooltip("Time to wait until destroying object after death")]   float _lastBreathTime = 1f;
 
     protected CharacterController2D _characterController2D;
     protected Renderer _renderer;
@@ -60,6 +61,11 @@ public abstract class Entity : MonoBehaviour {
         get => _shouldRespawn;
         set => _shouldRespawn = value;
     }
+
+    /// <summary>
+    /// Time to wait until destroying object after death
+    /// </summary>
+    public float lastBreathTime => _lastBreathTime;
 
     public abstract void Respawn();
     public abstract void Die();
