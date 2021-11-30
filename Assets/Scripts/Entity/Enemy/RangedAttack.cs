@@ -40,7 +40,7 @@ public class RangedAttack : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Player") {
             collision.GetComponent<Entity>().InflictDamage(1, transform.position, 5);
-        } else {
+        } else if(collision.tag != "Boundary"){
             Destroy(gameObject);
         }
     }
