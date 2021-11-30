@@ -132,7 +132,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.23294193, y: -0.53434277}
+  m_Offset: {x: -0.3115785, y: -0.516868}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -143,7 +143,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.146604, y: 1.1122074}
+  m_Size: {x: 0.6398339, y: 0.73300356}
   m_EdgeRadius: 0
 --- !u!1 &1034165084223465511
 GameObject:
@@ -377,7 +377,6 @@ MonoBehaviour:
   _onhitColor: {r: 1, g: 0.3160377, b: 0.3160377, a: 1}
   _respawnTime: 10
   _shouldRespawn: 1
-  spirits: 0
   _playerLayers:
     serializedVersion: 2
     m_Bits: 128
