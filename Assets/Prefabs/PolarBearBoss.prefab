@@ -494,17 +494,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 4725855602142787621}
-  _health: 10
+  _health: 40
+  _maxHealth: 40
   _invincible: 0
   _onhitColor: {r: 1, g: 0.21226418, b: 0.21226418, a: 1}
   _respawnTime: 10
   _shouldRespawn: 0
+  _lastBreathTime: 0
   _playerLayers:
     serializedVersion: 2
     m_Bits: 128
   _contactDamageRate: 0.5
   _respawnPoint: {fileID: 0}
-  _lastBreathTime: 0
+  _spiritDropPrefab: {fileID: 373906247569683343, guid: 0a59e2129a8fc84449e68fc294823d00, type: 3}
 --- !u!114 &1608138113825728563
 MonoBehaviour:
   m_ObjectHideFlags: 0
