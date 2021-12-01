@@ -9,13 +9,15 @@ public class DialogueManager : MonoBehaviour {
     [SerializeField]    Text _dialogueText;
 
     Canvas _textBoxCanvas;
+    Canvas _alertCanvas;
 
     Queue<string> _sentences;
 
     // Start is called before the first frame update
     void Start() {
         _sentences = new Queue<string>();
-        _textBoxCanvas = transform.parent.GetComponentInChildren<Canvas>();
+        _alertCanvas = transform.parent.GetChild(3).GetComponent<Canvas>();
+        _textBoxCanvas = transform.parent.GetChild(2).GetComponent<Canvas>();
         _textBoxCanvas.enabled = false;
     }
 
@@ -32,6 +34,7 @@ public class DialogueManager : MonoBehaviour {
         }
 
         DisplayNextSentence();
+        _alertCanvas.enabled = false;
         _textBoxCanvas.enabled = true;
     }
 
@@ -51,10 +54,11 @@ public class DialogueManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Clears the sentence queue and disables dialogue canvas
+    /// Clears the sentence queue and disables dialogue canvas and enables alert canvas
     /// </summary>
     public void EndDialogue() {
         _sentences.Clear();
         _textBoxCanvas.enabled = false;
+        _alertCanvas.enabled = true;
     }
 }
