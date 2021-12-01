@@ -9,6 +9,7 @@ TagManager:
   - PlayerRespawnPoint
   - Thorn
   - NPC
+  - Collectable
   layers:
   - Default
   - TransparentFX
