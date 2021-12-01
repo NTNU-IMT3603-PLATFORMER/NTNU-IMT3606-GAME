@@ -31,7 +31,6 @@ public class PlayerEntity : Entity {
 
     const string RESPAWN_TAG = "PlayerRespawnPoint";
 
-    CharacterController2D _characterController2D;
     Transform _respawnPoint;
     Cinemachine.CinemachineVirtualCamera _playerCamera;
 
@@ -44,7 +43,6 @@ public class PlayerEntity : Entity {
     }
 
     void Start () {
-        _characterController2D = GetComponent<CharacterController2D>();
         INSTANCE = this;
         _respawnPoint = GameObject.FindWithTag(RESPAWN_TAG)?.transform;
 
