@@ -371,8 +371,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 6409391820719857955}
-  _health: 5
-  _maxHealth: 10
+  _health: 3
+  _maxHealth: 3
   _invincible: 0
   _onhitColor: {r: 1, g: 0.3160377, b: 0.3160377, a: 1}
   _respawnTime: 10

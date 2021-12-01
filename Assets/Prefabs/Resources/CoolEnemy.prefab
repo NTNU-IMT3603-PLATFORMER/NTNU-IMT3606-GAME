@@ -293,6 +293,7 @@ GameObject:
   - component: {fileID: 1411653668}
   - component: {fileID: 7239488177027770800}
   - component: {fileID: 1411653671}
+  - component: {fileID: 2001560363819635018}
   m_Layer: 8
   m_Name: CoolEnemy
   m_TagString: Untagged
@@ -356,6 +357,7 @@ MonoBehaviour:
   _followDistance: 7.5
   _patrolMode: 0
   _isGroundEnemy: 1
+  _followDistanceVertical: 0
 --- !u!114 &2893841025299573231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,7 +391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 6109901076284374995}
-  _health: 5
+  _health: 3
+  _maxHealth: 3
   _invincible: 0
   _onhitColor: {r: 1, g: 0.3160377, b: 0.3160377, a: 1}
   _respawnTime: 10
@@ -468,3 +471,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.75008154}
   serializedVersion: 2
   m_Radius: 0.20255382
+--- !u!114 &2001560363819635018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109901076284375006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82dfeb8951d047c9fb6de9786e3c3959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectTriggerCollisions: 1
