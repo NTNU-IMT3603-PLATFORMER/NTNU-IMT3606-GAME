@@ -50,12 +50,15 @@ public class PlayerTransformation : MonoBehaviour {
                 break;
             case Transformation.PolarBear:
                 data = _polarBearData;
+                AudioManager.instance.PlaySound("beartransformation");
                 break;
             case Transformation.DesertCat:
                 data = _desertCatData;
+                AudioManager.instance.PlaySound("cattransformation");
                 break;
             case Transformation.Owl:
                 data = _owlData;
+                AudioManager.instance.PlaySound("owltransformation");
                 break;
         }
         _characterController2D.jumpHeight = data.jumpHeight;
