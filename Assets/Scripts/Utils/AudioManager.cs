@@ -56,4 +56,15 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
+    
+    public void StopSound (string name){
+        Sound s = Array.Find(_sounds, sound => sound.name == name);
+        
+        // If the sound is not playing, it should not be stopped
+        if(s == null || !s.source.isPlaying)
+        {
+            return;
+        }
+        s.source.Stop();
+    }
 }
