@@ -44,8 +44,68 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sounds:
-  - name: swordhit
+  - name: enemydeath
+    clip: {fileID: 8300000, guid: 517f8331b2b748f4c9d579168ef723d5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: attack
     clip: {fileID: 8300000, guid: efdae4d9328151b3ca5159147130191c, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: playerdamage
+    clip: {fileID: 8300000, guid: e79415c5c8b03624e9c62be9d9f5ac44, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: playerjump
+    clip: {fileID: 8300000, guid: 7122aa00785ef9c44a2b844a0d86c8ed, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: playerheal
+    clip: {fileID: 8300000, guid: 259d62d4e2857d8419dc7b9a638bb08a, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: playerrun
+    clip: {fileID: 8300000, guid: 295b884a8b0de5148b0c6fa6981efa65, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: playerdeath
+    clip: {fileID: 8300000, guid: 2363314cf9f5df74f81948cbb423b156, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: enemydamage
+    clip: {fileID: 8300000, guid: 12f804d1302e27f4fb0245ee4548899e, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: beartransformation
+    clip: {fileID: 8300000, guid: 10961d881ad07b045b57351bdab449f1, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: cattransformation
+    clip: {fileID: 8300000, guid: ba4add7c5bc0d5f4eb20fdd714961a66, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: owltransformation
+    clip: {fileID: 8300000, guid: 5de5dbce2c47f3843a82f04000bfc219, type: 3}
     volume: 0.8
     pitch: 1
     loop: 0
