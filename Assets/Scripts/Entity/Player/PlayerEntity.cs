@@ -65,6 +65,7 @@ public class PlayerEntity : Entity {
     }
 
     public override void Die() {
+        AudioManager.instance.PlaySound("playerdeath");
         Destroy(gameObject);
         Respawn();
     }
@@ -73,6 +74,7 @@ public class PlayerEntity : Entity {
         if (_bloodLevel >= 3 && health < maxHealth) {
             health++;
             _bloodLevel -= 3;
+            AudioManager.instance.PlaySound("playerheal");
         }
     }
 
@@ -113,6 +115,8 @@ public class PlayerEntity : Entity {
     }
 
     public override IEnumerator OnHitEffects() {
+        AudioManager.instance.PlaySound("playerdamage");
+        
         invincible = true;
 
         // Perform base Entity OnHitEffects first before player-specific effects
