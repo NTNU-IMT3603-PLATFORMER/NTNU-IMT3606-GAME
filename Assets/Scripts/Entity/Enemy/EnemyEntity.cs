@@ -24,7 +24,7 @@ public class EnemyEntity : Entity {
 
     public override void Die() {
         Debug.Log("Enemy died!");
-        
+        AudioManager.instance.PlaySound("enemydeath");
         eventOnDeath.Invoke();
         StartCoroutine(OnDie());
     }
@@ -42,6 +42,11 @@ public class EnemyEntity : Entity {
         if (shouldRespawn) {
             RespawnAfterRespawnTime();
         }
+    }
+
+    public override IEnumerator OnHitEffects () {
+        AudioManager.instance.PlaySound("enemydamage");
+        yield return base.OnHitEffects();
     }
 
     void Start () {
