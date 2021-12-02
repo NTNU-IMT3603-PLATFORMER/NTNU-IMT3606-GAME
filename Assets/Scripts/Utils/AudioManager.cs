@@ -48,10 +48,12 @@ public class AudioManager : MonoBehaviour
     public void PlaySound (string name)
     {
         Sound s = Array.Find(_sounds, sound => sound.name == name);
-        if(s == null)
-        {
+        
+        // If the sound is already playing, it should not be played again
+        if(s == null || s.source.isPlaying){
             return;
         }
         s.source.Play();
     }
+
 }
