@@ -7,6 +7,7 @@ public class EnemyCombat : EntityCombat {
     public void AttackIfPossible (float attackMultiplier = 1f) {
         if (canAttack) {
             Attack((int)(baseDamage * attackMultiplier));
+            AudioManager.instance.PlaySound("attack");
         }
     }
 
