@@ -719,6 +719,7 @@ GameObject:
   - component: {fileID: 3282305385595425023}
   - component: {fileID: 3282305385595425016}
   - component: {fileID: 1727102404}
+  - component: {fileID: 33313575}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -922,8 +923,11 @@ MonoBehaviour:
   _onhitColor: {r: 1, g: 0.032418955, b: 0.023584902, a: 1}
   _respawnTime: 10
   _shouldRespawn: 1
-  spirits: 0
+  _lastBreathTime: 1
+  _healTime: 1.141
   _maxBloodLevel: 9
+  onHitInvincibilityTime: 1.2
+  onHitInvincibilityFlashAmount: 3
 --- !u!70 &1727102404
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -940,6 +944,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.25091273, y: -0.17270625}
   m_Size: {x: 0.45437968, y: 0.9674139}
   m_Direction: 0
+--- !u!114 &33313575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5890679034600322624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 694ebd3ddc82c614ab49aa0528467e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbs: 0
 --- !u!1 &6614379699465943655
 GameObject:
   m_ObjectHideFlags: 0
