@@ -7,8 +7,8 @@ public class DialogueManager : MonoBehaviour {
 
     [SerializeField]    Text _nameText;
     [SerializeField]    Text _dialogueText;
+    [SerializeField]    GameObject _dialoguePanel;
 
-    Canvas _textBoxCanvas;
     Canvas _alertCanvas;
 
     Queue<string> _sentences;
@@ -17,8 +17,7 @@ public class DialogueManager : MonoBehaviour {
     void Start() {
         _sentences = new Queue<string>();
         _alertCanvas = transform.parent.GetChild(3).GetComponent<Canvas>();
-        _textBoxCanvas = transform.parent.GetChild(2).GetComponent<Canvas>();
-        _textBoxCanvas.enabled = false;
+        _dialoguePanel.SetActive(false);
     }
 
     /// <summary>
@@ -35,7 +34,7 @@ public class DialogueManager : MonoBehaviour {
 
         DisplayNextSentence();
         _alertCanvas.enabled = false;
-        _textBoxCanvas.enabled = true;
+        _dialoguePanel.SetActive(true);
     }
 
     /// <summary>
@@ -58,7 +57,7 @@ public class DialogueManager : MonoBehaviour {
     /// </summary>
     public void EndDialogue() {
         _sentences.Clear();
-        _textBoxCanvas.enabled = false;
+        _dialoguePanel.SetActive(false);
         _alertCanvas.enabled = true;
     }
 }
