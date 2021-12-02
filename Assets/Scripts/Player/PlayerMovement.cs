@@ -51,6 +51,13 @@ public class PlayerMovement : MonoBehaviour {
 			_dash = true;
 		}
 
+		// If the player is running and is on the ground, then play the running sound
+		if (isMoving && characterController.isGrounded){
+			AudioManager.instance.PlaySound("playerrun");
+		} else {
+			AudioManager.instance.StopSound("playerrun");
+		}
+
 		isMoving = _move != 0f;
 	}
 
