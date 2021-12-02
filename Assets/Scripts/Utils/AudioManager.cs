@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 
 
 
-public class AudioManager : MonoBehaviour
-{
+public class AudioManager : MonoBehaviour {
     [SerializeField]
     Sound[] _sounds;
 
@@ -19,23 +18,19 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance { get; private set;}
 
     // Start is called before the first frame update
-    void Awake()
-    {
+    void Awake() {
 
-        if(instance == null)
-        {
+        if (instance == null) {
             instance = this;
         }
-        else
-        {
+        else {
             Destroy(gameObject);
             return;
         }
 
         DontDestroyOnLoad(gameObject);
 
-      foreach(Sound s in _sounds)
-        {
+        foreach (Sound s in _sounds) {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.volume = s.volume;
@@ -45,24 +40,22 @@ public class AudioManager : MonoBehaviour
     }
 
    
-    public void PlaySound (string name)
-    {
+    public void PlaySound (string name) {
         Sound s = Array.Find(_sounds, sound => sound.name == name);
         
         // If the sound is already playing, it should not be played again
-        if(s == null || s.source.isPlaying){
+        if (s == null || s.source.isPlaying) {
             return;
         }
         s.source.Play();
     }
 
     
-    public void StopSound (string name){
+    public void StopSound (string name) {
         Sound s = Array.Find(_sounds, sound => sound.name == name);
         
         // If the sound is not playing, it should not be stopped
-        if(s == null || !s.source.isPlaying)
-        {
+        if (s == null || !s.source.isPlaying) {
             return;
         }
         s.source.Stop();
