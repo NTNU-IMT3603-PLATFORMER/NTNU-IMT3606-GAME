@@ -11,7 +11,7 @@ public class PlayerCombat : EntityCombat {
 
         if (Input.GetButtonDown("Attack") && canAttack) {
             Attack(baseDamage);
-            AudioManager.instance.PlaySound("swordhit");
+            AudioManager.instance.PlaySound("attack");
         }
     }
 
