@@ -899,7 +899,7 @@ MonoBehaviour:
   _baseDamage: 1
   _attackRange: 0.7
   _attackCooldown: 0.3
-  _knockbackAmount: 10
+  _knockbackAmount: 7
   _attackPoint: {fileID: 3282305386456561751}
   _enemyLayers:
     serializedVersion: 2
