@@ -32,9 +32,9 @@ Linearly, from left, right, up, down, on a platform. It will be a semi-open worl
 
 [https://www.youtube.com/watch?v=wOJAErCvVhs](https://www.youtube.com/watch?v=wOJAErCvVhs)
 
-![](RackMultipart20211202-4-oyd5dy_html_b669042849ccea6d.png)
+![](img/1.png)
 
-![](RackMultipart20211202-4-oyd5dy_html_406b6c32494c6e59.png)
+![](img/2.png)
 
 The game will have a nature-based theme; this works well with the druid and animal transformations—different biomes like forests, snowy areas, desert areas, etc.
 
@@ -200,9 +200,9 @@ The game will not include a lot of characters, except the main character.
 Each level should include a synopsis, the required introductory material (and how it is provided), the objectives, and the details of what happens in the level.
  Depending on the game, this may include the physical description of the map, the critical path that the player needs to take, and what encounters are important or incidental.
 
-![](RackMultipart20211202-4-oyd5dy_html_2a40a88ef91a8695.png)
+![](img/3.png)
 
-![](RackMultipart20211202-4-oyd5dy_html_c0e4930bcef78a86.png)
+![](img/4.png)
 
 Forest:
 
@@ -314,11 +314,11 @@ The art will be developed in photoshop. The style will be pixel art.
 
 Something like this:
 
-![](RackMultipart20211202-4-oyd5dy_html_c0e4930bcef78a86.png)
+![](img/4.png)
 
 Ideally something like this:
 
-![](RackMultipart20211202-4-oyd5dy_html_6746848dbd3c96db.png)
+![](img/5.png)
 
-![](RackMultipart20211202-4-oyd5dy_html_29c54537ed5531f2.png)
+![](img/6.png)
 
