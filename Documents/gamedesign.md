@@ -87,7 +87,6 @@ What are the rules to the game, both implicit and explicit?
   - Owl
     - Glide
   - Bear
-  -
 
 ## Physics
 
@@ -137,7 +136,7 @@ If there is combat or conflict, how is this specifically modeled?
 - Owl
   - Can semi-fly (hover)
   - Ranged attack (?) (ohoooooooo)
-  - Fear? ( **o** hooo **oo** ooooho **oo** ooooo \&gt;:) )
+  - Fear? ( **o**hooo**oo**ooooho**oo**ooooo)
 
 ## Economy
 
@@ -257,7 +256,7 @@ Possible option for binding your own keys
 - shift: sprint
 - dd: dash right
 - aa: dash left
-  - This has to be tuned so that you don&#39;t accidentally dash when you just want to make several small movements.
+  - This has to be tuned so that you don't accidentally dash when you just want to make several small movements.
 
 ## Audio, Music, Sound Effects
 
@@ -277,7 +276,7 @@ The active opponent plays against the player and therefore requires strategic de
 
 ## Support AI
 
-- Liten hagenisse
+- Garden gnome
 
 ## Player and Collision Detection, Path-finding.
 
@@ -299,10 +298,7 @@ The active opponent plays against the player and therefore requires strategic de
 
 ## Network requirements
 
-- Dial-up connection
-- Essentially none
-- Mostly single player
-- Network is required for the multiplayer gamemode
+None
 
 ## Game Art
 
