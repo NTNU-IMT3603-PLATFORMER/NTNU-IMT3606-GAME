@@ -14,6 +14,9 @@ public class BossRoomBoundary : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other) {
         _journeyTheme.Stop();
+        if (_bossMusic.isPlaying) {
+            return;
+        }
         _bossMusic.Play();
     }
 }
