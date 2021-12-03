@@ -272,8 +272,6 @@ The active opponent plays against the player and therefore requires strategic de
 
 ## Non-combat and Friendly Characters
 
--
-
 ## Support AI
 
 - Garden gnome
