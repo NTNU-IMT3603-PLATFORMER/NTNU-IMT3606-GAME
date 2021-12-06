@@ -18,7 +18,7 @@ public class amountOfSpirits : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spirits.text = _player.GetComponent<Entity>().spirits.ToString();
+        spirits.text = _player.GetComponent<PlayerEntity>().spirits.ToString();
 
     }
 }

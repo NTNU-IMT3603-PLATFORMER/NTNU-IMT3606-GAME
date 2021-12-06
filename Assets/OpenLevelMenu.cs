@@ -20,8 +20,10 @@ public class OpenLevelMenu : MonoBehaviour
                 openLevelMenu(true);
             } 
         }
-        
-        if (Vector3.Distance(PlayerEntity.INSTANCE.transform.position, transform.position) > 2) {
+
+        float distanceToPlayer = Vector3.Distance(PlayerEntity.INSTANCE.transform.position, transform.position);
+
+        if (distanceToPlayer < 5 && distanceToPlayer > 2) {
             //TODO: add something which indicates the npc is interactable
             openLevelMenu(true);
         }
