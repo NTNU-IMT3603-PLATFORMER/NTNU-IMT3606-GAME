@@ -9,6 +9,7 @@ public class PlayerCollectable : MonoBehaviour
     {
         if(other.CompareTag("Collectable"))
         {
+            AudioManager.instance.PlaySound("orbcollect");
             orbs++;
             Destroy(other.gameObject);
         }
