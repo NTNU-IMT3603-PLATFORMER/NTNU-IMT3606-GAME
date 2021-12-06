@@ -172,6 +172,7 @@ public class PlayerEntity : Entity {
         
         Checkpoints.INSTANCE.eventOnReachedCheckpoint.AddListener(OnReachedCheckpoint);
 
+        // Do not respawn if this is first scene
         if (!calledFromStart) {
             Respawn();
         }
