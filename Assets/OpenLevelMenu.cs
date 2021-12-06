@@ -5,21 +5,23 @@ using UnityEngine;
 public class OpenLevelMenu : MonoBehaviour
 {
 
-    public GameObject levelMenu;
-    public Vector3 _fireplacePosition;
+    [SerializeField]
+    GameObject levelMenu;
 
+    bool isAlreadyOpen;
 
-    void Start() {
-        _fireplacePosition = transform.position;
-    }
+    
     void Update() {
         if (Input.GetButtonDown("Talk")) {
-            if (Vector3.Distance(PlayerEntity.INSTANCE.transform.position, _fireplacePosition) < 2) {
+            if (Vector3.Distance(PlayerEntity.INSTANCE.transform.position, transform.position) < 2 && isAlreadyOpen == false) {
                 //TODO: add something which indicates the npc is interactable
                 openLevelMenu(false);
-            }
+            } else {
+                openLevelMenu(true);
+            } 
         }
-        if (Vector3.Distance(PlayerEntity.INSTANCE.transform.position, _fireplacePosition) > 2) {
+        
+        if (Vector3.Distance(PlayerEntity.INSTANCE.transform.position, transform.position) > 2) {
             //TODO: add something which indicates the npc is interactable
             openLevelMenu(true);
         }
@@ -30,8 +32,10 @@ public class OpenLevelMenu : MonoBehaviour
     public void openLevelMenu(bool isOpen) {
         if(isOpen) {
             levelMenu.SetActive(false);
+            isAlreadyOpen = false;
         } else {
             levelMenu.SetActive(true);
+            isAlreadyOpen = true;
         }
         
     }
