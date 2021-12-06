@@ -15,6 +15,7 @@ public class PlayerEntity : Entity {
     float _startTime = 0f;
     float _currentPosition;
     int _spirits = 0;
+    int _playerLevel = 0;
 
     /// <summary>
     /// The blood level of the player
@@ -40,6 +41,11 @@ public class PlayerEntity : Entity {
     public int spirits {
         get => _spirits;
         set => _spirits = value;
+    }
+
+    public int playerLevel {
+        get => _playerLevel;
+        set => _playerLevel = value;
     }
 
     public override void Respawn() {

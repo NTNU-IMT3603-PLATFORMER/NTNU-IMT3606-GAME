@@ -12,11 +12,17 @@ public class PlayerMovement : MonoBehaviour {
 	/// Character controller used for player movement
 	/// </summary>
 	public CharacterController2D characterController => _characterController;
+    public float runSpeed => _runSpeed;
 
-	/// <summary>
-	/// Is the player moving?
-	/// </summary>
-	public bool isMoving { get; private set; }
+    public float speed {
+        get => _speed;
+        set => _speed = value;
+    }
+
+    /// <summary>
+    /// Is the player moving?
+    /// </summary>
+    public bool isMoving { get; private set; }
 
 	/// <summary>
 	/// Should the player run once it starts moving?
