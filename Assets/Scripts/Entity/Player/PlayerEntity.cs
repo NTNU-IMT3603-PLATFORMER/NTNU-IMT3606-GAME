@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class PlayerEntity : Entity {
 
+    const string CREDITS_SCENE = "Credits";
 
     [SerializeField, Tooltip("Amount of time it takes for the player to heal")]         float _healTime = 1.141f;
     [SerializeField, Tooltip("Max amount of blood the entity can have")]                int _maxBloodLevel = 9;
@@ -49,10 +51,9 @@ public class PlayerEntity : Entity {
     }
 
     public override void Respawn() {
-        INSTANCE = this;
-
-        GameObject newPlayer = Instantiate(Resources.Load<GameObject>("Player"), _respawnPoint.position.ToVec2(), Quaternion.identity);
-        _playerCamera.Follow = newPlayer.transform;
+        health = maxHealth;
+        _bloodLevel = 0;
+        transform.position = _respawnPoint.position.ToVec2();
     }
 
     public override void Die() {
@@ -144,7 +145,22 @@ public class PlayerEntity : Entity {
     }
 
     void Start () {
+        // Suicide if I'm a clone
+        if ((INSTANCE != null && INSTANCE != this)) {
+            Destroy(gameObject);
+            return;
+        }
+
         INSTANCE = this;
+        SceneManager.sceneLoaded += SceneLoaded;
+
+        // We want to preserve Player through all scenes
+        DontDestroyOnLoad(gameObject);
+
+        SceneLoadedLogic(true);
+    }
+
+    void SceneLoadedLogic (bool calledFromStart) {
         _respawnPoint = GameObject.FindWithTag(RESPAWN_TAG)?.transform;
 
         if (_respawnPoint == null) {
@@ -152,13 +168,29 @@ public class PlayerEntity : Entity {
         }
 
         _playerCamera = GameObject.FindWithTag("MainCamera").GetComponentInParent<Cinemachine.CinemachineVirtualCamera>();
+        _playerCamera.Follow = transform;
         
         Checkpoints.INSTANCE.eventOnReachedCheckpoint.AddListener(OnReachedCheckpoint);
+
+        if (!calledFromStart) {
+            Respawn();
+        }
+    }
+
+    void SceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
+        if (!scene.name.Equals(CREDITS_SCENE)) {
+            SceneLoadedLogic(false);
+        } else {
+            // Deactivate player if in Credits scene
+            // We still want to keep player around to show
+            // the end stats, so it is simply disabled to not be in the way
+            gameObject.SetActive(false);
+        }
     }
 
     IEnumerator OnDie () {
         yield return new WaitForSeconds(lastBreathTime);
-        Destroy(gameObject);
+        //Destroy(gameObject);
         Respawn();
     }
     
