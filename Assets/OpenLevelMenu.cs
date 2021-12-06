@@ -8,12 +8,12 @@ public class OpenLevelMenu : MonoBehaviour
     [SerializeField]
     GameObject levelMenu;
 
-    bool isAlreadyOpen;
+    bool _isAlreadyOpen;
 
     
     void Update() {
         if (Input.GetButtonDown("Talk")) {
-            if (Vector3.Distance(PlayerEntity.INSTANCE.transform.position, transform.position) < 2 && isAlreadyOpen == false) {
+            if (Vector3.Distance(PlayerEntity.INSTANCE.transform.position, transform.position) < 2 && _isAlreadyOpen == false) {
                 //TODO: add something which indicates the npc is interactable
                 openLevelMenu(false);
             } else {
@@ -25,17 +25,15 @@ public class OpenLevelMenu : MonoBehaviour
             //TODO: add something which indicates the npc is interactable
             openLevelMenu(true);
         }
-
-
     }
 
     public void openLevelMenu(bool isOpen) {
         if(isOpen) {
             levelMenu.SetActive(false);
-            isAlreadyOpen = false;
+            _isAlreadyOpen = false;
         } else {
             levelMenu.SetActive(true);
-            isAlreadyOpen = true;
+            _isAlreadyOpen = true;
         }
         
     }
