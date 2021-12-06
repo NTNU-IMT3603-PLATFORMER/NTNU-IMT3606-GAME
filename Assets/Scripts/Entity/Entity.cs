@@ -36,7 +36,10 @@ public abstract class Entity : MonoBehaviour {
     /// <summary>
     /// The max health of the entity
     /// </summary>
-    public int maxHealth => _maxHealth;
+    public int maxHealth {
+        get => _maxHealth;
+        set => _maxHealth = value;
+    }
 
     /// <summary>
     /// The health of the entity
