@@ -12,16 +12,17 @@ public class OpenLevelMenu : MonoBehaviour
 
     
     void Update() {
+        float distanceToPlayer = Vector3.Distance(PlayerEntity.INSTANCE.transform.position, transform.position);
         if (Input.GetButtonDown("Talk")) {
-            if (Vector3.Distance(PlayerEntity.INSTANCE.transform.position, transform.position) < 2 && _isAlreadyOpen == false) {
+            if (distanceToPlayer < 2 && _isAlreadyOpen == false) {
                 //TODO: add something which indicates the npc is interactable
                 openLevelMenu(false);
-            } else {
+            } else if (distanceToPlayer < 2) {
                 openLevelMenu(true);
             } 
         }
 
-        float distanceToPlayer = Vector3.Distance(PlayerEntity.INSTANCE.transform.position, transform.position);
+        
 
         if (distanceToPlayer < 5 && distanceToPlayer > 2) {
             //TODO: add something which indicates the npc is interactable
@@ -31,9 +32,11 @@ public class OpenLevelMenu : MonoBehaviour
 
     public void openLevelMenu(bool isOpen) {
         if(isOpen) {
+            Debug.Log(":)");
             levelMenu.SetActive(false);
             _isAlreadyOpen = false;
         } else {
+            Debug.Log("no bør du funk for faen");
             levelMenu.SetActive(true);
             GameObject.FindObjectOfType<IncreaseValues>(true).UpdateValues();
             _isAlreadyOpen = true;
