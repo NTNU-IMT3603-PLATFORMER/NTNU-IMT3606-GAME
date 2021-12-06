@@ -24,10 +24,7 @@ public class PlayerTransformation : MonoBehaviour {
     
     [SerializeField]
     PlayerTransformationData _owlData;
-
-    UnityEvent _eventOnTransform = new UnityEvent();
-    public UnityEvent eventOnTransform => _eventOnTransform;
-
+    
     /// <summary>
     /// Transformation contains the different transformation that the player is capable of doing.
     /// </summary>
@@ -88,7 +85,6 @@ public class PlayerTransformation : MonoBehaviour {
         }
         
         data.transformationState.SetActive(true);
-        eventOnTransform.Invoke();
     }
 
     void Start() {
