@@ -35,6 +35,7 @@ public class OpenLevelMenu : MonoBehaviour
             _isAlreadyOpen = false;
         } else {
             levelMenu.SetActive(true);
+            GameObject.FindObjectOfType<IncreaseValues>(true).UpdateValues();
             _isAlreadyOpen = true;
         }
         

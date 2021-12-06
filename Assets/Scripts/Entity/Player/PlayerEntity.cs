@@ -15,7 +15,7 @@ public class PlayerEntity : Entity {
     float _startTime = 0f;
     float _currentPosition;
     int _spirits = 0;
-    int _playerLevel = 0;
+    int _playerLevel = 1;
 
     /// <summary>
     /// The blood level of the player

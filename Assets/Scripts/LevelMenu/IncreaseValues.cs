@@ -31,12 +31,36 @@ public class IncreaseValues : MonoBehaviour {
     [SerializeField]
     Text currentCostText;
 
+    public static IncreaseValues INSTANCE { get; private set; }
 
-    int _playerLevel;
-    int _strength;
-    float _speed;
-    int _maxHealth;
-    int _spirits;
+    int playerLevel {
+        get => PlayerEntity.INSTANCE.playerLevel;
+        set => PlayerEntity.INSTANCE.playerLevel = value;
+    }
+    int strength {
+        get => PlayerEntity.INSTANCE.GetComponent<PlayerCombat>().baseDamage;
+        set => PlayerEntity.INSTANCE.GetComponent<PlayerCombat>().baseDamage = value;
+    }
+    float speed {
+        get => PlayerEntity.INSTANCE.GetComponent<PlayerMovement>().speed;
+        set => PlayerEntity.INSTANCE.GetComponent<PlayerMovement>().speed = value;
+    }
+    int maxHealth {
+        get => PlayerEntity.INSTANCE.maxHealth;
+        set => PlayerEntity.INSTANCE.maxHealth = value;
+    }
+    int spirits {
+        get => PlayerEntity.INSTANCE.spirits;
+        set => PlayerEntity.INSTANCE.spirits = value;
+    }
+    int health {
+        get => PlayerEntity.INSTANCE.health;
+        set => PlayerEntity.INSTANCE.health = value;
+    }
+
+
+
+
 
     int _newPlayerLevel;
     int _newStrength;
@@ -47,37 +71,38 @@ public class IncreaseValues : MonoBehaviour {
     int _cost;
 
     private void Start() {
+        INSTANCE = this;
 
-        _player = PlayerEntity.INSTANCE.gameObject;
+        UpdateValues();
 
-        _playerLevel = _player.GetComponent<PlayerEntity>().playerLevel;
-        _maxHealth = _player.GetComponent<Entity>().maxHealth;
-        _strength = _player.GetComponent<EntityCombat>().baseDamage;
-        _speed = _player.GetComponent<PlayerMovement>().speed;
-        _spirits = _player.GetComponent<PlayerEntity>().spirits;
-
-        _newPlayerLevel = _player.GetComponent<PlayerEntity>().playerLevel;
-        _newMaxHealth = _player.GetComponent<Entity>().maxHealth;
-        _newStrength = _player.GetComponent<EntityCombat>().baseDamage;
-        _newSpeed = _player.GetComponent<PlayerMovement>().speed;
-        _newSpirits = _player.GetComponent<PlayerEntity>().spirits;
-
-        currentSpiritsText.text = _spirits.ToString();
-        currentHealthText.text = _maxHealth.ToString();
-        currentStrengthText.text = _strength.ToString();
-        currentSpeedText.text = _speed.ToString();
-        currentPlayerLevelText.text = _playerLevel.ToString();
-
-        newSpiritsText.text = _spirits.ToString();
-        newHealthText.text = _maxHealth.ToString();
-        newStrengthText.text = _strength.ToString();
-        newSpeedText.text = _speed.ToString();
-        newPlayerLevelText.text = _playerLevel.ToString();
+        spirits = 200;
 
         descriptionText.text = "";
         currentCostText.text = "1 spirit";
     }
 
+    public void UpdateValues() {
+        Debug.Log("yes");
+        _newPlayerLevel = playerLevel;
+        _newMaxHealth = maxHealth;
+        _newStrength = strength;
+        _newSpeed = speed;
+        _newSpirits = spirits;
+
+        currentSpiritsText.text = spirits.ToString();
+        currentHealthText.text = maxHealth.ToString();
+        currentStrengthText.text = strength.ToString();
+        currentSpeedText.text = speed.ToString();
+        currentPlayerLevelText.text = playerLevel.ToString();
+
+        newSpiritsText.text = spirits.ToString();
+        newHealthText.text = maxHealth.ToString();
+        newStrengthText.text = strength.ToString();
+        newSpeedText.text = speed.ToString();
+        newPlayerLevelText.text = playerLevel.ToString();
+    }
+
+    
 
     public void incrementHealth() {
 
@@ -112,7 +137,7 @@ public class IncreaseValues : MonoBehaviour {
     }
 
     public void decrementStrength() {
-        if (_newStrength > _strength) {
+        if (_newStrength > strength) {
             _newStrength -= 1;
             newStrengthText.text = _newStrength.ToString();
             decrementPlayerLevel();
@@ -121,7 +146,7 @@ public class IncreaseValues : MonoBehaviour {
     }
 
     public void decrementHealth() {
-        if (_newMaxHealth > _maxHealth) {
+        if (_newMaxHealth > maxHealth) {
             _newMaxHealth -= 1;
             newHealthText.text = _newMaxHealth.ToString();
             decrementPlayerLevel();
@@ -130,7 +155,7 @@ public class IncreaseValues : MonoBehaviour {
     }
 
     public void decrementSpeed() {
-        if (_newSpeed > _speed) {
+        if (_newSpeed > speed) {
             _newSpeed -= 1;
             newSpeedText.text = _newSpeed.ToString();
             decrementPlayerLevel();
@@ -144,15 +169,16 @@ public class IncreaseValues : MonoBehaviour {
     }
 
     public bool calculateNewAmountOfSpirits(bool isLeveling) {
+        Debug.Log(_newSpirits);
         _cost = _newPlayerLevel;
-        currentCostText.text = (_cost + 1) + " spirits";
+        
         if (isLeveling) {
-
-            if (_newSpirits - _cost <= 0) {
+            if (_newSpirits - _cost < 0) {
                 descriptionText.text = "Not enough spirits";
                 Debug.Log("Not enough spirits");
                 return false;
             } else {
+                currentCostText.text = (_cost + 1) + " spirits";
                 _newSpirits = _newSpirits - _cost;
                 newSpiritsText.text = _newSpirits.ToString();
                 descriptionText.text = "";
@@ -169,25 +195,25 @@ public class IncreaseValues : MonoBehaviour {
 
     public void confirmLevelUp() {
 
-        _playerLevel = _newPlayerLevel;
-        _maxHealth = _newMaxHealth;
-        _strength = _newStrength;
-        _speed = _newSpeed;
-        _spirits = _newSpirits;
+        playerLevel = _newPlayerLevel;
+        maxHealth = _newMaxHealth;
+        strength = _newStrength;
+        speed = _newSpeed;
+        spirits = _newSpirits;
 
 
-        _player.GetComponent<PlayerEntity>().playerLevel = _newPlayerLevel;
-        _player.GetComponent<Entity>().maxHealth = _newMaxHealth;
-        _player.GetComponent<Entity>().health = _newMaxHealth;
-        _player.GetComponent<EntityCombat>().baseDamage = _newStrength;
-        _player.GetComponent<PlayerMovement>().speed = _newSpeed;
-        _player.GetComponent<PlayerEntity>().spirits = _newSpirits;
+        playerLevel = _newPlayerLevel;
+        maxHealth = _newMaxHealth;
+        health = _newMaxHealth;
+        strength = _newStrength;
+        speed = _newSpeed;
+        spirits = _newSpirits;
 
-        currentSpiritsText.text = _spirits.ToString();
-        currentHealthText.text = _maxHealth.ToString();
-        currentStrengthText.text = _strength.ToString();
-        currentSpeedText.text = _speed.ToString();
-        currentPlayerLevelText.text = _playerLevel.ToString();
+        currentSpiritsText.text = spirits.ToString();
+        currentHealthText.text = maxHealth.ToString();
+        currentStrengthText.text = strength.ToString();
+        currentSpeedText.text = speed.ToString();
+        currentPlayerLevelText.text = playerLevel.ToString();
 
     }
 
