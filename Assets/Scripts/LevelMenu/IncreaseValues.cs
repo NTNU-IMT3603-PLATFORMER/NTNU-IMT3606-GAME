@@ -75,8 +75,6 @@ public class IncreaseValues : MonoBehaviour {
 
         UpdateValues();
 
-        spirits = 200;
-
         descriptionText.text = "";
         currentCostText.text = "1 spirit";
     }
@@ -195,6 +193,8 @@ public class IncreaseValues : MonoBehaviour {
 
     public void confirmLevelUp() {
 
+        if(_newPlayerLevel > playerLevel) { 
+
         playerLevel = _newPlayerLevel;
         maxHealth = _newMaxHealth;
         strength = _newStrength;
@@ -214,6 +214,9 @@ public class IncreaseValues : MonoBehaviour {
         currentStrengthText.text = strength.ToString();
         currentSpeedText.text = speed.ToString();
         currentPlayerLevelText.text = playerLevel.ToString();
+        } else {
+            descriptionText.text = "You haven't leveled up";
+        }
 
     }
 
