@@ -2120,7 +2120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8817812234848038726
 Transform:
   m_ObjectHideFlags: 0
@@ -2160,17 +2160,6 @@ MonoBehaviour:
   newPlayerLevelText: {fileID: 8817812233800370881}
   descriptionText: {fileID: 8817812233738772535}
   currentCostText: {fileID: 8817812235652516808}
-  playerLevel: 0
-  strength: 0
-  speed: 0
-  maxHealth: 44
-  spirits: 0
-  newPlayerLevel: 0
-  newStrength: 0
-  newSpeed: 0
-  newMaxHealth: 0
-  newSpirits: 0
-  cost: 0
 --- !u!1 &8817812234862028636
 GameObject:
   m_ObjectHideFlags: 0
