@@ -8,15 +8,12 @@ public class PlayerAnimation : MonoBehaviour {
 
     PlayerMovement _playerMovement;
     PlayerCombat _playerCombat;
-    PlayerTransformation _playerTransformation;
 
     void Start() {
         _playerMovement = GetComponentInParent<PlayerMovement>();
         _playerCombat = GetComponentInParent<PlayerCombat>();
-        _playerTransformation = GetComponentInParent<PlayerTransformation>();
 
         _playerCombat.eventOnAttack.AddListener(AttackAnimationListener);
-        _playerTransformation.eventOnTransform.AddListener(TransformAnimationListener);
     }
 
     void Update () {
@@ -27,10 +24,6 @@ public class PlayerAnimation : MonoBehaviour {
 
     void AttackAnimationListener() {
         _animator.SetTrigger("isAttacking"); 
-    }
-
-    void TransformAnimationListener() {
-        _animator.SetTrigger("isTransforming");
     }
 
 }
