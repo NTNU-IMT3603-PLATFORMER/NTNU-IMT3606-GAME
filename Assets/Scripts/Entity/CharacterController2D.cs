@@ -7,45 +7,80 @@ using UnityEngine.Events;
 [RequireComponent(typeof(EntityCollision))]
 public class CharacterController2D : MonoBehaviour {
 
-    [SerializeField, Tooltip("Mandatory rigidbody that will be used for moving character")]                             Rigidbody2D _rigidbody;
+    [SerializeField, Tooltip("Mandatory rigidbody that will be used for moving character")]
+    Rigidbody2D _rigidbody;
 
     [Header("Air control")]
-    [SerializeField, Tooltip("Maximum movement delta change when in air")]                                              float maxAirTurnSpeed = 50f;
+    [SerializeField, Tooltip("Maximum movement delta change when in air")]
+    float maxAirTurnSpeed = 50f;
 
     [Header("Ground / Wall Detection")]
 
-    [SerializeField, Tooltip("Transform representing point that will be used as origin for ground check")]              Transform _groundCheckPoint;
-    [SerializeField, Tooltip("Radius of circle for ground detection")]                                                  float _groundCheckRadius = 0.21f;
-    [SerializeField, Tooltip("Layer that should be detected as ground")]                                                UnityEngine.LayerMask _groundCheckMask;
+    [SerializeField, Tooltip("Transform representing point that will be used as origin for ground check")]
+    Transform _groundCheckPoint;
+    [SerializeField, Tooltip("Radius of circle for ground detection")]
+    float _groundCheckRadius = 0.21f;
+    [SerializeField, Tooltip("Layer that should be detected as ground")]
+    UnityEngine.LayerMask _groundCheckMask;
 
-    [SerializeField, Tooltip("Transform representing point that will be used as origin for wall check")]                Transform _wallCheckPoint;
-    [SerializeField, Tooltip("Radius of circle for wall detection")]                                                    float _wallCheckRadius = 0.35f;
-    [SerializeField, Tooltip("Layer that should be detected as wall")]                                                  UnityEngine.LayerMask _wallCheckMask;
+    [SerializeField, Tooltip("Transform representing point that will be used as origin for wall check")]
+    Transform _wallCheckPoint;
+    [SerializeField, Tooltip("Radius of circle for wall detection")]
+    float _wallCheckRadius = 0.35f;
+    [SerializeField, Tooltip("Layer that should be detected as wall")]
+    UnityEngine.LayerMask _wallCheckMask;
 
     [Header("Jumping")]
 
-    [SerializeField, Tooltip("The height that each jump should reach")]                                                 float _jumpHeight = 2.5f;
-    [SerializeField, Tooltip("Time after each jump where jumping again should not be allowed")]                         float _jumpResetTime = 0.25f;
-    [SerializeField, Tooltip("Additional jumps that are allowed while in air")]                                         int _extraAirJumps = 1;
+    [SerializeField, Tooltip("The height that each jump should reach")]
+    float _jumpHeight = 2.5f;
+    [SerializeField, Tooltip("Time after each jump where jumping again should not be allowed")]
+    float _jumpResetTime = 0.25f;
+    [SerializeField, Tooltip("Additional jumps that are allowed while in air")]
+    int _extraAirJumps = 1;
 
     [Header("Player direction")]
 
-    [SerializeField, Tooltip("Should transform z scale be flipped when changing movement direction?")]                  bool _flipIfChangingDirection = true;
-    [SerializeField, Tooltip("Does player sprite start facing right?")]                                                 bool _startFacingRight = true;
+    [SerializeField, Tooltip("Should transform z scale be flipped when changing movement direction?")]
+    bool _flipIfChangingDirection = true;
+    [SerializeField, Tooltip("Does player sprite start facing right?")]
+    bool _startFacingRight = true;
 
     [Header("Wall sliding / jumping")]
 
-    [SerializeField, Tooltip("Should wall sliding be enabled?")]                                                        bool _enableWallSlide = true;
-    [SerializeField, Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity")]    float _minWallSlideGravityVelocity = -2f;
-    [SerializeField, Tooltip("Should wall jumping be enabled?")]                                                        bool _enableWallJump = true;
-    [SerializeField, Tooltip("Horizontal velocity determining wall push impact when wall jumping")]                     float _wallJumpPushVelocity = 10f;
+    [SerializeField, Tooltip("Should wall sliding be enabled?")]
+    bool _enableWallSlide = true;
+    [SerializeField, Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity")]
+    float _minWallSlideGravityVelocity = -2f;
+    [SerializeField, Tooltip("Should wall jumping be enabled?")]
+    bool _enableWallJump = true;
+    [SerializeField, Tooltip("Horizontal velocity determining wall push impact when wall jumping")]
+    float _wallJumpPushVelocity = 10f;
 
     [Header("Dashing")]
-    [SerializeField, Tooltip("Should dashing be enabled?")]                                                             bool _enableDashing = true;
-    [SerializeField, Tooltip("How far should the player dash?")]                                                        float _dashDistance = 4f;
-    [SerializeField, Tooltip("How fast should the player dash?")]                                                       float _dashSpeed = 20f;
-    [SerializeField, Tooltip("Additional jumps that are allowed while in air")]                                         int _maxDashes = 1;
-    [SerializeField, Tooltip("The time it takes to allow dashing again")]                                               float _dashResetTime = 1f;
+    [SerializeField, Tooltip("Should dashing be enabled?")]
+    bool _enableDashing = true;
+    [SerializeField, Tooltip("How far should the player dash?")]
+    float _dashDistance = 4f;
+    [SerializeField, Tooltip("How fast should the player dash?")]
+    float _dashSpeed = 20f;
+    [SerializeField, Tooltip("Additional jumps that are allowed while in air")]
+    int _maxDashes = 1;
+    [SerializeField, Tooltip("The time it takes to allow dashing again")]
+    float _dashResetTime = 1f;
+
+    float _timeLeftToAllowJump;
+    float _timeLeftToAllowDash;
+    float _dashDistanceLeft;
+
+    Vector2 _lastVelocity;
+    float _gravityScaleBeforeDash;
+    Vector3 _lastParentCoordinates;
+    Collider2D[] _childColliders;
+
+    UnityEvent<Collider2D> _eventOnGrounded = new UnityEvent<Collider2D>();
+    UnityEvent _eventOnLeftGround = new UnityEvent();
+    UnityEvent _eventOnJump = new UnityEvent();
 
     /// <summary>
     /// Rigidbody used for moving the character
@@ -120,7 +155,6 @@ public class CharacterController2D : MonoBehaviour {
         set => _maxDashes = value;
     }
 
-
     /// <summary>
     /// Is the player on ground?
     /// </summary>
@@ -177,25 +211,11 @@ public class CharacterController2D : MonoBehaviour {
     /// </summary>
     public bool isHit { get; set; }
 
-
     public UnityEvent<Collider2D> eventOnGrounded => _eventOnGrounded;
     public UnityEvent eventOnLeftGround => _eventOnLeftGround;
     public UnityEvent eventOnJump => _eventOnJump;
 
     public Rigidbody2D movingPlatformRigidbody { get; set; }
-
-    float _timeLeftToAllowJump;
-    float _timeLeftToAllowDash;
-    float _dashDistanceLeft;
-
-    Vector2 _lastVelocity;
-    float _gravityScaleBeforeDash;
-    Vector3 _lastParentCoordinates;
-    Collider2D[] _childColliders;
-
-    UnityEvent<Collider2D> _eventOnGrounded = new UnityEvent<Collider2D>();
-    UnityEvent _eventOnLeftGround = new UnityEvent();
-    UnityEvent _eventOnJump = new UnityEvent();
 
     /// <summary>
     /// Move the character. 
@@ -241,6 +261,21 @@ public class CharacterController2D : MonoBehaviour {
             isDashing = false;
             _rigidbody.gravityScale = _gravityScaleBeforeDash;
         }
+    }
+
+    void Start () {
+        isFacingRight = _startFacingRight;
+        
+        Collider2D[] attachedColliders = transform.GetComponents<Collider2D>();
+
+        // Get all child colliders and don't include the ones on the current gameobject
+        _childColliders = transform
+            .GetComponentsInChildren<Collider2D>(true)
+            .Where(c => !attachedColliders.Contains(c))
+            .ToArray();
+
+        // Register entity collision handler
+        GetComponent<EntityCollision>().eventOnEntityCollisionEnter.AddListener(OnEntityCollisionEnter);
     }
 
     void UpdateProperties (Vector2 movement) {
@@ -384,21 +419,6 @@ public class CharacterController2D : MonoBehaviour {
                 collider.transform.localScale = new Vector3(flipX ? 1f : -1f, 1f, 1f);
             }
         }
-    }
-
-    void Start () {
-        isFacingRight = _startFacingRight;
-        
-        Collider2D[] attachedColliders = transform.GetComponents<Collider2D>();
-
-        // Get all child colliders and don't include the ones on the current gameobject
-        _childColliders = transform
-            .GetComponentsInChildren<Collider2D>(true)
-            .Where(c => !attachedColliders.Contains(c))
-            .ToArray();
-
-        // Register entity collision handler
-        GetComponent<EntityCollision>().eventOnEntityCollisionEnter.AddListener(OnEntityCollisionEnter);
     }
 
     void OnEntityCollisionEnter (Entity entity) {

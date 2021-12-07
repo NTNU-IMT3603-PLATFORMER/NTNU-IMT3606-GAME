@@ -5,9 +5,12 @@ using UnityEngine;
 public class EnemyRangedCombat : EnemyCombat {
 
     [Header("Ranged attack properties")]
-    [SerializeField]    GameObject _prefabRangedAttack;
-    [SerializeField]    float _projectileSpeed = 5;
-    [SerializeField]    float _projectileTime = 2f;
+    [SerializeField]
+    GameObject _prefabRangedAttack;
+    [SerializeField]
+    float _projectileSpeed = 5;
+    [SerializeField]
+    float _projectileTime = 2f;
 
     /// <summary>
     /// Ranged attack
@@ -21,4 +24,5 @@ public class EnemyRangedCombat : EnemyCombat {
         rangedAttack.timeLeft = _projectileTime;
         timeLeftToAllowAttack = attackCooldown;
     }
+
 }

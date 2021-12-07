@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyCombat : EntityCombat {
 
+    /// <summary>
+    /// Attack if cooldown has reached 0
+    /// </summary>
     public void AttackIfPossible (float attackMultiplier = 1f) {
         if (canAttack) {
             Attack((int)(baseDamage * attackMultiplier));

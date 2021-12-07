@@ -8,7 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(EntityCollision))]
 public class EntityCollisionDamage : MonoBehaviour {
 
-    [SerializeField, Tooltip("How much damage should the player take?")]                    int _damage = 1;
+    [SerializeField, Tooltip("How much damage should the player take?")]
+    int _damage = 1;
 
     EntityCollision _entityCollision;
     float _damageTimer;

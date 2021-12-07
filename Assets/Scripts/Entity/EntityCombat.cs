@@ -6,13 +6,19 @@ using UnityEngine.Events;
 
 public abstract class EntityCombat : MonoBehaviour {
 
-    [SerializeField, Tooltip("The damage the entity does to other entities")]               int _baseDamage;
-    [SerializeField, Tooltip("The range of the entity attack as a float")]                  float _attackRange;
-    [SerializeField, Tooltip("How often the entity can attack")]                            float _attackCooldown;
-    [SerializeField, Tooltip("How much the entities attack will knockback the opponent")]   float _knockbackAmount;
+    [SerializeField, Tooltip("The damage the entity does to other entities")]
+    int _baseDamage;
+    [SerializeField, Tooltip("The range of the entity attack as a float")]
+    float _attackRange;
+    [SerializeField, Tooltip("How often the entity can attack")]
+    float _attackCooldown;
+    [SerializeField, Tooltip("How much the entities attack will knockback the opponent")]
+    float _knockbackAmount;
 
-    [SerializeField, Tooltip("The attack point of the entity")]                             Transform _attackPoint;
-    [SerializeField, Tooltip("The layer(s) which should be counted as enemies")]            LayerMask _enemyLayers;
+    [SerializeField, Tooltip("The attack point of the entity")]
+    Transform _attackPoint;
+    [SerializeField, Tooltip("The layer(s) which should be counted as enemies")]
+    LayerMask _enemyLayers;
 
     UnityEvent _eventOnAttack = new UnityEvent();
     Entity _entity;
