@@ -35,7 +35,7 @@ public class Checkpoints : MonoBehaviour {
     /// Gets called by each checkpoint when player
     /// reaches them
     /// </summary>
-    public void OnCheckpointEnter (Checkpoint checkpoint) {
+    public void OnCheckpointEnter(Checkpoint checkpoint) {
         int index = Array.IndexOf(_checkpoints, checkpoint);
 
         if (currentCheckpoint < index) {
@@ -44,22 +44,22 @@ public class Checkpoints : MonoBehaviour {
         }
     }
 
-    void Awake () {
+    void Awake() {
         INSTANCE = this;
         _checkpoints = GetComponentsInChildren<Checkpoint>();
     }
 
-    #if UNITY_EDITOR
-    void OnDrawGizmos () {
+#if UNITY_EDITOR
+    void OnDrawGizmos() {
         UnityEditor.Handles.color = Color.white;
-        
+
         Checkpoint[] checkpoints = GetComponentsInChildren<Checkpoint>();
 
         // Draws where checkpoint is in the list of checkpoints
         for (int i = 0; i < checkpoints.Length; i++) {
-            UnityEditor.Handles.Label( checkpoints[i].transform.position, $"Checkpoint {i + 1}/{checkpoints.Length}");
+            UnityEditor.Handles.Label(checkpoints[i].transform.position, $"Checkpoint {i + 1}/{checkpoints.Length}");
         }
     }
-    #endif
+#endif
 
 }
