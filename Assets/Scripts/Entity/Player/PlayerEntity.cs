@@ -7,11 +7,16 @@ using System;
 public class PlayerEntity : Entity {
 
     const string CREDITS_SCENE = "Credits";
+    const string RESPAWN_TAG = "PlayerRespawnPoint";
 
-    [SerializeField, Tooltip("Amount of time it takes for the player to heal")]         float _healTime = 1.141f;
-    [SerializeField, Tooltip("Max amount of blood the entity can have")]                int _maxBloodLevel = 9;
-    [SerializeField, Tooltip("Time after taking damage where player is invincible")]    float onHitInvincibilityTime = 1.2f;
-    [SerializeField, Tooltip("Amount of flashes for on hit invincibility effect")]      int onHitInvincibilityFlashAmount = 3;
+    [SerializeField, Tooltip("Amount of time it takes for the player to heal")]
+    float _healTime = 1.141f;
+    [SerializeField, Tooltip("Max amount of blood the entity can have")]
+    int _maxBloodLevel = 9;
+    [SerializeField, Tooltip("Time after taking damage where player is invincible")]
+    float onHitInvincibilityTime = 1.2f;
+    [SerializeField, Tooltip("Amount of flashes for on hit invincibility effect")]
+    int onHitInvincibilityFlashAmount = 3;
 
     int _bloodLevel = 0;
     float _startTime = 0f;
@@ -19,10 +24,8 @@ public class PlayerEntity : Entity {
     int _spirits = 0;
     int _playerLevel = 1;
 
-    /// <summary>
-    /// The blood level of the player
-    /// </summary>
-    public int bloodlevel => _bloodLevel;
+    Transform _respawnPoint;
+    Cinemachine.CinemachineVirtualCamera _playerCamera;
 
     /// <summary>
     /// Global instance of PlayerEntity
@@ -32,10 +35,10 @@ public class PlayerEntity : Entity {
     /// </summary>
     public static PlayerEntity INSTANCE { get; private set; }
 
-    const string RESPAWN_TAG = "PlayerRespawnPoint";
-
-    Transform _respawnPoint;
-    Cinemachine.CinemachineVirtualCamera _playerCamera;
+    /// <summary>
+    /// The blood level of the player
+    /// </summary>
+    public int bloodlevel => _bloodLevel;
 
     /// <summary>
     /// Current amount of spirits the player has absorbed
@@ -139,11 +142,6 @@ public class PlayerEntity : Entity {
         invincible = false;
     }
 
-    void OnReachedCheckpoint (Checkpoint checkpoint) {
-        // Update respawn point to checkpoint
-        _respawnPoint.transform.position = checkpoint.transform.position;
-    }
-
     void Start () {
         // Suicide if I'm a clone
         if ((INSTANCE != null && INSTANCE != this)) {
@@ -158,6 +156,17 @@ public class PlayerEntity : Entity {
         DontDestroyOnLoad(gameObject);
 
         SceneLoadedLogic(true);
+    }
+
+    void SceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
+        if (!scene.name.Equals(CREDITS_SCENE)) {
+            SceneLoadedLogic(false);
+        } else {
+            // Deactivate player if in Credits scene
+            // We still want to keep player around to show
+            // the end stats, so it is simply disabled to not be in the way
+            gameObject.SetActive(false);
+        }
     }
 
     void SceneLoadedLogic (bool calledFromStart) {
@@ -178,15 +187,9 @@ public class PlayerEntity : Entity {
         }
     }
 
-    void SceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
-        if (!scene.name.Equals(CREDITS_SCENE)) {
-            SceneLoadedLogic(false);
-        } else {
-            // Deactivate player if in Credits scene
-            // We still want to keep player around to show
-            // the end stats, so it is simply disabled to not be in the way
-            gameObject.SetActive(false);
-        }
+    void OnReachedCheckpoint (Checkpoint checkpoint) {
+        // Update respawn point to checkpoint
+        _respawnPoint.transform.position = checkpoint.transform.position;
     }
 
     IEnumerator OnDie () {

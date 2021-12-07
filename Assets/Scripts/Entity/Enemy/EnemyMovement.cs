@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 
 public class EnemyMovement : MonoBehaviour {
+    
     const string BOUNDARY_TAG = "Boundary";
 
     [Header("Enemy Variables")]

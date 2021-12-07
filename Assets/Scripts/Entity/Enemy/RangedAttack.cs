@@ -10,7 +10,6 @@ public class RangedAttack : MonoBehaviour {
 
     float _projectileSpeed;
 
-
     public float projectileSpeed {
         get => _projectileSpeed;
         set => _projectileSpeed = value;
@@ -21,7 +20,6 @@ public class RangedAttack : MonoBehaviour {
         set => _timeLeft = value;
     }
 
-    // Start is called before the first frame update
     void Start() {
         _player = PlayerEntity.INSTANCE.transform;
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -44,4 +42,5 @@ public class RangedAttack : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+    
 }
