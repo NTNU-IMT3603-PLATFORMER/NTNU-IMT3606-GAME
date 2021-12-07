@@ -40,7 +40,6 @@ public abstract class State : MonoBehaviour {
     protected virtual void Initialize() {
         fsm = GetComponentInParent<FSM>();
     }
-
 }
 
 /// <summary>
@@ -59,5 +58,4 @@ public abstract class State<T> : State where T : MonoBehaviour {
             Debug.LogError($"'{name}' gameobject or any of its parents do not have required '{typeof(T).Name}' component attached to it. Please add it", this);
         }
     }
-
 }

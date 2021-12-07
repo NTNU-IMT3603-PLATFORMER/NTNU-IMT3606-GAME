@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PB_ShockwaveState : State<PB_Data> {
 
-    [SerializeField, Tooltip("Percentage chance to get tired after each special attack")] float _chanceToGetTired = 0.5f;
+    [SerializeField, Tooltip("Percentage chance to get tired after each special attack")]
+    float _chanceToGetTired = 0.5f;
 
     Phase _phase;
 
@@ -27,7 +28,7 @@ public class PB_ShockwaveState : State<PB_Data> {
                 break;
             case Phase.SlamIntoGround:
                 data.characterController2D.rigidbody.velocity = Physics.gravity * 4f;
-                
+
                 // Call Move to update controller state (e.g. isGrounded)
                 data.characterController2D.Move(false, Vector2.zero, false, false);
                 break;
@@ -38,7 +39,7 @@ public class PB_ShockwaveState : State<PB_Data> {
         }
     }
 
-    IEnumerator Shockwave () {
+    IEnumerator Shockwave() {
         // Wait for jump to reach some height
         yield return new WaitForSeconds(0.5f);
 
@@ -52,10 +53,10 @@ public class PB_ShockwaveState : State<PB_Data> {
         Vector3 position = transform.position + data.prefabShockwaveOffset;
         Quaternion rotation = data.prefabShockwave.transform.rotation;
 
-        GameObject effect1 = Instantiate<GameObject> (data.prefabShockwave, position, rotation);
+        GameObject effect1 = Instantiate<GameObject>(data.prefabShockwave, position, rotation);
         effect1.GetComponent<SpunUpDirt>().moveLeft = false;
 
-        GameObject effect2 = Instantiate<GameObject> (data.prefabShockwave, position, rotation);
+        GameObject effect2 = Instantiate<GameObject>(data.prefabShockwave, position, rotation);
         effect2.GetComponent<SpunUpDirt>().moveLeft = true;
 
         // Wait a little bit to catch our breath

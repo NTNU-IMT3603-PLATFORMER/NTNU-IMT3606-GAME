@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PB_UnawareState: State<PB_Data> {
+public class PB_UnawareState : State<PB_Data> {
 
-    [SerializeField, Tooltip("The distance at which player will be noticed")] float _distanceToNoticePlayer = 5f;
+    [SerializeField, Tooltip("The distance at which player will be noticed")]
+    float _distanceToNoticePlayer = 5f;
 
     public override void OnUpdateState() {
         // Checks if player is within sight
