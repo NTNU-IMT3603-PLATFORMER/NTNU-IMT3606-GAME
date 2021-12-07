@@ -15,7 +15,7 @@ public class DialogueTrigger : MonoBehaviour
     void Start() {
         _npcPosition = transform.position;
         _firstTalk = true;
-        _dialogueManager = FindObjectOfType<DialogueManager>();
+        _dialogueManager = GetComponentInChildren<DialogueManager>();
         _entityCollision = GetComponent<EntityCollision>();
         _entityCollision.eventOnEntityCollisionExit.AddListener(OnEntityTriggerExit);
     }
