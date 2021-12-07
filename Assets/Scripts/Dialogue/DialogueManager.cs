@@ -5,20 +5,16 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour {
 
-    [SerializeField]    Text _nameText;
-    [SerializeField]    Text _dialogueText;
-    [SerializeField]    GameObject _dialoguePanel;
+    [SerializeField]
+    Text _nameText;
+    [SerializeField]
+    Text _dialogueText;
+    [SerializeField]
+    GameObject _dialoguePanel;
 
     Canvas _alertCanvas;
 
     Queue<string> _sentences;
-
-    // Start is called before the first frame update
-    void Start() {
-        _sentences = new Queue<string>();
-        _alertCanvas = transform.parent.GetChild(3).GetComponent<Canvas>();
-        _dialoguePanel.SetActive(false);
-    }
 
     /// <summary>
     /// Enqueues sentence in a queue and shows the first sentence
@@ -28,7 +24,7 @@ public class DialogueManager : MonoBehaviour {
         _nameText.text = dialogue.name;
         _sentences.Clear();
 
-        foreach(string sentence in dialogue.sentences) {
+        foreach (string sentence in dialogue.sentences) {
             _sentences.Enqueue(sentence);
         }
 
@@ -42,7 +38,7 @@ public class DialogueManager : MonoBehaviour {
     /// </summary>
     /// <returns>Returns true if no more sentences, false otherwise</returns>
     public bool DisplayNextSentence() {
-        if(_sentences.Count == 0) {
+        if (_sentences.Count == 0) {
             EndDialogue();
             return true;
         }
@@ -60,4 +56,12 @@ public class DialogueManager : MonoBehaviour {
         _dialoguePanel.SetActive(false);
         _alertCanvas.enabled = true;
     }
+
+    // Start is called before the first frame update
+    void Start() {
+        _sentences = new Queue<string>();
+        _alertCanvas = transform.parent.GetChild(3).GetComponent<Canvas>();
+        _dialoguePanel.SetActive(false);
+    }
+
 }
