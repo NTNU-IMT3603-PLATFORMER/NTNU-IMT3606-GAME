@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class PB_AttackState : State<PB_Data> {
 
-    [SerializeField, Tooltip("Higher weight will mean higher chance of normal attack")]             int _normalAttackWeight = 4;
-    [SerializeField, Tooltip("Higher weight will mean higher chance of charge attack")]             int _chargeAttackWeight = 2;
-    [SerializeField, Tooltip("Higher weight will mean higher chance of shockwave attack")]          int _shockwaveAttackWeight = 1;
-    [SerializeField, Tooltip("Min (x) and Max (y) random time interval for changing strategy")]     Vector2 _randomizedChangeStrategyTime = new Vector2(1f, 5f);
+    [SerializeField, Tooltip("Higher weight will mean higher chance of normal attack")]
+    int _normalAttackWeight = 4;
+    [SerializeField, Tooltip("Higher weight will mean higher chance of charge attack")]
+    int _chargeAttackWeight = 2;
+    [SerializeField, Tooltip("Higher weight will mean higher chance of shockwave attack")]
+    int _shockwaveAttackWeight = 1;
+    [SerializeField, Tooltip("Min (x) and Max (y) random time interval for changing strategy")]
+    Vector2 _randomizedChangeStrategyTime = new Vector2(1f, 5f);
 
     // The time before the AI is allowed to change strategy
     float _strategyDecisionCountdown;
@@ -29,11 +33,6 @@ public class PB_AttackState : State<PB_Data> {
     bool isWithinChargeAttackRange => data.player.transform.position.IsWithinDistanceOf(transform.position, 8f);
     bool isWithinShockwaveAttackRange => data.player.transform.position.IsWithinDistanceOf(transform.position, 10f);
 
-    protected override void Initialize() {
-        base.Initialize();
-
-        _enemyCombat = GetComponentInParent<EnemyCombat>();
-    }
 
     public override void OnEnterState() {
         UpdateStrategy();
@@ -67,6 +66,12 @@ public class PB_AttackState : State<PB_Data> {
     public override void OnFixedUpdateState() {
         data.characterController2D.Move(_move != Vector2.zero, _move, false, false);
     }
+    protected override void Initialize() {
+        base.Initialize();
+
+        _enemyCombat = GetComponentInParent<EnemyCombat>();
+    }
+
 
     void NormalAttackLogic() {
         if (isWithinNormalAttackRange) {
@@ -88,7 +93,7 @@ public class PB_AttackState : State<PB_Data> {
     }
 
     // Will randomize attack strategy based on attack weights
-    void UpdateStrategy () {
+    void UpdateStrategy() {
         int randomNumber = Random.Range(0, attackWeights.Values.Sum());
         int currentSum = 0;
 

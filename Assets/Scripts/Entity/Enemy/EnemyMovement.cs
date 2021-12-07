@@ -86,7 +86,6 @@ public class EnemyMovement : MonoBehaviour {
 
     void FollowPlayerMovement(float yVelocity) {
         // This makes the enemy move towards the player
-        // Uses + 1 to make the enemy stop infront of the player
         if(Math.Round(transform.position.x, 1) == Math.Round(target.position.x, 1)) {
             _characterController.Move(true, new Vector2(0, yVelocity), false, false);
         } else {

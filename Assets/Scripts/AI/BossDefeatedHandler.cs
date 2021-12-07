@@ -10,8 +10,10 @@ public class BossDefeatedHandler : MonoBehaviour {
 
     const float TIME_TO_LOAD_NEXT_LEVEL = 5f;
 
-    [SerializeField] EnemyEntity _boss;
-    [SerializeField] string _nextLevelName;
+    [SerializeField] 
+    EnemyEntity _boss;
+    [SerializeField] 
+    string _nextLevelName;
 
     UnityEvent _eventOnDefeatedBoss = new UnityEvent();
     bool _defeatedBoss;

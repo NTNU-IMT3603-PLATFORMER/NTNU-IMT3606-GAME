@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PB_ChargeState : State<PB_Data> {
 
-    [SerializeField, Tooltip("Percentage chance to get tired after each special attack")] float _chanceToGetTired = 0.2f;
+    [SerializeField, Tooltip("Percentage chance to get tired after each special attack")]
+    float _chanceToGetTired = 0.2f;
 
     public override void OnEnterState() {
         // Trigger charge in direction of player
