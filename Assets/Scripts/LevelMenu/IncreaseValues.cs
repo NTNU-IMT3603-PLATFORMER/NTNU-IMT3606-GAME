@@ -100,11 +100,11 @@ public class IncreaseValues : MonoBehaviour {
         newPlayerLevelText.text = playerLevel.ToString();
     }
 
-    
+
 
     public void incrementHealth() {
 
-        if (calculateNewAmountOfSpirits(true)) { 
+        if (calculateNewAmountOfSpirits(true)) {
             _newMaxHealth += 1;
             newHealthText.text = _newMaxHealth.ToString();
             incrementPlayerLevel();
@@ -113,7 +113,7 @@ public class IncreaseValues : MonoBehaviour {
     }
 
     public void incrementSpeed() {
-        if (calculateNewAmountOfSpirits(true)) { 
+        if (calculateNewAmountOfSpirits(true)) {
             _newSpeed += 1;
             newSpeedText.text = _newSpeed.ToString();
             incrementPlayerLevel();
@@ -169,7 +169,7 @@ public class IncreaseValues : MonoBehaviour {
     public bool calculateNewAmountOfSpirits(bool isLeveling) {
         Debug.Log(_newSpirits);
         _cost = _newPlayerLevel;
-        
+
         if (isLeveling) {
             if (_newSpirits - _cost < 0) {
                 descriptionText.text = "Not enough spirits";
@@ -193,27 +193,27 @@ public class IncreaseValues : MonoBehaviour {
 
     public void confirmLevelUp() {
 
-        if(_newPlayerLevel > playerLevel) { 
+        if (_newPlayerLevel > playerLevel) {
 
-        playerLevel = _newPlayerLevel;
-        maxHealth = _newMaxHealth;
-        strength = _newStrength;
-        speed = _newSpeed;
-        spirits = _newSpirits;
+            playerLevel = _newPlayerLevel;
+            maxHealth = _newMaxHealth;
+            strength = _newStrength;
+            speed = _newSpeed;
+            spirits = _newSpirits;
 
 
-        playerLevel = _newPlayerLevel;
-        maxHealth = _newMaxHealth;
-        health = _newMaxHealth;
-        strength = _newStrength;
-        speed = _newSpeed;
-        spirits = _newSpirits;
+            playerLevel = _newPlayerLevel;
+            maxHealth = _newMaxHealth;
+            health = _newMaxHealth;
+            strength = _newStrength;
+            speed = _newSpeed;
+            spirits = _newSpirits;
 
-        currentSpiritsText.text = spirits.ToString();
-        currentHealthText.text = maxHealth.ToString();
-        currentStrengthText.text = strength.ToString();
-        currentSpeedText.text = speed.ToString();
-        currentPlayerLevelText.text = playerLevel.ToString();
+            currentSpiritsText.text = spirits.ToString();
+            currentHealthText.text = maxHealth.ToString();
+            currentStrengthText.text = strength.ToString();
+            currentSpeedText.text = speed.ToString();
+            currentPlayerLevelText.text = playerLevel.ToString();
         } else {
             descriptionText.text = "You haven't leveled up";
         }
