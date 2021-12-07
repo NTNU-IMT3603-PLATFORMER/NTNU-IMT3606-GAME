@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAnimation : MonoBehaviour
-{
+public class EnemyAnimation : MonoBehaviour {
+
     const string ATTACK_TRIGGER = "attack";
     const string DEATH_TRIGGER = "death";
 
-    [SerializeField, Tooltip("Animator controlling animations")]        Animator _animator;
+    [SerializeField, Tooltip("Animator controlling animations")]
+    Animator _animator;
 
     EnemyCombat _enemyCombat;
     EnemyEntity _enemyEntity;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         _enemyCombat = GetComponent<EnemyCombat>();
         _enemyEntity = GetComponent<EnemyEntity>();
 
@@ -29,4 +28,5 @@ public class EnemyAnimation : MonoBehaviour
     void DeathAnimationListener(){
         _animator.SetTrigger("death");
     }
+
 }

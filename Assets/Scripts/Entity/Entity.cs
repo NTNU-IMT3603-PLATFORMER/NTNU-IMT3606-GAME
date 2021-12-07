@@ -7,24 +7,27 @@ public abstract class Entity : MonoBehaviour {
 
     protected const float ON_HIT_FLASH_TIME = 0.3f;
 
-    [SerializeField, Tooltip("The rigidbody of the entity")]                        Rigidbody2D _rigidbody;
-    [SerializeField, Tooltip("The health of the entity")]                           int _health = 10;
-    [SerializeField, Tooltip("The max health of the entity")]                       int _maxHealth = 10;
-    [SerializeField, Tooltip("If true, inflicting damage will have no effect")]     bool _invincible;
-    [SerializeField, Tooltip("The color the entity will get when hit")]             Color _onhitColor;
-    [SerializeField, Tooltip("Time to respawn after death")]                        float _respawnTime = 10f;
-    [SerializeField, Tooltip("Should the entity respawn after death?")]             bool _shouldRespawn = true;
-    [SerializeField, Tooltip("Time to wait until destroying object after death")]   float _lastBreathTime = 1f;
-
     protected CharacterController2D _characterController2D;
     protected Renderer _renderer;
 
-    UnityEvent<int> _eventOnTakingDamage = new UnityEvent<int>();
+    [SerializeField, Tooltip("The rigidbody of the entity")]
+    Rigidbody2D _rigidbody;
+    [SerializeField, Tooltip("The health of the entity")]
+    int _health = 10;
+    [SerializeField, Tooltip("The max health of the entity")]
+    int _maxHealth = 10;
+    [SerializeField, Tooltip("If true, inflicting damage will have no effect")]
+    bool _invincible;
+    [SerializeField, Tooltip("The color the entity will get when hit")]
+    Color _onhitColor;
+    [SerializeField, Tooltip("Time to respawn after death")]
+    float _respawnTime = 10f;
+    [SerializeField, Tooltip("Should the entity respawn after death?")]
+    bool _shouldRespawn = true;
+    [SerializeField, Tooltip("Time to wait until destroying object after death")]
+    float _lastBreathTime = 1f;
 
-    void Awake() {
-        _characterController2D = GetComponent<CharacterController2D>();
-        _renderer = GetComponentInChildren<Renderer>();
-    }
+    UnityEvent<int> _eventOnTakingDamage = new UnityEvent<int>();
 
     public CharacterController2D characterController2D =>_characterController2D;
 
@@ -157,6 +160,11 @@ public abstract class Entity : MonoBehaviour {
     public IEnumerator OnHitNoMove() {
         yield return new WaitForSeconds(0.3f);
         _characterController2D.isHit = false;
+    }
+
+    void Awake() {
+        _characterController2D = GetComponent<CharacterController2D>();
+        _renderer = GetComponentInChildren<Renderer>();
     }
 
     void Update () {

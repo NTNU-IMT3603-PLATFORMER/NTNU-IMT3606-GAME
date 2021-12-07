@@ -9,7 +9,8 @@ using UnityEngine.Events;
 /// </summary>
 public class EntityCollision : MonoBehaviour {
 
-    [SerializeField, Tooltip("Should trigger collision also be detected?")] bool _detectTriggerCollisions = true;
+    [SerializeField, Tooltip("Should trigger collision also be detected?")]
+    bool _detectTriggerCollisions = true;
 
     // "Entity -> Amount of colliders colliding" dictionary
     Dictionary<Entity, int> _collidingEntities = new Dictionary<Entity, int>();
