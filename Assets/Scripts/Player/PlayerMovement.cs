@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// PlayerMovement handles the player input and makes the player move accordingly.
+/// </summary>
 public class PlayerMovement : MonoBehaviour {
 
     [SerializeField, Tooltip("Controller that will move character")]
