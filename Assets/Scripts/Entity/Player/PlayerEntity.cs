@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 
+/// <summary>
+/// Player Entity.
+/// Contains player health and other stats
+/// </summary>
 public class PlayerEntity : Entity {
 
     const string CREDITS_SCENE = "Credits";
@@ -48,6 +52,10 @@ public class PlayerEntity : Entity {
         set => _spirits = value;
     }
 
+    /// <summary>
+    /// The current player level
+    /// Will increase when spirits are offered at campfires
+    /// </summary>
     public int playerLevel {
         get => _playerLevel;
         set => _playerLevel = value;
@@ -64,6 +72,11 @@ public class PlayerEntity : Entity {
         StartCoroutine(OnDie());
     }
 
+    /// <summary>
+    /// Heal if possible.
+    /// Requires a minimum of blood level 3 and decreases
+    /// same amount when healing
+    /// </summary>
     public void Heal() {
         if (_bloodLevel >= 3 && health < maxHealth) {
             health++;

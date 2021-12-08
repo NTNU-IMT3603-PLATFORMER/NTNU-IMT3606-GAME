@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Entity for enemy types
+/// </summary>
 public class EnemyEntity : Entity {
 
     [SerializeField, Tooltip("The layer which contains the player character")]
@@ -17,6 +20,9 @@ public class EnemyEntity : Entity {
     GameObject _spiritTarget;
     UnityEvent _eventOnDeath = new UnityEvent();
 
+    /// <summary>
+    /// Invoked when enemy entity dies
+    /// </summary>
     public UnityEvent eventOnDeath => _eventOnDeath;
 
     public override void Respawn() {

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls ranged projectile. 
+/// Will damage player on collision
+/// </summary>
 public class RangedAttack : MonoBehaviour {
 
     Transform _player;
@@ -10,11 +14,18 @@ public class RangedAttack : MonoBehaviour {
 
     float _projectileSpeed;
 
+    /// <summary>
+    /// The translation speed of the projectile
+    /// </summary>
     public float projectileSpeed {
         get => _projectileSpeed;
         set => _projectileSpeed = value;
     }
 
+    /// <summary>
+    /// Time left before projectile gets destroyed 
+    /// without hitting player
+    /// </summary>
     public float timeLeft {
         get => _timeLeft;
         set => _timeLeft = value;
