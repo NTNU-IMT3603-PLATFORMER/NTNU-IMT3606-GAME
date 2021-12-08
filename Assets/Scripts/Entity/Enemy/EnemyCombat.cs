@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Responsible for controlling enemy combat
+/// </summary>
 public class EnemyCombat : EntityCombat {
 
     /// <summary>

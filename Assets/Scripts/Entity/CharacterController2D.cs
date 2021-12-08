@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Responsible for character movement.
+/// Used by all entities in the game.
+/// Does not cause movement on its own, but can be
+/// used by other classes by calling the Move
+/// method. 
+/// </summary>
 [RequireComponent(typeof(EntityCollision))]
 public class CharacterController2D : MonoBehaviour {
 

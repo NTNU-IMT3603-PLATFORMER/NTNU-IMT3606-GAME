@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Base class for all entities in the game
+/// </summary>
 public abstract class Entity : MonoBehaviour {
 
     protected const float ON_HIT_FLASH_TIME = 0.3f;
@@ -29,6 +32,9 @@ public abstract class Entity : MonoBehaviour {
 
     UnityEvent<int> _eventOnTakingDamage = new UnityEvent<int>();
 
+    /// <summary>
+    /// The character controller used by this entity
+    /// </summary>
     public CharacterController2D characterController2D =>_characterController2D;
 
     /// <summary>
@@ -73,7 +79,14 @@ public abstract class Entity : MonoBehaviour {
     /// </summary>
     public float lastBreathTime => _lastBreathTime;
 
+    /// <summary>
+    /// Revive this entity or spawn a new one
+    /// </summary>
     public abstract void Respawn();
+
+    /// <summary>
+    /// Will get called when this entity dies
+    /// </summary>
     public abstract void Die();
 
     /// <summary>
@@ -108,6 +121,12 @@ public abstract class Entity : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Decreases health of this entity.
+    /// Might also cause side effects such as knockback
+    /// and other visual effects.
+    /// Does nothing if entity is invincible.
+    /// </summary>
     public virtual void InflictDamage(int damage, Vector3 hitPosition, float knockbackAmount) {
         if (invincible) {
             return;
@@ -135,6 +154,10 @@ public abstract class Entity : MonoBehaviour {
         eventOnTakingDamage.Invoke(damage);
     }
 
+    /// <summary>
+    /// Causes this entity to get knocked back
+    /// by setting rigidbody velocity
+    /// </summary>
     public void Knockback(Vector3 hitPosition, float knockbackAmount) {
         Vector2 moveDirection = _rigidbody.transform.position - hitPosition;
 
@@ -145,6 +168,10 @@ public abstract class Entity : MonoBehaviour {
         _rigidbody.velocity = moveDirection.normalized * knockbackAmount;
     }
 
+    /// <summary>
+    /// (Visual) effects that should be applied when 
+    /// this entity is taking damage (hit). 
+    /// </summary>
     public virtual IEnumerator OnHitEffects () {
         _renderer = GetComponentInChildren<Renderer>();
 
@@ -157,7 +184,7 @@ public abstract class Entity : MonoBehaviour {
         _renderer.material.color = defaultColor;
     }
 
-    public IEnumerator OnHitNoMove() {
+    IEnumerator OnHitNoMove() {
         yield return new WaitForSeconds(0.3f);
         _characterController2D.isHit = false;
     }

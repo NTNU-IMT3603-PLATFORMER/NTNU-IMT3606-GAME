@@ -18,9 +18,19 @@ public class EntityCollision : MonoBehaviour {
     UnityEvent<Entity> _eventOnEntityCollisionEnter = new UnityEvent<Entity>();
     UnityEvent<Entity> _eventOnEntityCollisionExit = new UnityEvent<Entity>();
 
+    /// <summary>
+    /// Invoked when colliding with another entity
+    /// </summary>
     public UnityEvent<Entity> eventOnEntityCollisionEnter => _eventOnEntityCollisionEnter;
+
+    /// <summary>
+    /// Invoked when no longer colliding with another entity
+    /// </summary>
     public UnityEvent<Entity> eventOnEntityCollisionExit => _eventOnEntityCollisionExit;
 
+    /// <summary>
+    /// Are we currently colliding with the given entity?
+    /// </summary>
     public bool IsCollidingWith (Entity entity) => _collidingEntities.ContainsKey(entity);
 
     void OnCollisionEnter2D(Collision2D collision) {
