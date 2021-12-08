@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// This class contains all the data for each transformation.
+/// PlayerTransformationData contains all the data for each transformation.
+/// This data can be set with the unity editor.
 /// </summary>
 [System.Serializable]
 public class PlayerTransformationData {
@@ -15,41 +16,32 @@ public class PlayerTransformationData {
     [SerializeField]
     GameObject _transformationState;
 
-
     [Header("CharacterController2D")]
-    // Refer to CharacterController2D for variable descriptions    
+    // Refer to CharacterController2D for variable descriptions.
     [SerializeField]
     float _jumpHeight;
-
     [SerializeField]
     int _extraAirJumps;
-
     [SerializeField]
     float _dashDistance;
-
     [SerializeField]
     float _dashSpeed;
-
     [SerializeField]
     int _maxDashes;
-
     [SerializeField]
     bool _enableWallSlide;
-
     [SerializeField]
     bool _enableWallJump;
-
     [SerializeField]
     bool _enableDashing;
 
 
     [Header("PlayerCombat")]
+    // Refer to PlayerCombat for variable descriptions.
     [SerializeField]
     int _baseDamage;
-
     [SerializeField]
     float _attackRange;
-
     [SerializeField]
     float _attackCooldown;
 
@@ -68,4 +60,4 @@ public class PlayerTransformationData {
     public float attackRange => _attackRange;
     public float attackCooldown => _attackCooldown;
 }
-  
+
