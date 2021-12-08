@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Responsible for controlling enemy combat for ranged enemies
+/// </summary>
 public class EnemyRangedCombat : EnemyCombat {
 
     [Header("Ranged attack properties")]

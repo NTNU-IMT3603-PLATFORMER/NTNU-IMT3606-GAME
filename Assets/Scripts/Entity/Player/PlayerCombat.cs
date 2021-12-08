@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Responsible for player combat
+/// </summary>
 public class PlayerCombat : EntityCombat {
 
     public override void UpdateCombat() {

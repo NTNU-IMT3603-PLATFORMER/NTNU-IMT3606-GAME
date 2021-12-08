@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Responsible for controlling enemy animation
+/// </summary>
 public class EnemyAnimation : MonoBehaviour {
 
     const string ATTACK_TRIGGER = "attack";

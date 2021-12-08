@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Responsible for controlling enemy movement.
+/// Not used by bosses.
+/// </summary>
 public class EnemyMovement : MonoBehaviour {
     
     const string BOUNDARY_TAG = "Boundary";

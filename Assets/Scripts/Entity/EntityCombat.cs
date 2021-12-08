@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Base class for controlling combat mechanics
+/// </summary>
 public abstract class EntityCombat : MonoBehaviour {
 
     [SerializeField, Tooltip("The damage the entity does to other entities")]
@@ -55,6 +58,9 @@ public abstract class EntityCombat : MonoBehaviour {
         set => _attackPoint = value;
     }
 
+    /// <summary>
+    /// The time left before we are allowed to attack again
+    /// </summary>
     public float timeLeftToAllowAttack { get; protected set; }
 
     /// <summary>
@@ -62,6 +68,9 @@ public abstract class EntityCombat : MonoBehaviour {
     /// </summary>
     public UnityEvent eventOnAttack => _eventOnAttack;
 
+    /// <summary>
+    /// True if time left to attack has reached 0
+    /// </summary>
     public bool canAttack => timeLeftToAllowAttack <= 0f;
 
     /// <summary>
@@ -88,7 +97,9 @@ public abstract class EntityCombat : MonoBehaviour {
     }
 
     /// <summary>
-    /// Will be called every Update
+    /// Will be called every Update.
+    /// Use this instead of normal Update function for correct
+    /// inheritance of Update
     /// </summary>
     public virtual void UpdateCombat () {
         if (timeLeftToAllowAttack > 0) {
