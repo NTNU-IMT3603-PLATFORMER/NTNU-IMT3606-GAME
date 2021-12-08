@@ -80,7 +80,7 @@ public class PlayerTransformation : MonoBehaviour {
 
         _playerCombat.attackCooldown = data.attackCooldown;
 
-        DisableTransformationObjects();
+        DisableAllTransformationObjects();
 
         data.transformationState.SetActive(true);
     }
@@ -110,4 +110,5 @@ public class PlayerTransformation : MonoBehaviour {
             TransformInto(Transformation.Owl);
         }
     }
+
 }
