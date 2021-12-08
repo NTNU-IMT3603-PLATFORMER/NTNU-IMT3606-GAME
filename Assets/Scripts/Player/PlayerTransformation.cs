@@ -12,19 +12,19 @@ public class PlayerTransformation : MonoBehaviour {
     PlayerCombat _playerCombat;
 
     public Transform Transformations;
-    
+
     [SerializeField]
     PlayerTransformationData _druidData;
-    
+
     [SerializeField]
     PlayerTransformationData _polarBearData;
-    
+
     [SerializeField]
     PlayerTransformationData _desertCatData;
-    
+
     [SerializeField]
     PlayerTransformationData _owlData;
-    
+
     /// <summary>
     /// Transformation contains the different transformation that the player is capable of doing.
     /// </summary>
@@ -38,7 +38,7 @@ public class PlayerTransformation : MonoBehaviour {
     /// <summary>
     /// TransformInto takes a transformation form as an input and sets the CharacterController2D attributes based on the corresponding PlayerTransformationData class fields
     /// </summary>
-    /// <param name="transformation">Is of type enum</param>
+    /// <param name="transformation">Is of type enum and contains the different transformations.</param>
     public void TransformInto(Transformation transformation) {
         PlayerTransformationData data = null;
         switch (transformation) {
@@ -59,19 +59,19 @@ public class PlayerTransformation : MonoBehaviour {
                 break;
         }
         _characterController2D.jumpHeight = data.jumpHeight;
-        
+
         _characterController2D.enableWallSlide = data.enableWallSlide;
-        
+
         _characterController2D.enableWallJump = data.enableWallJump;
-        
+
         _characterController2D.extraAirJumps = data.extraAirJumps;
-        
+
         _characterController2D.enableDashing = data.enableDashing;
-        
+
         _characterController2D.dashDistance = data.dashDistance;
-        
+
         _characterController2D.dashSpeed = data.dashSpeed;
-        
+
         _characterController2D.maxDashes = data.maxDashes;
 
         _playerCombat.baseDamage = data.baseDamage;
@@ -79,12 +79,16 @@ public class PlayerTransformation : MonoBehaviour {
         _playerCombat.attackRange = data.attackRange;
 
         _playerCombat.attackCooldown = data.attackCooldown;
-        
+
+        DisableTransformationObjects();
+
+        data.transformationState.SetActive(true);
+    }
+
+    void DisableAllTransformationObjects() {
         foreach (Transform child in Transformations) {
             child.gameObject.SetActive(false);
         }
-        
-        data.transformationState.SetActive(true);
     }
 
     void Start() {
@@ -92,9 +96,7 @@ public class PlayerTransformation : MonoBehaviour {
         _playerCombat = GetComponent<PlayerCombat>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (Input.GetButtonDown("TransformIntoDruid")) {
             TransformInto(Transformation.Druid);
         }
