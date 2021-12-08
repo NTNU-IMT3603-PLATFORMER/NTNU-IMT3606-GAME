@@ -24,16 +24,6 @@ public class HUD : MonoBehaviour {
     Image[] _hearts;
     Image _fill;
 
-    void Start() {
-        _hearts = _heartsHolder.GetComponentsInChildren<Image>();
-        _fill = _slider.GetComponentInChildren<Image>();
-    }
-
-    void Update() {
-        UpdateHealthBar();
-        UpdateBloodBar();
-    }
-
     /// <summary>
     /// UpdateHealthBar fills the heart bar in the HUD for each heart the player has.
     /// </summary>
@@ -58,6 +48,16 @@ public class HUD : MonoBehaviour {
         } else {
             _fill.color = Color.red;
         }
+    }
+
+    void Start() {
+        _hearts = _heartsHolder.GetComponentsInChildren<Image>();
+        _fill = _slider.GetComponentInChildren<Image>();
+    }
+
+    void Update() {
+        UpdateHealthBar();
+        UpdateBloodBar();
     }
 
 }

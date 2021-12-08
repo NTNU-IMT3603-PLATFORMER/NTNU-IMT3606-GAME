@@ -35,7 +35,6 @@ public class PlayerTransformationData {
     [SerializeField]
     bool _enableDashing;
 
-
     [Header("PlayerCombat")]
     // Refer to PlayerCombat for variable descriptions.
     [SerializeField]
@@ -59,5 +58,5 @@ public class PlayerTransformationData {
     public int baseDamage => _baseDamage;
     public float attackRange => _attackRange;
     public float attackCooldown => _attackCooldown;
-}
 
+}
