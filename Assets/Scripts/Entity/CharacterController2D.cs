@@ -22,7 +22,6 @@ public class CharacterController2D : MonoBehaviour {
     float maxAirTurnSpeed = 50f;
 
     [Header("Ground / Wall Detection")]
-
     [SerializeField, Tooltip("Transform representing point that will be used as origin for ground check")]
     Transform _groundCheckPoint;
     [SerializeField, Tooltip("Radius of circle for ground detection")]
@@ -38,7 +37,6 @@ public class CharacterController2D : MonoBehaviour {
     UnityEngine.LayerMask _wallCheckMask;
 
     [Header("Jumping")]
-
     [SerializeField, Tooltip("The height that each jump should reach")]
     float _jumpHeight = 2.5f;
     [SerializeField, Tooltip("Time after each jump where jumping again should not be allowed")]
@@ -47,14 +45,12 @@ public class CharacterController2D : MonoBehaviour {
     int _extraAirJumps = 1;
 
     [Header("Player direction")]
-
     [SerializeField, Tooltip("Should transform z scale be flipped when changing movement direction?")]
     bool _flipIfChangingDirection = true;
     [SerializeField, Tooltip("Does player sprite start facing right?")]
     bool _startFacingRight = true;
 
     [Header("Wall sliding / jumping")]
-
     [SerializeField, Tooltip("Should wall sliding be enabled?")]
     bool _enableWallSlide = true;
     [SerializeField, Tooltip("Minimum y velocity allowed when wall sliding. Used to prevent full force of gravity")]
