@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -35,7 +34,7 @@ public abstract class Entity : MonoBehaviour {
     /// <summary>
     /// The character controller used by this entity
     /// </summary>
-    public CharacterController2D characterController2D =>_characterController2D;
+    public CharacterController2D characterController2D => _characterController2D;
 
     /// <summary>
     /// Events that is invoked when something has inflicted damage to this entity
@@ -92,13 +91,13 @@ public abstract class Entity : MonoBehaviour {
     /// <summary>
     /// Add 1 to entity's blood bar if applicable
     /// </summary>
-    public virtual void AddBlood() {}
+    public virtual void AddBlood() { }
 
     /// <summary>
     /// Call respawn after provided amount of seconds.
     /// Works even if you destroy this entity
     /// </summary>
-    public void RespawnAfterSeconds (float seconds) {
+    public void RespawnAfterSeconds(float seconds) {
         RunAfterSeconds.Create(seconds, () => Respawn());
     }
 
@@ -106,7 +105,7 @@ public abstract class Entity : MonoBehaviour {
     /// Respawn entity after waiting respawn time.
     /// Works even if you destroy this entity
     /// </summary>
-    public void RespawnAfterRespawnTime () {
+    public void RespawnAfterRespawnTime() {
         RespawnAfterSeconds(_respawnTime);
     }
 
@@ -114,7 +113,7 @@ public abstract class Entity : MonoBehaviour {
     /// Called every update. 
     /// Use this instead of regular Update
     /// </summary>  
-    public virtual void UpdateEntity () {
+    public virtual void UpdateEntity() {
         // Die if falling outside world
         if (transform.position.y < -100) {
             Die();
@@ -131,7 +130,7 @@ public abstract class Entity : MonoBehaviour {
         if (invincible) {
             return;
         }
-        
+
         _characterController2D.isHit = true;
         _characterController2D.EndDash();
 
@@ -161,10 +160,10 @@ public abstract class Entity : MonoBehaviour {
     public void Knockback(Vector3 hitPosition, float knockbackAmount) {
         Vector2 moveDirection = _rigidbody.transform.position - hitPosition;
 
-        if(moveDirection == Vector2.zero) {
+        if (moveDirection == Vector2.zero) {
             moveDirection = Vector2.one;
         }
-        
+
         _rigidbody.velocity = moveDirection.normalized * knockbackAmount;
     }
 
@@ -172,7 +171,7 @@ public abstract class Entity : MonoBehaviour {
     /// (Visual) effects that should be applied when 
     /// this entity is taking damage (hit). 
     /// </summary>
-    public virtual IEnumerator OnHitEffects () {
+    public virtual IEnumerator OnHitEffects() {
         _renderer = GetComponentInChildren<Renderer>();
 
         Color defaultColor = _renderer.material.color;
@@ -194,7 +193,7 @@ public abstract class Entity : MonoBehaviour {
         _renderer = GetComponentInChildren<Renderer>();
     }
 
-    void Update () {
+    void Update() {
         UpdateEntity();
     }
 

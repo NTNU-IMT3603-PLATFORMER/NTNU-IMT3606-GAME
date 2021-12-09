@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -40,12 +39,12 @@ public class EnemyEntity : Entity {
         StartCoroutine(OnDie());
     }
 
-    public override IEnumerator OnHitEffects () {
+    public override IEnumerator OnHitEffects() {
         AudioManager.instance.PlaySound("enemydamage");
         yield return base.OnHitEffects();
     }
 
-    void Start () {
+    void Start() {
         // Auto-generate respawn point if a manual one is not set
         if (_respawnPoint == null) {
             _respawnPoint = new GameObject("(AUTO) EnemyRespawnPoint").transform;
@@ -53,7 +52,7 @@ public class EnemyEntity : Entity {
         }
     }
 
-    IEnumerator OnDie () {
+    IEnumerator OnDie() {
         yield return new WaitForSeconds(lastBreathTime);
         Destroy(gameObject);
 

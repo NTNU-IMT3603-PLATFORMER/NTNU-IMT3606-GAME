@@ -1,6 +1,4 @@
 using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>Finite State Machine</summary>

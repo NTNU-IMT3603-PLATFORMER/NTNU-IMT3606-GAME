@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 
 /// <summary>
@@ -15,7 +13,7 @@ public class VolumeOption : MonoBehaviour, IOption {
     [SerializeField, Tooltip("Slider for volume percentage")]
     Slider _volumeSlider;
 
-    public void InitializeOption () {
+    public void InitializeOption() {
         // Load previous volume settings
         float volumePercentage = PlayerPrefs.GetFloat("Volume", 1f);
 
@@ -24,7 +22,7 @@ public class VolumeOption : MonoBehaviour, IOption {
         AudioListener.volume = volumePercentage;
     }
 
-    public void OnVolumeChanged (float volumePercentage) {
+    public void OnVolumeChanged(float volumePercentage) {
         UpdateText(volumePercentage);
 
         // Update global volume
@@ -35,7 +33,7 @@ public class VolumeOption : MonoBehaviour, IOption {
         PlayerPrefs.Save();
     }
 
-    void UpdateText (float volumePercentage) {
+    void UpdateText(float volumePercentage) {
         // Set volume text with appropriate amount of decimals
         _volumePercentageText.text = (volumePercentage * 100f).ToString("0.0") + "%";
     }

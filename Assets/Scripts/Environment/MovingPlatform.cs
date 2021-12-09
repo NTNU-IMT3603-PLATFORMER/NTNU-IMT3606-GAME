@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Controls the moving platform. 
 /// </summary>
-public class MovingPlatform : MonoBehaviour {   
+public class MovingPlatform : MonoBehaviour {
 
     [SerializeField]
     Rigidbody2D _rb;
@@ -32,14 +31,10 @@ public class MovingPlatform : MonoBehaviour {
         rb.velocity = _moveSpeed * direction;
 
         //use data
-        if(_distanceLeft <= 0f)
-        {
-            if(_target == _waypoints.Count - 1)
-            {
+        if (_distanceLeft <= 0f) {
+            if (_target == _waypoints.Count - 1) {
                 _target = 0;
-            }
-            else
-            {
+            } else {
                 _target += 1;
             }
 

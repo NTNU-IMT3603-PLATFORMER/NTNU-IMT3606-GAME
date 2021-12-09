@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -29,9 +27,9 @@ public class SpunUpDirt : MonoBehaviour {
 
     PlayerEntity _playerEntity => PlayerEntity.INSTANCE;
 
-    void Update () {
+    void Update() {
         if (_timeLeftToInflictDamage <= 0f) {
-            if (_playerEntity.transform.position.IsWithinDistanceOf(transform.position, _damageRadius)){
+            if (_playerEntity.transform.position.IsWithinDistanceOf(transform.position, _damageRadius)) {
                 _playerEntity.InflictDamage(_damage, transform.position, 10f);
                 _timeLeftToInflictDamage = _damageCooldown;
             }

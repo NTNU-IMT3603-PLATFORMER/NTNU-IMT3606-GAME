@@ -1,6 +1,3 @@
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,7 +28,7 @@ public class MainMenu : MonoBehaviour {
         Application.Quit();
     }
 
-    void Start () {
+    void Start() {
         // Initialize options to load and apply saved values
         foreach (IOption option in _optionsMenu.GetComponentsInChildren<IOption>(true)) {
             option.InitializeOption();

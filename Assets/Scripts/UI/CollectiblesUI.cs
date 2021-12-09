@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 /// <summary>
 /// This scripts updates the UI when a collectible is picked up. 
@@ -9,12 +7,12 @@ using TMPro;
 public class CollectiblesUI : MonoBehaviour {
 
     TextMeshProUGUI _text;
-    
+
     public PlayerCollectable playerCollectible => PlayerEntity.INSTANCE.GetComponent<PlayerCollectable>();
 
-    void Start () {
+    void Start() {
         _text = GetComponent<TextMeshProUGUI>();
-    }    
+    }
 
     void Update() {
         _text.text = playerCollectible.orbsCollected.ToString();

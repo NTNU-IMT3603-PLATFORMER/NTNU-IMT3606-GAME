@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 /// <summary>
 /// Responsible for controlling enemy combat
 /// </summary>
@@ -10,7 +6,7 @@ public class EnemyCombat : EntityCombat {
     /// <summary>
     /// Attack if cooldown has reached 0
     /// </summary>
-    public void AttackIfPossible (float attackMultiplier = 1f) {
+    public void AttackIfPossible(float attackMultiplier = 1f) {
         if (canAttack) {
             Attack((int)(baseDamage * attackMultiplier));
             AudioManager.instance.PlaySound("attack");
