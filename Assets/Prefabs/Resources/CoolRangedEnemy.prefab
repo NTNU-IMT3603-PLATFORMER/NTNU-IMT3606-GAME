@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 6409391820719857963}
   m_Layer: 8
   m_Name: CoolRangedEnemy
-  m_TagString: Untagged
+  m_TagString: RangedEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -377,12 +377,12 @@ MonoBehaviour:
   _onhitColor: {r: 1, g: 0.3160377, b: 0.3160377, a: 1}
   _respawnTime: 10
   _shouldRespawn: 1
+  _lastBreathTime: 0.7
   _playerLayers:
     serializedVersion: 2
     m_Bits: 128
   _contactDamageRate: 1
   _respawnPoint: {fileID: 0}
-  _lastBreathTime: 0.7
   _spiritDropPrefab: {fileID: 373906247569683343, guid: 0a59e2129a8fc84449e68fc294823d00, type: 3}
 --- !u!114 &6409391820719857964
 MonoBehaviour:
