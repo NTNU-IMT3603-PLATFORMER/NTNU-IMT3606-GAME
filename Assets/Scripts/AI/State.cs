@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class State : MonoBehaviour {
@@ -16,25 +14,25 @@ public abstract class State : MonoBehaviour {
     /// <summary>
     /// Will get called by FSM every frame when running
     /// </summary>
-    public virtual void OnUpdateState () {}
+    public virtual void OnUpdateState() { }
 
     /// <summary>
     /// Will get called by FSM when changing to this state
     /// </summary>
-    public virtual void OnEnterState() {}
+    public virtual void OnEnterState() { }
 
     /// <summary>
     /// Will get called by FSM when changing to another state
     /// </summary>
-    public virtual void OnExitState() {}
+    public virtual void OnExitState() { }
 
     /// <summary>
     /// Will get called by FSM every FixedUpdate when running
     /// </summary>
-    public virtual void OnFixedUpdateState() {}
+    public virtual void OnFixedUpdateState() { }
 
-    void Awake () {
-        Initialize();   
+    void Awake() {
+        Initialize();
     }
 
     protected virtual void Initialize() {

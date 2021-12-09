@@ -1,6 +1,5 @@
-using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -61,7 +60,7 @@ public abstract class EntityCombat : MonoBehaviour {
     /// <summary>
     /// The time left before we are allowed to attack again
     /// </summary>
-    public float timeLeftToAllowAttack { get; protected set; }
+    public float timeLeftToAllowAttack { get; protected set; }
 
     /// <summary>
     /// Unity event for when the entity is attacking
@@ -89,7 +88,7 @@ public abstract class EntityCombat : MonoBehaviour {
             .Distinct();
 
 
-        foreach(Entity entity in uniqueEntities) {
+        foreach (Entity entity in uniqueEntities) {
             entity.InflictDamage(damage, transform.position, _knockbackAmount);
             _entity.AddBlood();
         }
@@ -101,17 +100,17 @@ public abstract class EntityCombat : MonoBehaviour {
     /// Use this instead of normal Update function for correct
     /// inheritance of Update
     /// </summary>
-    public virtual void UpdateCombat () {
+    public virtual void UpdateCombat() {
         if (timeLeftToAllowAttack > 0) {
-            timeLeftToAllowAttack -= Time.deltaTime; 
+            timeLeftToAllowAttack -= Time.deltaTime;
         }
     }
 
-    void Update () {
+    void Update() {
         UpdateCombat();
     }
 
-    void Awake () {
+    void Awake() {
         _entity = GetComponent<Entity>();
     }
 

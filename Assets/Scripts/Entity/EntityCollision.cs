@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -31,7 +30,7 @@ public class EntityCollision : MonoBehaviour {
     /// <summary>
     /// Are we currently colliding with the given entity?
     /// </summary>
-    public bool IsCollidingWith (Entity entity) => _collidingEntities.ContainsKey(entity);
+    public bool IsCollidingWith(Entity entity) => _collidingEntities.ContainsKey(entity);
 
     void OnCollisionEnter2D(Collision2D collision) {
         AddColliderIfApplicable(collision.collider);
@@ -41,13 +40,13 @@ public class EntityCollision : MonoBehaviour {
         RemoveColliderIfApplicable(collision.collider);
     }
 
-    void OnTriggerEnter2D (Collider2D collider) {
+    void OnTriggerEnter2D(Collider2D collider) {
         if (_detectTriggerCollisions) {
             AddColliderIfApplicable(collider);
         }
     }
 
-    void OnTriggerExit2D (Collider2D collider) {
+    void OnTriggerExit2D(Collider2D collider) {
         if (_detectTriggerCollisions) {
             RemoveColliderIfApplicable(collider);
         }

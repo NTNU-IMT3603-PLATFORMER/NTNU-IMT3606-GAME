@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +6,7 @@ using UnityEngine;
 public class PB_Data : MonoBehaviour {
 
     [SerializeField, Tooltip("The speed of the boss")]
-    float _speed; 
+    float _speed;
     [SerializeField, Tooltip("The effect that should be spawned when performing shockwave attack")]
     GameObject _prefabShockwave;
     [SerializeField, Tooltip("Offset for prefabShockwave position when spawned")]
@@ -30,7 +28,7 @@ public class PB_Data : MonoBehaviour {
         Shockwave
     }
 
-    void Start () {
+    void Start() {
         characterController2D = GetComponentInParent<CharacterController2D>();
         enemyEntity = GetComponentInParent<EnemyEntity>();
     }

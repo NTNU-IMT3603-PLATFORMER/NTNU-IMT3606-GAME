@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 /// <summary>
 /// Responsible for controlling enemy movement.
 /// Not used by bosses.
 /// </summary>
 public class EnemyMovement : MonoBehaviour {
-    
+
     const string BOUNDARY_TAG = "Boundary";
 
     [Header("Enemy Variables")]
@@ -91,7 +89,7 @@ public class EnemyMovement : MonoBehaviour {
 
     void FollowPlayerMovement(float yVelocity) {
         // This makes the enemy move towards the player
-        if(Math.Round(transform.position.x, 1) == Math.Round(target.position.x, 1)) {
+        if (Math.Round(transform.position.x, 1) == Math.Round(target.position.x, 1)) {
             _characterController.Move(true, new Vector2(0, yVelocity), false, false);
         } else {
             _characterController.Move(true, new Vector2(isToTheRight ? -_speed : _speed, yVelocity), false, false);
