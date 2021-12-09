@@ -403,7 +403,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3282305386456561750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.628, y: 0, z: 0}
+  m_LocalPosition: {x: 0.48, y: -0.083, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5890679034600322630}
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 1
-  _attackRange: 0.7
+  _attackRange: 1
   _attackCooldown: 0.3
   _knockbackAmount: 7
   _attackPoint: {fileID: 3282305386456561751}
@@ -956,7 +956,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694ebd3ddc82c614ab49aa0528467e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orbs: 0
 --- !u!1 &6614379699465943655
 GameObject:
   m_ObjectHideFlags: 0
