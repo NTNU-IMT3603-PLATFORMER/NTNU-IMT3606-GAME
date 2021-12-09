@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// This script gives the player a spirit and destorys the spirit object when the player collides with the spirit (picks it up). 
+/// </summary>
 public class DestroyParent : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision) {

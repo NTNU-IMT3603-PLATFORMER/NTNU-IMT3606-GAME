@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Updates the UI when picking up a spirit. 
+/// </summary>
 public class SpiritsUI : MonoBehaviour {
     
     TextMeshProUGUI _text;

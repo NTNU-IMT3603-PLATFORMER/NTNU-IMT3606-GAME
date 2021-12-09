@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// This scripts updates the UI when a collectible is picked up. 
+/// </summary>
 public class CollectiblesUI : MonoBehaviour {
 
     TextMeshProUGUI _text;
