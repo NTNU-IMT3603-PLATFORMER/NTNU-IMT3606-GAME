@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Creates a fading "animation" to transition into the next scene when defeating a boss. 
+/// </summary>
 public class FadePanel : MonoBehaviour {
 
-    [SerializeField]                    float _fadeTime = 4f;
-    [SerializeField, Range(0f, 1f)]     float _fadeTarget;
+    [SerializeField]
+    float _fadeTime = 4f;
+    [SerializeField, Range(0f, 1f)]
+    float _fadeTarget;
 
     Image _image;
 

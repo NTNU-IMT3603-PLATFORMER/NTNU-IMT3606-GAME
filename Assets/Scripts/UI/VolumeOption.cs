@@ -4,10 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+/// <summary>
+/// GUI for updating the game volume.
+/// </summary>
 public class VolumeOption : MonoBehaviour, IOption {
 
-    [SerializeField, Tooltip("Text displaying volume percentage")]      TMPro.TextMeshProUGUI _volumePercentageText;
-    [SerializeField, Tooltip("Slider for volume percentage")]           Slider _volumeSlider;
+    [SerializeField, Tooltip("Text displaying volume percentage")]
+    TextMeshProUGUI _volumePercentageText;
+    [SerializeField, Tooltip("Slider for volume percentage")]
+    Slider _volumeSlider;
 
     public void InitializeOption () {
         // Load previous volume settings
