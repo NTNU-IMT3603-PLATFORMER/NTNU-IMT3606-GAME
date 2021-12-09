@@ -1,6 +1,4 @@
 using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -196,7 +194,7 @@ public class CharacterController2D : MonoBehaviour {
     /// (if wall jumping is enabled)
     /// </summary>
     public int currentJumps { get; private set; }
-    
+
     /// <summary>
     /// Is the player currently dashing (mid-dash)?
     /// </summary>
@@ -218,14 +216,14 @@ public class CharacterController2D : MonoBehaviour {
     public UnityEvent eventOnLeftGround => _eventOnLeftGround;
     public UnityEvent eventOnJump => _eventOnJump;
 
-    public Rigidbody2D movingPlatformRigidbody { get; set; }
+    public Rigidbody2D movingPlatformRigidbody { get; set; }
 
     /// <summary>
     /// Move the character. 
     /// Should be called from FixedUpdate
     /// </summary>
-    public void Move (bool isMovement, Vector2 movement, bool jump, bool dash) {
-        if(isHit) {
+    public void Move(bool isMovement, Vector2 movement, bool jump, bool dash) {
+        if (isHit) {
             return;
         }
         Vector2 targetVelocity = _rigidbody.velocity;
@@ -256,7 +254,7 @@ public class CharacterController2D : MonoBehaviour {
         _lastVelocity = targetVelocity;
     }
 
-    public void EndDash () {
+    public void EndDash() {
         // Extra check to see if we are indeed dashing, because
         // if dash hasn't started, _gravityScaleBeforeDash
         // hasn't been set
@@ -266,9 +264,9 @@ public class CharacterController2D : MonoBehaviour {
         }
     }
 
-    void Start () {
+    void Start() {
         isFacingRight = _startFacingRight;
-        
+
         Collider2D[] attachedColliders = transform.GetComponents<Collider2D>();
 
         // Get all child colliders and don't include the ones on the current gameobject
@@ -281,7 +279,7 @@ public class CharacterController2D : MonoBehaviour {
         GetComponent<EntityCollision>().eventOnEntityCollisionEnter.AddListener(OnEntityCollisionEnter);
     }
 
-    void UpdateProperties (Vector2 movement) {
+    void UpdateProperties(Vector2 movement) {
         isFacingWall = Physics2D.OverlapCircle(_wallCheckPoint.position, _wallCheckRadius, _wallCheckMask) != null;
 
         bool wasGrounded = isGrounded;
@@ -301,7 +299,7 @@ public class CharacterController2D : MonoBehaviour {
             // Can't be on moving platform if we are in the air
             movingPlatformRigidbody = null;
         }
-        
+
         if (isFacingRight && movement.x < 0f && !isDashing) {
             isFacingRight = false;
         }
@@ -321,7 +319,7 @@ public class CharacterController2D : MonoBehaviour {
         canJumpFromGroundOrWall = isGrounded || (_enableWallJump && isHuggingWall);
     }
 
-    void MovementLogic (bool isMovement, Vector2 movement, ref Vector2 targetVelocity) {
+    void MovementLogic(bool isMovement, Vector2 movement, ref Vector2 targetVelocity) {
         if (isGrounded) {
             targetVelocity.x = movement.x;
         } else {
@@ -331,7 +329,7 @@ public class CharacterController2D : MonoBehaviour {
         }
     }
 
-    void WallSlideLogic (ref Vector2 targetVelocity) {
+    void WallSlideLogic(ref Vector2 targetVelocity) {
         // Wall-slide logic
         if (_enableWallSlide) {
             if (isHuggingWall) {
@@ -340,7 +338,7 @@ public class CharacterController2D : MonoBehaviour {
         }
     }
 
-    void JumpLogic (bool jump, ref Vector2 targetVelocity) {
+    void JumpLogic(bool jump, ref Vector2 targetVelocity) {
         if (_timeLeftToAllowJump <= 0f) {
             // Reset current jumps when hitting ground / wall
             if (canJumpFromGroundOrWall) {
@@ -367,7 +365,7 @@ public class CharacterController2D : MonoBehaviour {
         }
     }
 
-    void DashLogic (bool dash, ref Vector2 targetVelocity) {
+    void DashLogic(bool dash, ref Vector2 targetVelocity) {
         // Reset dash counter when able to jump
         if (canJumpFromGroundOrWall) {
             currentDashes = 0;
@@ -388,7 +386,7 @@ public class CharacterController2D : MonoBehaviour {
             _gravityScaleBeforeDash = _rigidbody.gravityScale;
             _rigidbody.gravityScale = 0;
         }
-        
+
         if (isDashing) {
             float distanceToMove = _dashSpeed * Time.fixedDeltaTime;
 
@@ -410,7 +408,7 @@ public class CharacterController2D : MonoBehaviour {
         }
     }
 
-    void FlipLogic () {
+    void FlipLogic() {
         if (_flipIfChangingDirection) {
             // Flip player when facing another direction
             bool flipX = _startFacingRight ? !isFacingRight : isFacingRight;
@@ -424,7 +422,7 @@ public class CharacterController2D : MonoBehaviour {
         }
     }
 
-    void OnEntityCollisionEnter (Entity entity) {
+    void OnEntityCollisionEnter(Entity entity) {
         // We want to end dash when colliding with another entity
         // as getting knocked back and then continuing to dash looks
         // strange :)

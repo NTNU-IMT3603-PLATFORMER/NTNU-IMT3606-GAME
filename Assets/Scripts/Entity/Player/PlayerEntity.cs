@@ -1,8 +1,7 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
 
 /// <summary>
 /// Player Entity.
@@ -86,34 +85,34 @@ public class PlayerEntity : Entity {
     }
 
     public override void AddBlood() {
-        if(_bloodLevel < _maxBloodLevel) {
+        if (_bloodLevel < _maxBloodLevel) {
             _bloodLevel++;
         }
     }
 
-    public override void UpdateEntity () {
+    public override void UpdateEntity() {
         // Die if falling outside world
         if (transform.position.y < -100) {
             Die();
         }
         if (Input.GetButtonDown("Heal")) {
             _startTime = Time.time;
-            _currentPosition = (float) Math.Round(transform.position.x, 1);
+            _currentPosition = (float)Math.Round(transform.position.x, 1);
         }
 
         // TODO: Play a healing animation/use some effects while the healing button is held down
-        if (Input.GetButton("Heal")){
+        if (Input.GetButton("Heal")) {
             // Abort healing if the character is hit, is moving, or is not on the ground
             if (characterController2D.isHit
                 || !characterController2D.isGrounded
-                || (_currentPosition != (float) Math.Round(transform.position.x,1))
-            ){
+                || (_currentPosition != (float)Math.Round(transform.position.x, 1))
+            ) {
                 _startTime = Time.time;
-                _currentPosition = (float) Math.Round(transform.position.x,1);
+                _currentPosition = (float)Math.Round(transform.position.x, 1);
                 return;
-            }   
-            
-            if (_startTime + _healTime <= Time.time){
+            }
+
+            if (_startTime + _healTime <= Time.time) {
                 Heal();
                 _startTime = Time.time;
             }
@@ -123,7 +122,7 @@ public class PlayerEntity : Entity {
 
     public override IEnumerator OnHitEffects() {
         AudioManager.instance.PlaySound("playerdamage");
-        
+
         invincible = true;
 
         // Perform base Entity OnHitEffects first before player-specific effects
@@ -138,11 +137,11 @@ public class PlayerEntity : Entity {
         // Calculate time that should be spent on each flash
         float timePerFlash = timeLeft / onHitInvincibilityFlashAmount;
 
-        for (var i = 0; i < onHitInvincibilityFlashAmount; i++){
+        for (var i = 0; i < onHitInvincibilityFlashAmount; i++) {
             Color defaultColor = Color.white;
             Color invincibleColor = defaultColor;
             invincibleColor.a = 0.5f;
-            
+
             // Set color to invincibility color
             _renderer.material.color = invincibleColor;
             yield return new WaitForSeconds(timePerFlash / 2f);
@@ -155,7 +154,7 @@ public class PlayerEntity : Entity {
         invincible = false;
     }
 
-    void Start () {
+    void Start() {
         // Suicide if I'm a clone
         if ((INSTANCE != null && INSTANCE != this)) {
             Destroy(gameObject);
@@ -182,7 +181,7 @@ public class PlayerEntity : Entity {
         }
     }
 
-    void SceneLoadedLogic (bool calledFromStart) {
+    void SceneLoadedLogic(bool calledFromStart) {
         _respawnPoint = GameObject.FindWithTag(RESPAWN_TAG)?.transform;
 
         if (_respawnPoint == null) {
@@ -191,7 +190,7 @@ public class PlayerEntity : Entity {
 
         _playerCamera = GameObject.FindWithTag("MainCamera").GetComponentInParent<Cinemachine.CinemachineVirtualCamera>();
         _playerCamera.Follow = transform;
-        
+
         Checkpoints.INSTANCE.eventOnReachedCheckpoint.AddListener(OnReachedCheckpoint);
 
         // Do not respawn if this is first scene
@@ -200,15 +199,15 @@ public class PlayerEntity : Entity {
         }
     }
 
-    void OnReachedCheckpoint (Checkpoint checkpoint) {
+    void OnReachedCheckpoint(Checkpoint checkpoint) {
         // Update respawn point to checkpoint
         _respawnPoint.transform.position = checkpoint.transform.position;
     }
 
-    IEnumerator OnDie () {
+    IEnumerator OnDie() {
         yield return new WaitForSeconds(lastBreathTime);
         //Destroy(gameObject);
         Respawn();
     }
-    
+
 }

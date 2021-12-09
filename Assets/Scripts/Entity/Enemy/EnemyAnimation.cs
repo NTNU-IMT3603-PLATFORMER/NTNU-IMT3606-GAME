@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -24,11 +22,11 @@ public class EnemyAnimation : MonoBehaviour {
         _enemyEntity.eventOnDeath.AddListener(DeathAnimationListener);
     }
 
-    void AttackAnimationListener(){
+    void AttackAnimationListener() {
         _animator.SetTrigger("attack");
     }
 
-    void DeathAnimationListener(){
+    void DeathAnimationListener() {
         _animator.SetTrigger("death");
     }
 

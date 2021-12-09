@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,16 +24,16 @@ public class FadePanel : MonoBehaviour {
         set => _fadeTarget = value;
     }
 
-    void Start () {
+    void Start() {
         _image = GetComponent<Image>();
-        
+
         // Start scene by being completely black
         Color newColor = _image.color;
         newColor.a = 1f;
         _image.color = newColor;
     }
 
-    void Update () {
+    void Update() {
         // Gradually fade towards fade target based on fade time
         Color newColor = _image.color;
         newColor.a = Mathf.MoveTowards(newColor.a, _fadeTarget, 1f / _fadeTime * Time.deltaTime);

@@ -10,9 +10,9 @@ public class BossDefeatedHandler : MonoBehaviour {
 
     const float TIME_TO_LOAD_NEXT_LEVEL = 5f;
 
-    [SerializeField] 
+    [SerializeField]
     EnemyEntity _boss;
-    [SerializeField] 
+    [SerializeField]
     string _nextLevelName;
 
     UnityEvent _eventOnDefeatedBoss = new UnityEvent();
@@ -34,13 +34,13 @@ public class BossDefeatedHandler : MonoBehaviour {
     /// </summary>
     public bool defeatedBoss => _defeatedBoss;
 
-    void Awake () {
+    void Awake() {
         INSTANCE = this;
 
         _boss.eventOnDeath.AddListener(() => StartCoroutine(OnDeath()));
     }
 
-    IEnumerator OnDeath () {
+    IEnumerator OnDeath() {
         _defeatedBoss = true;
         _eventOnDefeatedBoss.Invoke();
         yield return new WaitForSeconds(TIME_TO_LOAD_NEXT_LEVEL);

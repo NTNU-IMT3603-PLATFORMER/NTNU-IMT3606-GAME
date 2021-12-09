@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
 using System;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 
 /// <summary>
@@ -18,7 +14,7 @@ public class AudioManager : MonoBehaviour {
     Sound[] _sounds;
 
     String _scene;
-    
+
     public static AudioManager instance { get; private set; }
 
     /// <summary>

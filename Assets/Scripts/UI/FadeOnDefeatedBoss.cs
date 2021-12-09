@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +8,7 @@ public class FadeOnDefeatedBoss : MonoBehaviour {
 
     FadePanel _fadePanel;
 
-    void Start () {
+    void Start() {
         _fadePanel = GetComponent<FadePanel>();
 
         if (BossDefeatedHandler.INSTANCE != null) {

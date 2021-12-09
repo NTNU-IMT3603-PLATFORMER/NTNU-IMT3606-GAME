@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,13 +12,13 @@ public class EntityCollisionDamage : MonoBehaviour {
     EntityCollision _entityCollision;
     float _damageTimer;
 
-    void Start () {
+    void Start() {
         _entityCollision = GetComponent<EntityCollision>();
-        
+
         _entityCollision.eventOnEntityCollisionEnter.AddListener(OnEntityCollisionEnter);
     }
 
-    void OnEntityCollisionEnter (Entity entity) {
+    void OnEntityCollisionEnter(Entity entity) {
         entity.InflictDamage(_damage, transform.position, 10f);
     }
 
