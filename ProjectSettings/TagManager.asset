@@ -10,6 +10,7 @@ TagManager:
   - Thorn
   - NPC
   - Collectable
+  - RangedEnemy
   layers:
   - Default
   - TransparentFX
