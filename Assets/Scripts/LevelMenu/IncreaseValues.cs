@@ -78,7 +78,6 @@ public class IncreaseValues : MonoBehaviour {
     }
 
     public void UpdateValues() {
-        Debug.Log("yes");
         _newPlayerLevel = playerLevel;
         _newMaxHealth = maxHealth;
         _newStrength = strength;
@@ -165,13 +164,11 @@ public class IncreaseValues : MonoBehaviour {
     }
 
     public bool calculateNewAmountOfSpirits(bool isLeveling) {
-        Debug.Log(_newSpirits);
         _cost = _newPlayerLevel;
 
         if (isLeveling) {
             if (_newSpirits - _cost < 0) {
                 descriptionText.text = "Not enough spirits";
-                Debug.Log("Not enough spirits");
                 return false;
             } else {
                 currentCostText.text = (_cost + 1) + " spirits";
