@@ -29,11 +29,9 @@ public class OpenLevelMenu : MonoBehaviour {
 
     public void openLevelMenu(bool isOpen) {
         if (isOpen) {
-            Debug.Log(":)");
             levelMenu.SetActive(false);
             _isAlreadyOpen = false;
         } else {
-            Debug.Log("no bør du funk for faen");
             levelMenu.SetActive(true);
             GameObject.FindObjectOfType<IncreaseValues>(true).UpdateValues();
             _isAlreadyOpen = true;
