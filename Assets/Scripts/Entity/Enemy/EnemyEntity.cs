@@ -33,7 +33,6 @@ public class EnemyEntity : Entity {
     }
 
     public override void Die() {
-        Debug.Log("Enemy died!");
         AudioManager.instance.PlaySound("enemydeath");
         eventOnDeath.Invoke();
         StartCoroutine(OnDie());
