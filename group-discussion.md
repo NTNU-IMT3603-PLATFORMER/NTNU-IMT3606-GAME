@@ -194,11 +194,10 @@ We utilized hotfix branches which fork directly off the master branch and are me
 While the final product may not be exactly as envisioned, and some ideas were not implemented, we feel that the final product is of a quality that is expected considering the time frame. The group has had good teamwork throughout the entire project, and we’ve had no problems in the group. We have learned a lot about game development. From game design concepts about what psychologically makes a game fun, to the technical side of coding and using Unity, it has been a very educational process.
 
 
-<!-- Footnotes themselves at the bottom. -->
 ## Notes
 
 [^1]:
      [https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1201.md](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1201.md) 
 
 [^2]:
-     [https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workfl
+     [https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
