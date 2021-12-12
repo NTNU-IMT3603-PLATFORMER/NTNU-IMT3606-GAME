@@ -8,4 +8,4 @@ There are no other repos connected to this project.
 ## Code video
 
 ## Group discussion
-Group discussion can be found in the [INSERT DOCUMENT] document. 
+Group discussion can be found in the [group-discussion.md](group-discussion.md) document. 
