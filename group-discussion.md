@@ -19,8 +19,6 @@ Erlend Johan Ringen Vannebo
 
 
 
-[TOC]
-
 
 
 # Strengths and weaknesses of Unity
