@@ -31,7 +31,7 @@ Click on this [link](https://copythis.link/game/Sheesh/v1.0/) and play it on you
 
 ## Gameplay
 
-The player has to go through two levels filled with enemies, obstacles, platforms and much more. At the end of each level there will be a boss waiting to challenge the player. To end the level the player has to simply defeat set boss and will be automatically send to the next stage. The player may or may not choose the option to level up their character or collect all collectables. That is the short explanation, but for more detailed explanation about the gameplay check out this [video]()
+The player has to go through two levels filled with enemies, obstacles, platforms and much more. At the end of each level there will be a boss waiting to challenge the player. To end the level the player has to simply defeat set boss and will be automatically send to the next stage. The player may or may not choose the option to level up their character or collect all collectables. That is the short explanation, but for more detailed explanation about the gameplay check out this [video](https://www.youtube.com/watch?v=O_soiKZ37WM)
 
 ### Controls
 
@@ -62,4 +62,4 @@ Thank you to our helpful teachers and playtesters as well!
 
 ## License
 
-This source code is open and free to use and this project is under public domain and has no license. Any unlicensed or copyrighted art and music we do not own, and all credit goes to the artists. As stated before this is supposed to be an educational project into game development, not a commercially licensed game.
+Any unlicensed or copyrighted art and music we do not own, and all credit goes to the artists. As stated before this is supposed to be an educational project into game development, not a commercially licensed game.
