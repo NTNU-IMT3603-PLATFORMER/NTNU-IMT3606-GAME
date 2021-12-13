@@ -4,7 +4,7 @@
 
 **What is Sheesh?**
 
-{game title} is a 2D platformer action game themed around nature.
+Sheesh is a 2D platformer action game themed around nature.
 
 Play as the heroine and overcome the worlds obstacles and its hostile enemies. The heroine must learn to combat and move around these dangerous environments and defeat the evil corrupting the lands once and for all.
 
