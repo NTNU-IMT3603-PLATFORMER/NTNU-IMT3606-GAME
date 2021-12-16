@@ -14,6 +14,9 @@ Play your way as you defeat dark creatures and level up your heroine the way you
 
 As university students from [NTNU](https://www.ntnu.edu/about), we accepted this group project by our teachers to learn and make a game on the Unity game engine. It gave us first hand experience and perspective on game development and taught us about game design, optimalization, C# and Unity knowledge, and much more. This has been an incredibly educational journey for us and we are satisified with the end product considering our timeframe.
 
+## Documentation
+Documentation (including gameprog.md document) can be found under the Documentation folder. 
+
 ## Getting Started
 ### Prerequisites
 
@@ -61,5 +64,4 @@ The player has to go through two levels filled with enemies, obstacles, platform
 Thank you to our helpful teachers and playtesters as well!
 
 ## License
-
-Any unlicensed or copyrighted art and music we do not own, and all credit goes to the artists. As stated before this is supposed to be an educational project into game development, not a commercially licensed game.
+Please note that our project contains copyrighted art and music that we do not own or have obtained a license for, and in these cases all credit goes to the artists. As stated before, this is supposed to be an educational project into game development, not a commercially licensed game.
