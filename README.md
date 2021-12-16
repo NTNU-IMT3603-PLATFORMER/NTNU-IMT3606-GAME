@@ -30,7 +30,7 @@ You will need a specific version of Unity that can be downloaded from [here](htt
 5. Once fully loaded, either select and open "StartMenu" scene and click the Play button, or simply click on File on the top bar and press on build and run (CTRL+B). Enjoy!
 
 **Second Method:**
-Click on this [link](https://copythis.link/game/Sheesh/v1.0/) and play it on your web browser.
+Game builds and link to online version can be found in the gameprog.md document.
 
 ## Gameplay
 
