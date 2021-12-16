@@ -9,4 +9,4 @@ There are no other repos connected to this project.
 [https://www.youtube.com/watch?v=JDVeYP8gP4s](https://www.youtube.com/watch?v=JDVeYP8gP4s)
 
 ## Group discussion
--Group discussion can be found in the [INSERT DOCUMENT] document. 
+-Group discussion can be found in the [group-discussion](group-discussion.md) document. 
