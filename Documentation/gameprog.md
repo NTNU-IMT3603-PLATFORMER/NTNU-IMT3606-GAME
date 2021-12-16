@@ -20,5 +20,5 @@ Note that some browsers might have issues with audio. If you have no audio or ot
 ### Downloadable binaries
 Alternatively, we also created builds for Windows and Linux.
 
-Windows: https://drive.google.com/file/d/17ABFK0JdQct_nrQ0MSPur9SPYVNQ3PTW/view?usp=sharing
+Windows: https://drive.google.com/file/d/17ABFK0JdQct_nrQ0MSPur9SPYVNQ3PTW/view?usp=sharing  
 Linux: https://drive.google.com/file/d/1M8p0ezU2pNcYTVzUfBwrQ5FmMBG9-9B3/view?usp=sharing
